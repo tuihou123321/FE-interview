@@ -38,6 +38,10 @@ undefined:代表未找到，缺少值---（之前定义了，却没有赋值就�
 
 <img src='default.jpg' data-src='https://img.ydl.com/images/1.jpg' />
 
+一般可以使用
+- jquery.lazyload.js    //到了可视区才加载
+- lazysizes.js   //没有到可视区才显示功能，不依赖jquery
+
 注意事项：
 
 - 使用节流函数进行性能优化

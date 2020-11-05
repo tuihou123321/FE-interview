@@ -34,6 +34,24 @@
 
 
 
+### webpack 与 rollup  打包工具对比区别？
+
+相同点：webpack与rollup都是用来打包项目的；
+
+实际使用：开发应用时用webpack,开发库时使用rollup;
+
+区别：
+
+**webpack**：主要用来打包工程项目，主要它是通过将模块分别封闭进函数中，构建出来的代码体积较大；
+
+功能特点：
+
+- 代码分割
+- 静态资源导入
+- 模块热更新HMR；
+
+**rollup**： 下一代ES6模块化工具，主要用来打包类库（library）,用标准化的格式es6来写代码，构建出来的代码体积更小，更纯净；react，vue目前就是用rollup打包的；
+
 
 
 ### webpack常用的babel,loader，plugin有哪些？

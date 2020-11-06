@@ -2,8 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="32b9c630-4c7a-4326-81f2-efa3a583bbf9" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ES6-7.md" beforeDir="false" afterPath="$PROJECT_DIR$/ES6-7.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/js原生.md" beforeDir="false" afterPath="$PROJECT_DIR$/js原生.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/架构.md" beforeDir="false" afterPath="$PROJECT_DIR$/架构.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/移动端.md" beforeDir="false" afterPath="$PROJECT_DIR$/移动端.md" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -25,7 +28,13 @@
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
+    <property name="nodejs_package_manager_path" value="npm" />
     <property name="vue.rearranger.settings.migration" value="true" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="E:\web\myProject\FE-interview" />
+    </key>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
@@ -35,11 +44,27 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1603942605910</updated>
-      <workItem from="1603942606997" duration="928000" />
+      <workItem from="1603942606997" duration="3580000" />
+      <workItem from="1604366507321" duration="1322000" />
+      <workItem from="1604477686288" duration="3697000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="2012" y="92" width="1736" height="896" key="DiffContextDialog" timestamp="1604538831422">
+      <screen x="1920" y="0" width="1920" height="1080" />
+    </state>
+    <state x="2012" y="92" width="1736" height="896" key="DiffContextDialog/0.0.1920.1080/1920.0.1920.1080@1920.0.1920.1080" timestamp="1604538831422" />
+    <state x="2702" y="241" key="RollbackChangesDialog" timestamp="1603949110530">
+      <screen x="1920" y="0" width="1920" height="1080" />
+    </state>
+    <state x="2702" y="241" key="RollbackChangesDialog/0.0.1920.1080/1920.0.1920.1080@1920.0.1920.1080" timestamp="1603949110530" />
+    <state x="2582" y="272" width="596" height="568" key="find.popup" timestamp="1604477698432">
+      <screen x="1920" y="0" width="1920" height="1080" />
+    </state>
+    <state x="2582" y="272" width="596" height="568" key="find.popup/0.0.1920.1080/1920.0.1920.1080@1920.0.1920.1080" timestamp="1604477698432" />
   </component>
 </project>

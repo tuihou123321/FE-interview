@@ -6,12 +6,44 @@
 
 
 
-### redux 关键知识点?
+### redux的实现流程？
 
-1. flux思想（四个部分:dispatcher,stores,views,actions）--flux相当于mvc中的m和c， react相当于v层；
-2. redux常用中间件（redux-logger 提供日志输出 ,redux-thunk处理异步操作,redux-promise处理异步操作-actionCreator返回值是promise）
+- 用户（通过view）发出Action,发出方式是调用dispatch方法；
+- Store自动调用 Reducer ,传入两个参数，当前state,收到的Action，Reducer 返回新的 State
+- state更新后，store就会调用监听函数， 根据state触发重新渲染，更新view
+
+> 整个流程中数据都是单向流动的，这种方式保证了流程的清晰
 
 
+
+几个核心概念：
+
+- **Store** :数据中心，整个应用只能有一个store
+- **State**: store对象包含的所有数据
+- **Action**: 用户触发的行为名称（通过action再去触发state的改变，最终响应view的改变）
+- Action Creator: 生成action的函数，可生成多种action
+- **Reducer**: store收到action后，处理state的函数，叫到reducer，接收两个参数：action ，和当前state；返回值： 新的state
+- Dispatch: view发出action的唯一方法
+
+
+
+### react-redux的实现原理？
+
+react-redux 提供两个api; 
+
+- **Provider**: 从最外部封装整个应用，并向connect模块传递store;  (父子组件)
+
+- **connect**: （高阶组件）
+- - 包装原组件，将state,action通过props的方式传入到原组件内部
+  - 监听store tree变化，使其包装的原组件可以响应state的变化
+
+
+
+### react-redux的使用流程?
+
+- 创建store：（定义state,reducer）  （使用Redux中的createStore api创建）
+- 封装应用：通过ReactRedux中的Provider方法把store传递给connect模块
+- connect
 
 
 

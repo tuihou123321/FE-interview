@@ -3,6 +3,28 @@
 
 [TOC]
 
+### react中组件通信的几种方式？
+
+- 父子组件：props，props回调
+- 兄弟组件：共同父级，再由父节点转发props，props回调
+- 跨级组件：context对象
+- 非嵌套组件：使用事件订阅
+- 全局状态管理工具：Redux,Mobox维护全局store
+
+
+
+
+
+### react UI组件和容器组件的区别与应用？
+
+容器组件：拥有自己的状态，生命周期
+
+UI组件：只负责页面UI渲染，不具备任何逻辑，功能单一，通常是无状态组件，没有自己的state,生命周期。
+
+
+
+![1604622713442](C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\1604622713442.png)
+
 
 
 
@@ -215,8 +237,6 @@ react hook是v16.8的新特性；
 
 react hooks设计目的，加强版的函数组件，完全不使用‘类’，就能写出一个全功能的组，不能包含状态，也不支持生命周期）；
 
-
-
 优势：
 
 1. 在不使用class的情况下，使用state及react其他特性（省的把纯函数组件/其他组件改来改去）
@@ -235,8 +255,6 @@ hooks（本质是一类特殊的函数，可以为函数式注入一些特殊的
 - useReducer
 - useCallBack
 - useLayoutEffect
-
-
 
 
 

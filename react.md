@@ -6,13 +6,24 @@
 ### react中组件通信的几种方式？
 
 - 父子组件：props，props回调
-
 - 兄弟组件：共同父级，再由父节点转发props，props回调
-
 - 跨级组件：context对象
-
 - 非嵌套组件：使用事件订阅
 - 全局状态管理工具：Redux,Mobox维护全局store
+
+
+
+
+
+### react UI组件和容器组件的区别与应用？
+
+容器组件：拥有自己的状态，生命周期
+
+UI组件：只负责页面UI渲染，不具备任何逻辑，功能单一，通常是无状态组件，没有自己的state,生命周期。
+
+
+
+![1604622713442](C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\1604622713442.png)
 
 
 

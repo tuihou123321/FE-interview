@@ -31,11 +31,19 @@
 
 react-redux 提供两个api; 
 
-- **Provider**: 从最外部封装整个应用，并向connect模块传递store;
+- **Provider**: 从最外部封装整个应用，并向connect模块传递store;  (父子组件)
 
-- **connect**: 
+- **connect**: （高阶组件）
 - - 包装原组件，将state,action通过props的方式传入到原组件内部
   - 监听store tree变化，使其包装的原组件可以响应state的变化
+
+
+
+### react-redux的使用流程?
+
+- 创建store：（定义state,reducer）  （使用Redux中的createStore api创建）
+- 封装应用：通过ReactRedux中的Provider方法把store传递给connect模块
+- connect
 
 
 

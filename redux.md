@@ -83,8 +83,8 @@ action  参数==等于于回调参数；-----
 
 ### redux常用的中间件？
 
-- redux-logger
-- redux-thunk
+- redux-logger   ： 日志中间件，输出触发的action，和经过reducer处理前后的state值；
+- redux-thunk：
 - redux-promise
 - redux-saga
 - redux-observable

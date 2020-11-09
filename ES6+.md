@@ -2,9 +2,84 @@
 
 
 
-[toc]
+[TOC]
 
  
+
+### AMD和CMD的区别，ES6模块与CommonJs 模块有什么区别？
+
+
+
+常用的模块化方法：
+
+| **模块名**     | 导出模块       | 引入模块                           | 加载方式 | 说明                                                   |
+| -------------- | -------------- | ---------------------------------- | -------- | ------------------------------------------------------ |
+| **ES6**        | export         | import                             | 静态加载 | 输出的引用，静态引用，只读属性                         |
+| **commonjs**   | module.exports | require                            | 动态引用 | 输出值的浅拷贝对象，动态加载，可读可写。nodejs中的标准 |
+| AMD(requirejs) | define         | require                            | 异步     | 依赖前置，提前执行（在模块定义的时候就要引入）         |
+| CMD(sea.js)    | define         | require(["jquery","math"],,()=>{}) | 异步     | 依赖就近，延迟执行（用到的时候才引入）                 |
+
+
+
+CommonJs（require） 与 ES6(import)的区别：
+
+- require: 输出的是一个值的浅拷贝对象，import输出的是一个值 的引用（即es6 module 只存只读，不能改变其值，具体点就是指针指向不能变，类似const）
+- require是动态引入，import是静态加载了；动态引入的方式，引入的对象可以是一个变量，或者能通过计算出来的地址
+- require是同步加载模块，import命令是异步加载，require有一个独立的模块依赖的解析阶段
+
+
+
+ 参考： https://es6.ruanyifeng.com/#docs/module-loader#ES6-%E6%A8%A1%E5%9D%97%E4%B8%8E-CommonJS-%E6%A8%A1%E5%9D%97%E7%9A%84%E5%B7%AE%E5%BC%82
+
+
+
+/** AMD写法 **/
+
+```
+define(["a", "b", "c", "d", "e", "f"], function(a, b, c, d, e, f) {
+
+​     // 等于在最前面声明并初始化了要用到的所有模块
+
+​    a.doSomething();
+
+​    if (false) {
+
+​        // 即便没用到某个模块 b，但 b 还是提前执行了
+
+​        b.doSomething()
+
+​    }
+
+});
+
+
+```
+
+
+
+/** CMD写法 **/
+
+```
+define(function(require, exports, module) {
+
+​    var a = require('./a'); //在需要时申明
+
+​    a.doSomething();
+
+​    if (false) {
+
+​        var b = require('./b');
+
+​        b.doSomething();
+
+​    }
+
+});
+```
+
+
+
+
 
 ### js中let ,var 区别，let有什么优点？
 

@@ -361,68 +361,6 @@ class本质使用prototype的原型链，只是一种语法糖；
 
 
 
-
-
-### AMD和CMD的区别？
-
-常用的模块化方法：
-
-
-
-| **模块名**                                                   | 导出模块       |      | 引入模块                           | 加载方式 | 说明                                           |
-| ------------------------------------------------------------ | -------------- | ---- | ---------------------------------- | -------- | ---------------------------------------------- |
-| **commonjs**                                                 | module.exports |      | require                            | 同步     | nodejs中的标准                                 |
-| AMD(requirejs)                                               | define         |      | require                            | 异步     | 依赖前置，提前执行（在模块定义的时候就要引入） |
-| CMD(sea.js)                                                  | define         |      | require(["jquery","math"],,()=>{}) | 异步     | 依赖就近，延迟执行（用到的时候才引入）         |
-| **ES6**                                                      | export         |      | import                             | 异步     |                                                |
-| commonjs 与 ES6的区别：commonjs 输出的是一个值的拷贝，ES6输出的是一个值 的引用 |                |      |                                    |          |                                                |
-
-
-
-/** AMD写法 **/
-
-define(["a", "b", "c", "d", "e", "f"], function(a, b, c, d, e, f) {
-
-​     // 等于在最前面声明并初始化了要用到的所有模块
-
-​    a.doSomething();
-
-​    if (false) {
-
-​        // 即便没用到某个模块 b，但 b 还是提前执行了
-
-​        b.doSomething()
-
-​    }
-
-});
-
-
-
-
-
-/** CMD写法 **/
-
-define(function(require, exports, module) {
-
-​    var a = require('./a'); //在需要时申明
-
-​    a.doSomething();
-
-​    if (false) {
-
-​        var b = require('./b');
-
-​        b.doSomething();
-
-​    }
-
-});
-
-
-
-
-
 ### 什么是事件节流和函数防抖的区别，和实际运用？
 
 相同点：为了限制函数执行的次数 ，导致的性能浪费；
@@ -560,17 +498,68 @@ visibility:hidden，隐藏dom节点只触发重绘，display:none隐藏dom节点
 
 闭包一定得return才能读取内部的值；
 
-\##用途
+用途
 
-1. 创建内部变量，使得这些变量不能随意被外部修改，但是又可以通过指定的函数接口修改；
+1. 创建内部变量，使得这些变量不能随意被外部修改，但是又可以通过指定的函数接口修改
 2. 减少全局变量
-3. 让这些这是的值始终保持在内存中；
+3. 让这些值始终保持在内存中
 
 闭包的问题：
 
-耗性能：闭包会使函数内的变量一直保持在内存当中，
+- 耗性能：闭包会使函数内的变量一直保持在内存当中，
 
------解决：在退出函数之前，将不使用的函数变量全部删除；
+解决：在退出函数之前，将不使用的函数变量全部删除；
+
+
+
+//使用自执行函数写法
+
+````
+ //定义一个闭包
+    let secretFn=(function (){
+        //变量secrent只有secretFn内的getSecret, setSecret 才可以访问，外部无法访问
+        let secrent='100';
+        let getSecret=function (){
+            return secrent;
+        }
+        let setSecret=function (newSecrent) {
+            secrent=newSecrent;
+        }
+        return {
+            getSecret,
+            setSecret
+        }
+    })()
+
+
+    console.log(secretFn.getSecret());
+    secretFn.setSecret(200);
+    console.log(secretFn.getSecret());
+    console.log(secretFn.secrent);   //Type error 无法访问
+````
+
+//使用new写法
+
+```
+    //定义一个闭包
+    let SecretFn=function (){
+        //变量secrent只有secretFn内的getSecret, setSecret 才可以访问，外部无法访问
+        let secrent='100';
+        this.getSecret=function (){
+            return secrent;
+        }
+        this.setSecret=function (newSecrent) {
+            secrent=newSecrent;
+        }
+    }
+
+    const secretOne=new SecretFn();
+    console.log(secretOne.getSecret());
+    secretOne.setSecret(200);
+    console.log(secretOne.getSecret());
+```
+
+
 
 
 

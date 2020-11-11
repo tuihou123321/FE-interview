@@ -124,6 +124,13 @@ async改变有如下几个方法
 
 
 
+### async/await相比 promise的优势？
+
+- **同步写法优雅**：使摆脱了then的链式调用带来的阅读负担
+- **获取返回值方便**：promise传递中间传非常麻烦，而async/await几乎是同步的写法，更优雅
+- **错误处理友好**：async/await可使用成熟的 try/catch，promise的错误捕获非常冗余
+- **调试友好**：promise中的then使用调试器的步进(step-over)功能，调试器并不会进入后续的then代码块，因为调试器只能跟踪同步代码的【每一步】
+
 
 
 ### 介绍下promise?

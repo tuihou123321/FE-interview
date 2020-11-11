@@ -5,6 +5,32 @@
 
 
 
+#### 问题 19：React 中的 `useState()` 是什么？
+
+`useState` 是一个内置的 React Hook。`useState(0)` 返回一个元组，其中第一个参数`count`是计数器的当前状态，`setCounter` 提供更新计数器状态的方法。
+
+咱们可以在任何地方使用`setCounter`方法更新计数状态-在这种情况下，咱们在`setCount`函数内部使用它可以做更多的事情，使用 Hooks，能够使咱们的代码保持更多功能，还可以避免过多使用基于类的组件。
+
+
+
+
+```
+...
+const [count, setCounter] = useState(0);
+const [moreStuff, setMoreStuff] = useState(...);
+...
+
+const setCount = () => {
+    setCounter(count + 1);
+    setMoreStuff(...);
+    ...
+};
+
+```
+
+
+
+
 
 
 ### react中组件通信的几种方式？
@@ -138,22 +164,13 @@ v16.3之后的生命周期:
 
 
 
+![react老的生命周期](https://techstudyblog.top/2019/09/28/react-life-cycle/react.png)
 
 
-### react的refs有什么用？
 
-react 主要提供了一种标准数据流的方式来更新视图；
+新的命令周期：
 
-但是页面某些场景是脱离数据流的，这个时候就可以使用 refs;
-
-react refs 是用来获组件引用的,取后可以调用dom的方法；
-
-- 使用场景，获取焦点  this,refs.inputPhone.focus();
-- 与第三方dom库整合
-
-refs 注意事项：
-
-不能在无状态组件中使用refs
+![react新生命周期](https://pic1.zhimg.com/v2-4bc3a7a23ed8047eac25a62ef22cf205_1440w.jpg?source=172ae18b)
 
 
 
@@ -286,6 +303,13 @@ vue优势：
 
 可以对逻辑代码进行抽离，或者添加某个共用方法；
 
+主要用途：
+
+- 代码重用，逻辑和引导抽象
+- 渲染劫持
+- 状态抽象和控制
+- Props 控制
+
 eg：
 
 react-redux   ：connect就是一个高阶组件,接收一个component,并返回一个新的componet,处理了监听store和后续的处理 ；
@@ -358,7 +382,41 @@ react在渲染过程时，从setState开始到渲染完成，中间过程是同�
 
 实现过程及原理（核心理念就是：time slicing）：
 
-1. 拆分：把渲染过程进行拆分成多个小任务
+1. 拆分：把渲染过程进行拆分成多个小任务ssss
 2. 检查：每次执行完一个小任务，就去对列中检查是否有新的响应需要处理
 3. 继续执行：如果有就执行优化及更高的响应事件，如果没有继续执行后续任务
+
+
+
+## refs
+
+
+
+### react的refs有什么用，使用场景？
+
+react 主要提供了一种标准数据流的方式来更新视图；
+
+但是页面某些场景是脱离数据流的，这个时候就可以使用 refs;
+
+react refs 是用来获组件引用的,取后可以调用dom的方法；
+
+使用场景
+
+- 管理焦点、选择文本或者媒体播放时，获取焦点  this,refs.inputPhone.focus();
+- 触发式动画
+- 与第三方DOM库整合
+
+refs 注意事项：
+
+不能在无状态组件中使用refs
+
+
+
+
+
+
+
+
+
+
 

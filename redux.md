@@ -111,3 +111,51 @@ const VisibleTodoList=connet(
 
 
 
+### **解释一下 Flux思想？**
+
+
+
+![flux](https://user-gold-cdn.xitu.io/2019/3/25/169b42c4d3813a3e?imageView2/0/w/1280/h/960/format/webp/ignore-error/1)
+
+Flux 是一种强制单向数据流的架构模式。它控制派生数据，并使用具有所有数据权限的中心 store 实现多个组件之间的通信。整个应用中的数据更新必须只能在此处进行。 Flux 为应用提供稳定性并减少运行时的错误。
+
+
+
+
+
+### Redux遵循的特点？
+
+- **单一数据来源**"："整个数据存储在store当中，方便调试和检查应用程序
+- **状态只读**：改变状态的唯一方法是云触发一个动作。
+- **使用纯函数更改**：纯函数是那些返回值仅取决于其参数的函数
+
+
+
+
+
+### Redux与flux有何不同？
+
+![image-20201111172155995](C:\Users\22064\AppData\Roaming\Typora\typora-user-images\image-20201111172155995.png)
+
+**Flux** **Redux**   1. Store 包含状态和更改逻辑 1. Store 和更改逻辑是分开的  2. 有多个 Store 2. 只有一个 Store  3. 所有 Store 都互不影响且是平级的 3. 带有分层 reducer 的单一 Store  4. 有单一调度器 4. 没有调度器的概念  5. React 组件订阅 store 5. 容器组件是有联系的  6. 状态是可变的 6. 状态是不可改变的
+
+
+
+
+
+#### 在 React 中如何处理事件
+
+为了解决跨浏览器的兼容性问题，`SyntheticEvent` 实例将被传递给你的事件处理函数，`SyntheticEvent`是 React 跨浏览器的浏览器原生事件包装器，它还拥有和浏览器原生事件相同的接口，包括 `stopPropagation()` 和 `preventDefault()`。
+
+比较有趣的是，React 实际上并不将事件附加到子节点本身。React 使用单个事件侦听器侦听顶层的所有事件。这对性能有好处，也意味着 React 在更新 DOM 时不需要跟踪事件监听器。
+
+
+
+
+
+
+
+
+
+
+

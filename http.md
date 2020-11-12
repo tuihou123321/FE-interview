@@ -88,6 +88,7 @@ Get产生一个TCP包，post产生两个；
 ### 浏览器加载解析渲染过程 ？
 【自上而下】进行加载，并在加载过程中进行解析渲染；
 解析过程
+
 1. html解析成一个dom树，dom树的构建过程是一个深度遍历过程 ；当前节点所有子节点渲染后才会去构建当前节点的下一个子节点 ；
 2. css解析成css rule tree;
 3. 根据dom树和CSSOM(css对象模型)来构造 rendering tree;
@@ -141,8 +142,6 @@ http报文行，报文头，报文体；
 
 
 
-
-
 ### http状态码有哪些，分别代表什么意思 ？
 
 * 1** 信息类：表示接收到请求并且继续处理；
@@ -152,20 +151,6 @@ http报文行，报文头，报文体；
 * 5**  服务器错误：服务器不能正确执行一个正确的请求
 
 
-
-
-### 如何解决跨域的问题？
-一、CORS: 跨域资源共享，
-Access-Contorl-Allow-Origin  后台设置允许跨域访问的url；
-使用额外的HTTP头告诉浏览器，
-cors分类：简单请求，非简单请求；
-- 简单请求：
-不会触发cors预检请求，
-- 非简单请求：
-二、通过jsonp
-三、nodejs中间件代理，在服务端拿到数后，再把数据返回给前端，nginx代理
-四、websocket协议跨域
-五、postMessage,可以实现多个页面之间的通讯（html5中的一个api）
 
 
 
@@ -201,6 +186,12 @@ http强缓存（本地缓存）,协商缓存，
 
 
 
+## http&https
+
+
+
+
+
 ###  http与https有什么区别？
 
 1. https增加了数据加密，比http更安全
@@ -210,12 +201,40 @@ http强缓存（本地缓存）,协商缓存，
 
 
 
-### https加密过程？主要分为三个阶段
+### https加密过程？
+
+主要分为三个阶段
+
 1. 验证证书，生成秘钥阶段
 2. 使用公钥，加密数据阶段
 3. 使用私钥，解密数据阶段
 
+参考：https://cloud.tencent.com/developer/article/1643914
 
-### 3次握手
+
+
+
+
+### http三次握手四次挥手?
+
+三次握手：是指在建立一个TCP连接时，需客户端和服务器总共发送3个数据包；
+
+参考：https://cloud.tencent.com/developer/article/1643914
+
+
+
+![图片1](https://oscimg.oschina.net/oscnet/5f28460ed8cc8d5c6d225f0e1514c85a65e.png)
+
+
+
+
+
+![img](https://oscimg.oschina.net/oscnet/1c0dc08b250b64aacc1b5d9acbf7c6e40a6.png)
+
+
+
+
+
+
 
 

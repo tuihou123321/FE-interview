@@ -5,13 +5,25 @@
 
 
 
-#### 问题 19：React 中的 `useState()` 是什么？
+### JSX本质是什么？
+
+> JSX 使用js的形式来写html代码
+
+jsx本身是语法糖，无法直接被浏览器解析，需要通过babel或者typescript来转换成 js。
+
+许多包含预配置的工具，例如：create- react app 和 next.js 在其内部也引入了jsx转换。
+
+旧的 JSX转换会把jsx 转换为 React.createElement调用。
+
+jsx调用js本身的特性来动态创建UI，与于传统模式下的模板语法不同
+
+
+
+
+
+### React 中的 `useState()` 是什么？
 
 `useState` 是一个内置的 React Hook。`useState(0)` 返回一个元组，其中第一个参数`count`是计数器的当前状态，`setCounter` 提供更新计数器状态的方法。
-
-咱们可以在任何地方使用`setCounter`方法更新计数状态-在这种情况下，咱们在`setCount`函数内部使用它可以做更多的事情，使用 Hooks，能够使咱们的代码保持更多功能，还可以避免过多使用基于类的组件。
-
-
 
 
 ```
@@ -27,7 +39,6 @@ const setCount = () => {
 };
 
 ```
-
 
 
 
@@ -188,16 +199,6 @@ v16.3之后的生命周期:
 
 1. 默认不引入polyfill,需要在入口引入babel-polyfill
 2. 默认只支持css热加载，不支持html,js热加载（推荐使用：react-hot-loader）
-
-
-
-
-
-### 介绍一下JSX?
-
-    JSX 使用js的形式来写html代码；
-
-JSX是一种语法糖，是调用js本身的特性来动态创建UI，与于传统模式下的模板语法不同；
 
 
 

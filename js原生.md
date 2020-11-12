@@ -732,3 +732,32 @@ $.extend(obj1,obj2);  //不进行深拷贝
 
 
 
+
+### 介绍下PWA，为什么service worker 可以提高性能 ?
+
+> 定义：pwa渐近式增弹网页应用
+
+PWA特点：
+
+- 拥有桌面入口，可安装
+
+- 原生应用界面：  //在manifest文件中配置，自定义桌面图标/导航栏颜色
+
+- 可离线访问  ,需要Https环境  //本地环境localhost也可以调试
+
+- 支持Push推送
+
+- 后台加载，哪怕页面关闭，pwa仍然可以在后台运行获取数据（有限制）  //哪怕chrome关闭
+
+  
+
+  service worker是html5中的api，它在web worker的基础上加了持久缓存和网络代理能力，结合cache api面向提供了js来操作浏览器缓存的能力。service worker接管网页请求，做为中间层；
+
+  
+
+  service worker特点：
+
+  - 拥有独立的执行线程，单独的作用域范围，单独的运行环境，有自己独立的context上下文。
+  - 由于有独立线程，service worker不能直接操作页面DOM。但可以通过事件机制来处理，例如使用postMessage
+
+ 

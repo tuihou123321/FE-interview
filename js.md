@@ -364,16 +364,6 @@ class本质使用prototype的原型链，只是一种语法糖；
 
 
 
-### canvas与svg区别？
-
-1. 历史：svg有十多年历史，并不是html5专用标签；
-2. 展示效果：svg导出后的效果是矢量图形，而canvas显示效果是位图（所以canvas可以引入图片）
-3. 技术原理：svg（XML文档）是通过html绘制--可以使用DOM操作，canvas通过js绘制；
-4. canvas支持颜色较svg多；
-5. 使用案例：svg（百度地图），canvas（图表）
-
-
-
 
 
 ### js中的this指向问题？
@@ -795,4 +785,46 @@ PWA特点：
   - 拥有独立的执行线程，单独的作用域范围，单独的运行环境，有自己独立的context上下文。
   - 由于有独立线程，service worker不能直接操作页面DOM。但可以通过事件机制来处理，例如使用postMessage
 
+
+
+
+
+## canvas
+
+
+
+
+
+### canvas与svg区别？
+
+1. 历史：svg有十多年历史，并不是html5专用标签；
+2. 展示效果：svg导出后的效果是矢量图形，而canvas显示效果是位图（所以canvas可以引入图片）
+3. 技术原理：svg（XML文档）是通过html绘制--可以使用DOM操作，canvas通过js绘制；
+4. canvas支持颜色较svg多；
+5. 使用案例：svg（百度地图），canvas（图表）
+
  
+
+
+
+### canvas 与webGL的关系？
+
+canvas就是一个画布，可以在canvas上获取2D上下文和3D上下文，其中3D上下文一般就是webGL.
+
+webGL 是使用 js去调用部分封装过的OpenGL es2.0 标准接口，去提供硬件级别的3D图形加速功能。
+
+三都的关系 ：  javascript->  webGL -> OpenGL ->  ... -> 显卡 并 把最终渲染出来的图形呈现在canvas
+
+
+
+ webGL常用库：
+
+- three.js   //在浏览器绘制3D的js库，底层是webGL ( three.js会对不支持的浏览器做降级方案，使用casnvas 2D api处理，  有两个Rennderer ,,webGLRenderer,  CanvasRenderer 
+
+canvas常用库：
+
+- echarts   //图表（柱状图、饼图、K线图、雷达图、热力图、关系图、树图、漏斗图、仪表盘、地图），也有使用webGL的3D图形
+- antV  //阿里开的图形引擎
+
+
+

@@ -6,6 +6,8 @@
 
 
 
+
+
 ### 堆和栈的区别？
 
 1）相同点：
@@ -149,32 +151,6 @@ defer和async、动态创建DOM方式（创建script，插入到DOM中，加载�
 var obj  = {};
 obj.__proto__ = Base.prototype;
 Base.call(obj); 
-
-
-
-### 什么是事件委托?
-
-> 事件委托就是利用**事件冒泡**，只指定一个事件处理程序，就可以管理某一类型的所有事件，利用父级去触发子级的事件；
-
-优点：
-
-- 节省内存占用，减少事件注册
-- 新增子对象时，无需再次对其绑定事件，适合动态添加元素
-
-局限性：
-
-- focus,blur 事件本身没有事件冒泡机制，所以无法委托
-- mousemove,mouseout，需要不断通过位置去计算定位，对性能消耗高，不适合事件委托
-
-```
-<script>
-     // jquery当中的事件委托，支持动态添加的元素
-     
-     $('#ui').on('click','li',function (event){
-        console.log(event.target.innerHTML);
-    })
-</script>
-```
 
 
 
@@ -907,6 +883,122 @@ canvas常用库：
 
 - echarts   //图表（柱状图、饼图、K线图、雷达图、热力图、关系图、树图、漏斗图、仪表盘、地图），也有使用webGL的3D图形
 - antV  //阿里开的图形引擎
+
+
+
+
+
+## js事件
+
+
+
+
+
+### js事件机制？
+
+> javascript是事件驱动型语言，网页上的任意操作（键盘，鼠标）会产生一个“事件”（event），当事件发现时，可以对事件进行响应，具体如何响应某个事件由事件处理函数完成。
+
+
+
+**1）事件流**
+
+> 事件流描述的是从页面中接受事件的顺序
+
+
+
+DOM事件流的三个阶段：
+
+- 捕获阶段：先调用捕获阶段的处理函数  btn.addEventListen('click')，事件从window对象自上而下向目标节点传播的阶段；
+- 目标阶段：调用目标阶段的处理函数 ；
+- 冒泡阶段：调用冒泡阶段的处理函数，事件从目标节点自下而上向window对象传播的阶段；
+- 
+
+> bug说明 ：下图中缺少：html标签
+
+
+
+
+
+![img](https://user-gold-cdn.xitu.io/2019/2/24/1691f3e556cd038b?imageView2/0/w/1280/h/960/format/webp/ignore-error/1)
+
+**2）DOM事件级别**
+
+> DOM级别分为四级，由于DOM1中没有事件相关的内容，即没有DOM1级事件，所以DOM事件分为3个级别，分别是：DOM 0/2/3
+
+
+
+- DOM0：el.onclick=function(){}   // <button onclick="clickBtn()">btn</button>
+- DOM2:  el.addEventListener(eventName,callback,useCapture)
+- - click事件
+- DOM3: 在DOM2的基础上，增加更多的事件类型
+- - UI事件：load、scroll
+  - 焦点事件：blur、focus
+  -  鼠标事件：dbclick、mouseup
+  - 键盘事件：keydown、keypress
+  - .....
+  - 说明：DOM3级事件允许使用者自定义一些事件
+
+
+
+
+
+参考：[js事件原理、事件委托、事件冒泡和事件绑定 addEventListener](https://blog.csdn.net/Charissa2017/article/details/103855079)
+
+
+
+**3）事件代理**
+
+请参考：什么是事件委托/事件代理?
+
+
+
+**4）事件对象**
+
+event
+
+- event.preventDefault()  //阻止默认行为
+- event.stoppropagation()  //阻止事件冒泡
+- event.target & event.currentTarget  //目标对象，target指向事件真正的发出者，currentTarget指向监听事件者
+
+
+
+**5)铺获与冒泡的顺序问题**
+
+- 绑定多个DOM事件，先注册先执行
+
+
+
+参考资料： [浏览器事件系统](https://juejin.im/post/6844903824692346893#heading-11)
+
+
+
+### 什么是事件委托/事件代理?
+
+> 事件委托就是利用**事件冒泡**，只指定一个事件处理程序，就可以管理某一类型的所有事件，利用父级去触发子级的事件；
+
+优点：
+
+- 节省内存占用，减少事件注册
+- 新增子对象时，无需再次对其绑定事件，适合动态添加元素
+
+局限性：
+
+- focus,blur 事件本身没有事件冒泡机制，所以无法委托
+- mousemove,mouseout，需要不断通过位置去计算定位，对性能消耗高，不适合事件委托
+
+```
+<script>
+     // jquery当中的事件委托，支持动态添加的元素
+     
+     $('#ui').on('click','li',function (event){
+        console.log(event.target.innerHTML);
+    })
+</script>
+```
+
+
+
+
 
 
 

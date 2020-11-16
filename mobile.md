@@ -77,3 +77,10 @@
 - tap后延迟350ms再隐藏mask，消除掉touch之后的click （tap后延迟350毫秒再隐藏mask）
 - 第三方插件fastclick
 
+
+
+
+
+### webview和原生是如何通讯的？
+
+js调起原生的事件方法，是通过jsBridrage

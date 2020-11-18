@@ -8,6 +8,24 @@
 
 
 
+## Git
+
+
+
+### git merge 与 git rebase区别?
+
+
+
+
+
+### git pull 与 git fetch区别？
+
+
+
+
+
+
+
 ### 单点登录如何实现？
 
 定义：将多个子系统的认证体系打通，实现了一个入口多处使用
@@ -228,12 +246,33 @@ CSRF（Cross-site request forgery）：攻击者诱导用户进入第三方网�
 
 
 
-**CSRF预防**
+**CSRF特点及预防手段**
+
+特点：
+
+- CSRF（通常）发生在第三方域名
+- CSRF攻击者不能获取到Cookie 等信息，只能使用
+
+预防：
 
 - 阻止不明外域的访问
-- - 同源检查
+- - 同源检查（请求头header相关字段,判断来源域名）：
+    - origin 
+    - referer
   - Samesite Cookie
-- 
+- 提交时要求附加本域才能获取的信息
+- - CSRF Token
+  - 双重Cookie验证
+
+
+
+
+
+### HTTP header 中 host, referer, origin区别？
+
+
+
+
 
 
 

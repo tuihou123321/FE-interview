@@ -333,6 +333,8 @@ react-router  ：withrouter 为一个组件注入 history对象；
 
 
 
+参考资料： [Hook API 索引](https://zh-hans.reactjs.org/docs/hooks-reference.html#usecallback)
+
 ### react hook优点？
 
 react hook是v16.8的新特性；
@@ -357,13 +359,69 @@ react hooks设计目的，加强版的函数组件，完全不使用‘类’，
 
 hooks（本质是一类特殊的函数，可以为函数式注入一些特殊的功能）的主要api:
 
+基础Hook:
+
 - useState : 声明状态变量
 - useEffect ：提供了类似于componentDidMount等生命周期钩子的功能
 - useContext ：提供上、下文的功能
-- useRef
+
+额外的Hook:
+
 - useReducer
 - useCallBack
+- useMemo
+- useRef
 - useLayoutEffect
+- useDebugValue
+
+
+
+### useEffect 介绍？
+
+> useEffect可以让你在函数组件中执行副使用（数据获取，设置订阅，手动更改React组件中的DOM）操作
+
+默认情况下每次函数加载完，都会执行（不要在此修改state，避免循环调用），useEffect相当于是class组件中的componentDidMount，componentDidUpdate,componentWillUnMount三个函数的组合
+
+**参数说明：**
+
+- 参数一：
+- 参数二（可选）：数组，监听值
+  - 【只执行一次】如果只想初始化时加载一次，可以输入第二个参数[]，这就告诉react你的effect不依赖于props或 state中任何值，所以它永远不需要重复执行。
+  - 【当监听值改变才执行】如果值没有改变，就不用执行effect函数，可以传入监听的值
+
+
+
+知识点：
+
+- useEffect相比componentDidMount/componentDidUpdate不同之处在于，使用useEffect调度的effect不会阻塞浏览器更新屏幕，这让应用响应更快，大多数据情况下，effect不需要同步地执行，个别情况下（例如测量布局），有单独的useLayoutEffect hook可使用，其API与useEffect相同
+
+
+
+**分类：**
+
+**一）不需要清除**
+
+> react更新DOM之后运行的一些额外代码，操作完成即可忽略
+
+使用场景:
+
+- 手动变更DOM（修改title）
+- 记录日志
+- 发送埋点请求
+
+
+
+**二）需要清除**
+
+> effect返回一个函数，在清除时调用
+
+由于添加/删除订阅代码的紧密性，所以useEffect设计在同一个地方，如果effect返回一个函数，react将会在执行清除（相当于class中componentWIllMount生命周期）时调用它
+
+使用场景：
+
+- 订阅外部数据源（防止数据泄露）
+
+
 
 
 

@@ -6,6 +6,100 @@
 
 
 
+### webpack打包过程？
+
+
+
+一）初始化阶段：
+
+二）编译阶段：
+
+三）输出阶段：
+
+
+
+
+
+参考资料：[webpack编译流程](https://juejin.cn/post/6844903935828819981)
+
+
+
+
+
+### 组件库按需加载如何实现？
+
+
+
+**一）实现方式**
+
+**1) 通过安装  babel-plugin-import (推荐)**
+
+.babelrc or  babel-loader option
+
+```
+{
+ "plugins":[
+ 	["import":{
+ 	  {
+ 	  libraryName:"antd-mobile",style:"css"   //style:true会加载less文件
+ 	  }
+ 	}]
+ ]
+}
+```
+
+
+
+**2) 手动引入**
+
+```
+import DatePicker from "antd-mobile/lib/date-picket";
+import "antd-mobile/lib/date-picker/style/css"
+//import "antd-mobile/lib/date-picker/style"    //加载less
+```
+
+
+
+
+
+**二）支持的库**
+
+- antd
+- antd-mobile 
+- loadsh
+- material-ui
+
+
+
+**三) 实现原理**
+
+>  动态引入css,和模块，最终编译的效果就是转义成 手动引入的效果
+
+配置项：{ "libraryName": "antd", style: "css" }   
+
+style参数说明：
+
+- css：直接引入经过打包后的antd样式文件
+- true：在项目编译阶段，对引入的antd样式文件进行编译，从而可压缩打包尺寸
+
+```
+import { Button } from 'antd';
+ReactDOM.render(<Button>xxxx</Button>);
+
+      ↓ ↓ ↓ ↓ ↓ ↓
+
+var _button = require('antd/lib/button');
+require('antd/lib/button/style/css');
+ReactDOM.render(<_button>xxxx</_button>);
+
+```
+
+
+
+参考资料[：babel-plugin-import的配置项](https://www.jianshu.com/p/87efabb6a333)
+
+
+
 ### webpack有什么作用?
 
 模块打包工具(提高前端工程化的能力);

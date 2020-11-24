@@ -5,6 +5,22 @@
 
 
 
+### PureComponent组件介绍？
+
+> 当props/states改变时，PureComponent会对它们进行浅比较，起到性能优化的作用；
+>
+> 相当于在component组件的shouldComponentUpdate方法中进行了比较才渲染
+
+
+
+特别说明 ：
+
+- 引用对象的数据建议不要使用PureComponnet组件，否则会有坑
+
+
+
+
+
 ### JSX本质是什么？
 
 > JSX 使用js的形式来写html代码

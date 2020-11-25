@@ -427,11 +427,49 @@ redis 收不到其他 key-value数据缓存产品有以下三个特点：
 
 ### git merge 与 git rebase区别?
 
+相同点：都用于分支合并
+
+
+
+**merge**
+
+特点：
+
+- 保留有价值的历史记录，不过也会造成支冗余 （小型项目，便于编写过程报告）
+
+
+
+**rebase**
+
+> rebase就是变基，改变一条分支的基点，使原分支从指定的节点(commit)延续; 
+>
+> 保留了该commit作出的修改，但删除/丢弃了分支上一些现有的提交记录，删去了这些节点
+
+特点：
+
+- 删减就繁，所以也无法体现时间线  （大型项目，需要生成简洁的线性历史树）
+
+
+
+![img](https://pic2.zhimg.com/80/v2-73db63a5abb3cac70f913155a854cf29_720w.jpg)
+
 
 
 
 
 ### git pull 与 git fetch区别？
+
+相同点：都是把远程分支拉到本地
+
+不同点：
+
+pull=fetch+merge 或者 pull=fetch+rebase   (根据配置)
+
+pull:  下拉远程分支并与本地分支合并
+
+fetch:只是下拉分支
+
+![img](https://pic2.zhimg.com/80/v2-af3bf6fee935820d481853e452ed2d55_720w.jpg?source=1940ef5c)
 
 
 

@@ -6,6 +6,24 @@
 
 
 
+### Redux与 MobX的区别？
+
+- 【代码量】 redux>mobx
+  - redux： 需要定义一堆的action, dispatch,reducer
+  - mobx： store和改变的方法
+- 【开发难度】 redux>mobx
+  - mobx：使用面向对象的编程思维，相对简单
+  - redux：比较复杂，函数式编程思维，同时需要借助一系列的中间件来处理异步和副使用
+- 【调试难度】 mobx>redux 
+	 - redux：状态不可变，返回一个新的状态，同时使用纯函数；,redux 提供时间回溯的开发工具，同时纯函数以及更少的抽象，让调试变得更加容易
+	   	- mobx：中状态可变，可对其直接修改，mobx中有更多的抽象和封装，调试比较困难，同时结果难预测
+
+
+
+
+
+
+
 ### redux的实现流程？
 
 - 用户（通过view）发出Action,发出方式是调用dispatch方法；
@@ -111,7 +129,7 @@ const VisibleTodoList=connet(
 
 
 
-### **解释一下 Flux思想？**
+### 解释一下 Flux思想？
 
 
 
@@ -143,7 +161,7 @@ Flux 是一种强制单向数据流的架构模式。它控制派生数据，并
 
 
 
-#### 在 React 中如何处理事件
+### 在 React 中如何处理事件
 
 为了解决跨浏览器的兼容性问题，`SyntheticEvent` 实例将被传递给你的事件处理函数，`SyntheticEvent`是 React 跨浏览器的浏览器原生事件包装器，它还拥有和浏览器原生事件相同的接口，包括 `stopPropagation()` 和 `preventDefault()`。
 

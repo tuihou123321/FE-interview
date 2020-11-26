@@ -6,6 +6,81 @@
 
 
 
+### js实例方法与静态方法的区别？
+
+**静态方法：**
+
+> 可以直接用类名，方法名去调用的
+
+注入方式：
+
+- 对象，当做属性写入
+- 在class类中的方法/属性前添加static 字段
+
+
+
+**实例方法：**
+
+> 不能直接调用，必须先实例化才可以调用
+
+注入方式：
+
+- 对象，通过原型链prototype 注入
+- 在class类方法的默认状态
+
+
+
+class类的注入
+
+```
+     class Person{
+        //加上static 就是静态方法，不需要实例化调用
+        static getName(name){
+            console.log(`我的名字是${name}`);
+        }
+        //say属于实例方法，要先new实例化后才能调用
+        say(){
+            console.log('开始说话')
+        }
+    }
+
+    let china =  new Person();
+    china.say();
+    Person.getName('JAY')
+```
+
+
+
+function函数的注入
+
+```
+  let Person=function (){
+    }
+
+    /*
+    * 静态方法：只针对当前实例，可直接调用
+    * */
+    Person.say=function (){
+        console.log('我是一个人');
+    }
+
+
+    /*
+    * 实例方法：先实例化才能调用，实例方法写在原型链里面
+    * */
+    Person.prototype.getName=function (name){
+        console.log(`我的名字是${name}`);
+    }
+
+
+    Person.say();  //正常打印，不能使用   Person.getName('Jay')
+
+    let china=new Person();
+    china.getName('JAY');  //正常打印 ，不能使用china.say();
+```
+
+
+
 
 
 ### 堆和栈的区别？

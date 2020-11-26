@@ -5,6 +5,19 @@
 
 
 
+### React如何进行组件/逻辑复用？
+
+- HOC（高阶组件）
+- - 属性代理
+  - 反向继承
+- 渲染属性
+- react-hooks
+- Mixin (已废弃，不讨论)
+
+
+
+
+
 ### PureComponent组件介绍？
 
 > 当props/states改变时，PureComponent会对它们进行浅比较，起到性能优化的作用；
@@ -64,17 +77,10 @@ const setCount = () => {
 
 react组件之前通讯主要要四种方式
 
-1. 通过共用父组件传值, 适合，层级简单的； props来实现，子调父回调函数；
-2. redux，全局可调用，从store中取；
-3. context，注入全局变量：getChildContext;   获取全局变量：this.context.color;
-4. 自定义事件,向事件对象添加监听器，和触发事件来实现组件之间的通讯；
-
-
-
-- 父子组件：props，props回调
-- 兄弟组件：共同父级，再由父节点转发props，props回调
-- 跨级组件：context对象
-- 非嵌套组件：使用事件订阅
+- 父子组件：**props**，props回调
+- 兄弟组件：**共同父级**，再由父节点转发props，props回调
+- 跨级组件：**context对象**，注入全局变量：getChildContext;   获取全局变量：this.context.color;
+- 非嵌套组件：使用**事件订阅**，向事件对象添加监听器，和触发事件来实现组件之间的通讯，通过引入event模块实现
 - 全局状态管理工具：Redux,Mobox维护全局store
 
 
@@ -172,13 +178,13 @@ react 生命周期主流的主要有2个大的版本；
 v16.3之前 的生命周期主要分为4个阶段,8个生命周期：
 
 - 初始化值阶段 initialization： getDefaultProps,getInitialState;
-- 初始阶段 mount： componentWillMount,componentDidMount;
-- 更新阶段 update：componetWillReceiveProps ,shouldComponetUpdate  ,componentWillUpdate,
-    - 销毁阶段 unmount：componetWillMount;
+- 初始阶段 mount： componentWillMount,**componentDidMount**;
+- 更新阶段 update：componetWillReceiveProps ,**shouldComponetUpdate**  ,componentWillUpdate,
+- 销毁阶段 unmount：**componetWillUnmount**;
 
 v16.3之后的生命周期:
 
-    新引入了两个生命周期：
+新引入了两个生命周期：
 
 - getDerivedStateFromProps
 - getSnapshotBeforeUpdate
@@ -200,6 +206,24 @@ v16.3之后的生命周期:
 ![react新生命周期](https://pic1.zhimg.com/v2-4bc3a7a23ed8047eac25a62ef22cf205_1440w.jpg?source=172ae18b)
 
 
+
+
+
+### React的请求放在componentWillMount有什么问题？
+
+错误观念：componentWillMount中可以提前进行异步请求，避免白屏时间；
+
+分析：componentWillMount比 componentDidMount相差不了多少微秒；
+
+
+
+问题
+
+- 在SSR（服务端渲染）中，componentWillMount生命周期会执行两次，导致多余请求
+- 在react16进行fiber重写后，componentWillMount 可能在一次渲染中多次调用
+- react17版本后要删除componentWillMount生命周期
+
+目前官方推荐异步请求在 **componentDidMount**中
 
 
 
@@ -275,15 +299,11 @@ vue优势：
 
 
 
-
-
-
-
 ### jsx语法有什么特点相比js?
 
-    答：jsx以js为中心来渲染html,
-    
-    jsx语法特点：
+> jsx以js为中心来写html代码
+
+ jsx语法特点：
 
 1. 支持js+html混写；
 2. jsx编译更快比html
@@ -312,26 +332,103 @@ vue优势：
 
 
 
-### 什么是高阶组件，它有哪些运用？
 
-高阶组件就是一个函数，接收一个组件，经过处理后返回后的新的组件；
+
+### 什么是高阶函数？
+
+> 如果一个函数，**接受一个或多个函数作为参数或者返回一个函数**，就可称之为**高阶函数**
+
+特点：
+
+- 是函数
+- 参数是函数
+- or 返回是函数
+
+eg:  array  对象中的 map,filter,sort方法都是高阶函数
+
+```js
+  function add(x,y,f){
+      return f(x)+f(y)
+  }
+
+  let num=add(2,-2,Math.abs)
+  console.log(num);
+```
+
+
+
+
+
+### 什么是高阶组件？
+
+>  高阶组件就是一个函数（react函数组件），接收一个组件，处理后返回的新组件
+>
+> 高阶组件是高阶函数的衍生
+
+
+
+它的函数签名可以用类似hashell的伪代码表示
+
+- W（WrappedComponent）被包裹的组件，当传参数传入hoc函数中
+
+- E（EnhancedComponent）返回的新组件
+
+```
+hocFactory:: W: React.Component => E: React.Component
+```
+
+
 
 高阶组件，不是真正意义上的组件，其实是一种模式；
 
 可以对逻辑代码进行抽离，或者添加某个共用方法；
 
-主要用途：
+
+
+
+
+**主要用途：**
 
 - 代码重用，逻辑和引导抽象
 - 渲染劫持
 - 状态抽象和控制
 - Props 控制
 
-eg：
+
+
+参考资料：[React 中的高阶组件及其应用场景](https://zhuanlan.zhihu.com/p/61711492)
+
+
+
+
+
+### hoc存在的问题？
+
+**一、静态方法丢失**
+
+
+
+
+
+**二、refs属性不能透传**
+
+
+
+
+
+**三、反向继承不能保证完整的子组件树被解析**
+
+
+
+
+
+### hoc高阶组件使用场景？
 
 react-redux   ：connect就是一个高阶组件,接收一个component,并返回一个新的componet,处理了监听store和后续的处理 ；
 
 react-router  ：withrouter 为一个组件注入 history对象；
+
+
 
 
 

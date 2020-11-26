@@ -5,6 +5,22 @@
 
 
 
+
+
+### cli工具？
+
+- commander  //解析node 参数
+- inquirer   //交互式命令
+- download-git-repo   //下载远程代码 
+
+
+
+参考：
+
+[仿 vue-cli 搭建属于自己的脚手架]( https://juejin.cn/post/6844903807919325192#heading-14)
+
+
+
 ### React如何进行组件/逻辑复用？
 
 - HOC（高阶组件）
@@ -422,6 +438,10 @@ hocFactory:: W: React.Component => E: React.Component
 
 
 
+
+
+
+
 ### hoc高阶组件使用场景？
 
 react-redux   ：connect就是一个高阶组件,接收一个component,并返回一个新的componet,处理了监听store和后续的处理 ；
@@ -446,46 +466,96 @@ react-router  ：withrouter 为一个组件注入 history对象；
 
 
 
-参考资料： [Hook API 索引](https://zh-hans.reactjs.org/docs/hooks-reference.html#usecallback)
+### hooks原理分析，如何实现？
 
-### react hook优点？
+
+
+
+
+参考：
+
+[[译] 深入 React Hook 系统的原理](https://juejin.cn/post/6844903807269208072)
+
+
+
+
+
+### react hook优缺点？
+
+
 
 react hook是v16.8的新特性；
 
 传统的纯函数组件，
 
-react hooks设计目的，加强版的函数组件，完全不使用‘类’，就能写出一个全功能的组，不能包含状态，也不支持生命周期）；
+react hooks设计目的，加强版的函数组件，完全不使用‘类’，就能写出一个全功能的组件，不能包含状态，也不支持生命周期）， hook在无需修改组件结构的情况下复用状态逻辑；
 
 优势：
 
-1. 在不使用class的情况下，使用state及react其他特性（省的把纯函数组件/其他组件改来改去）
-2. 让组件更好的复用（老的class组件冗长、包含自身的状态state）
-3. 让react编程风格更取向函数式编程风格，使用function代替class
-4. 处理了this的指向问题
+-  简洁：react hooks解决了hoc和render props的嵌套问题，更加简洁 （在不使用class的情况下，使用state及react其他特性（省的把纯函数组件/其他组件改来改去））
+-  解耦：react hooks可以更方便地把UI和状态分离，做到更彻底的解耦
+-  组合：hooks 中可以引用另外的hooks 形成新的hooks， 组合千变万化
+-  函数友好：react hooks为函数组件而生，解决了类组件的几大问题
+   - 处理了this的指向问题
+   
+   - 让组件更好的复用（老的class组件冗长、包含自身的状态state）
+   
+   - 让react编程风格更取向函数式编程风格，使用function代替class
+   
+     
 
 缺点：
 
 - 响应式的useEffect： 当逻辑较复杂时，可触发多次
-- 状态不同步：函数的运行是独立的，每个函数都有一份独立的作用域。函数的变量是保存在运行时的作用域里面，当我们有异步操作的时候，经常会碰到异步回调的变量引用是之前的，也就是旧的（这里也可以理解成闭包）
+- 状态不同步：函数的运行是独立的，每个函数都有一份独立的作用域。函数的变量是保存在运行时的作用域里面，当我们有异步操作的时候，经常会碰到异步回调的变量引用是之前的，也就是旧的（这里也可以理解成闭包场景可能引用到旧的state、props值）
+- 破坏了pureComponent、react.memo 浅比较的性能优化效果（为了取最新的props和state,每次render都要重新创建事件处函数）
+- react.memo 并不能完全替代 shouldComponentUpdate （因为拿不到 state change ,只针对 props change）
+
+
+
+
+
+### react hooks API有哪些？
 
 
 
 hooks（本质是一类特殊的函数，可以为函数式注入一些特殊的功能）的主要api:
 
-基础Hook:
+**基础Hook:**
 
-- useState : 声明状态变量
-- useEffect ：提供了类似于componentDidMount等生命周期钩子的功能
-- useContext ：提供上、下文的功能
+- **useState** : 声明状态变量
+- **useEffect** ：提供了类似于componentDidMount等生命周期钩子的功能
+- **useContext** ：提供上、下文的功能
 
-额外的Hook:
+**额外的Hook:**
 
-- useReducer
-- useCallBack
-- useMemo
-- useRef
-- useLayoutEffect
-- useDebugValue
+- **useReducer**: useState的替代方案，使用useReducer 会让触发深新的组件做性能优化，因为你可以向子组件传递dispatch而不是回调函数
+- **useCallBack**：把内联回调函数及依赖项数组作为参数传入 useCallback，它将返回该回调函数的memoized版本，该回调函数仅在某个依赖项改变时才会更新
+- **useMemo**：把""创建""函数和依赖项数组作为参数传入 useMemo，它仅会在某个依赖项改变时重新计算， 可以作为性能优化的手段。
+- **useRef**：返回一个可变的ref对象，返回的ref对象在组件的整个生命周期内保持不变
+- **useLayoutEffect**： 它会在所有DOM变更后同步调用effect,
+- **useDebugValue**
+
+
+
+demo:
+
+```js
+//useMemo 
+const memoizedValue = useMemo(() => computeExpensiveValue(a, b), [a, b]);
+
+//useReducer
+const [state, dispatch] = useReducer(reducer, initialArg, init);
+
+```
+
+
+
+
+
+参考资料： [Hook API 索引](https://zh-hans.reactjs.org/docs/hooks-reference.html#usecallback)
+
+
 
 
 
@@ -526,13 +596,16 @@ hooks（本质是一类特殊的函数，可以为函数式注入一些特殊的
 
 **二）需要清除**
 
-> effect返回一个函数，在清除时调用
+> effect返回一个函数，在清除时调用 （相当于class中componentWillUnmount生命周期）
 
-由于添加/删除订阅代码的紧密性，所以useEffect设计在同一个地方，如果effect返回一个函数，react将会在执行清除（相当于class中componentWIllMount生命周期）时调用它
+由于添加/删除订阅代码的紧密性，所以useEffect设计在同一个地方，如果effect返回一个函数，react将会在执行清除时调用它
 
 使用场景：
 
 - 订阅外部数据源（防止数据泄露）
+- 设置页面标题，返回重置原标题
+
+
 
 
 
@@ -549,6 +622,21 @@ hooks（本质是一类特殊的函数，可以为函数式注入一些特殊的
 
 
 ### 什么是Fiber？是为了解决什么问题？
+
+>  react fiber 是一种基于浏览器的**单线程调度算法**
+
+
+
+react算法的改变（Fiber实现的原理）：
+
+- 16版本之前： reconcilation 算法实际上是递归，想要中断递归是很困难的
+- 16版本之后：开始使用循环来代替之前的递归
+
+
+
+**fiber**： 一种将 **recocilation**（递归diff），拆分成无数据个小任务的算法；它随时能够停止，恢复。停止恢复的时机取决于当前的一帧（16ms）内，还有没有足够的时间允许计算
+
+
 
 fiber是react16中新发布的特性；
 

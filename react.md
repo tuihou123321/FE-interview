@@ -117,34 +117,6 @@ UI组件：只负责页面UI渲染，不具备任何逻辑，功能单一，通�
 
 
 
-### react diff算法是如何提高性能的？
-
-传统的页面更新，是直接操作dom来实现的，比如原生js或者jquery，但是这种方式性能开销比较大；
-
-react 在初始化的时候会生成一个虚拟dom,每次更新视图会比较前后虚拟dom的区别；
-
-这个比较方法就是diff算法，diff算法很早就已经出现了；但是react的diff算法有一个很大区别；
-
-传递diff算法：通过循环递规对节点进行依次对比，时间算法复杂度是 o(n^3)，n代表节点数；
-
-react diff 算法：    采用逐层比较的方式；把时间算法复杂度从O（n^3）次方，降低到O(n)次方；
-
-
-
-
-
-### 什么是react虚拟dom，为什么虚拟dom可以提高性能，如何监测性能提升？
-
-虚拟dom是真实dom的一份映射表，react中我们只要改变state,
-
-react就会调用batching（批处理）、diff算法自动更新虚拟dom；
-
-虚拟dom再来操作真实dom,从而改变视图；
-
-当页面参数修改的时候不进行重绘，只修改改变的内容。
-
-可以通过chrome的console面板中的
-
 
 
 
@@ -680,9 +652,136 @@ refs 注意事项：
 
 
 
+## Virtual DOM
+
+
+
+### 什么是 Virtual DOM，它的优点？
+
+
+
+> Virtual DOM 是对 DOM的抽象，本质是js对象，这个对象就是更加轻量级对DOM的描述
+
+
+
+![img](https://xiaomuzhu-image.oss-cn-beijing.aliyuncs.com/1b6e845647c60b0ce00ec91f679ec6cf.png)
+
+
+
+**优点：**
+
+- **【性能优化】**操作真实DOM慢，频繁变动DOM会造成浏览器回流/重绘，虚拟DOM抽象的这一层，在patch（batching批处理）过程中尽可能地一次性将差异更新到DOM中，降低更新DOM的频率
+- **【数据驱动程序】**使用数据驱动页面，而不是操作DOM的形式
+- **【跨平台】**：node层没有DOM,但是react却可以在node层（SSR）运行
+
+可以通过chrome的console面板中的
+
+
+
+参考资料：
+
+[虚拟DOM原理](http://www.cxymsg.com/guide/virtualDom.html#%E4%BB%80%E4%B9%88%E6%98%AFvirtual-dom)
 
 
 
 
 
+### Virtual DOM 的创建，更新，diff 过程？
+
+
+
+**虚拟DOM的创建**
+
+虚拟DOM是对真实DOM的抽象，根据不同的需求，可以做出不同的抽象，比较 snabbdom.js 的抽象方式
+
+
+
+基本结构
+
+```js
+  /*
+    * 虚拟DOM 本质是一个JS对象，这个对象是更加轻量级的对DOM的描述
+    * */
+    
+    //tagName,props,children
+    const element={
+        tagName:'ul',
+        props:{
+            id:'list'
+        },
+        children: [{
+            tagName:'li',
+            props:{
+                class:'item'
+            },
+            children:['item1']  //item1 只是没有包裹的子节点
+        }]
+    }
+```
+
+
+
+
+
+### react diff 介绍？
+
+传统的页面更新，是直接操作dom来实现的，比如原生js或者jquery，但是这种方式性能开销比较大；
+
+react 在初始化的时候会生成一个虚拟dom,每次更新视图会比较前后虚拟dom的区别；
+
+这个比较方法就是diff算法，diff算法很早就已经出现了；但是react的diff算法有一个很大区别；
+
+
+
+
+
+**react diff 算法优势：**
+
+**传递diff算法**：
+
+- 遍历模式：**循环递规**对节点进行依次对比
+- 时间算法复杂度： o(n^3)次方，n代表节点数
+
+
+
+**react diff 算法**：    
+
+- 遍历模式：采用**逐层比较**的方式（DOM的特点，一般很少出现跨层级的DOM变更） 
+- 时间算法复杂度：O(n)次方；
+
+
+
+目前社区里的两个算法库：
+
+- snabbdom.js（双端比较算法）：v2.0借鉴
+- inferno.js（速度更快）： vue3.0借鉴
+  - 核心思想：利用LIS（最长递增序列）做动态规划，找到最小的移动次数
+
+
+
+react 算法 PK inferno.js
+
+- react diff: 
+  1. 把 a,b,c移动到他们相应的位置
+  2. 再+1共三步操作
+- inferno: 直接把d移动到最前面，一步到位
+
+```
+A:[a,b,c,d]
+B:[d,a,b,c]
+```
+
+
+
+
+
+同层比较
+
+![img](https://xiaomuzhu-image.oss-cn-beijing.aliyuncs.com/63e704710ceda7b3e14c586eb51b36ae.png)
+
+
+
+参考资料：
+
+[diff 算法原理概述](https://github.com/NervJS/nerv/issues/3)
 

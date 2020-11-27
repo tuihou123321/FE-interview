@@ -5,19 +5,13 @@
 
 
 
-
-
-### cli工具？
-
-- commander  //解析node 参数
-- inquirer   //交互式命令
-- download-git-repo   //下载远程代码 
+### 介绍下渲染属性render props？
 
 
 
-参考：
 
-[仿 vue-cli 搭建属于自己的脚手架]( https://juejin.cn/post/6844903807919325192#heading-14)
+
+
 
 
 
@@ -444,11 +438,25 @@ react-router  ：withrouter 为一个组件注入 history对象；
 
 
 
+
+
 参考：
 
 [[译] 深入 React Hook 系统的原理](https://juejin.cn/post/6844903807269208072)
 
 
+
+
+
+### hooks与 react 生命周期的关系？
+
+hooks组件有生命周期，函数组件没有生命周期
+
+hooks的生命周期其实就是：
+
+- useState
+- useEffect
+- useLayoutEffect
 
 
 

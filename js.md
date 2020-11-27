@@ -6,6 +6,24 @@
 
 
 
+### 什么是Polyfill?
+
+> Polyfill是一块代码（通常是web上的js），为旧浏览器提供它没有原生支持的较新功能；
+>
+> 抚平不同浏览器之间对JS实现的差异
+
+eg:
+
+使用Silverlight   模拟  html canvas元素的功能 或 模拟 CSS实现 rem单位的支持，或text-shadow,其他
+
+```js
+<script src="//cdn.polyfill.io/v1/polyfill.min.js" async defer></script>
+```
+
+
+
+
+
 ### 什么是函数复作用？
 
 

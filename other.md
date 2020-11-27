@@ -1,10 +1,26 @@
-### 其他
+# 其他
 
 
 
 
 
 [TOC]
+
+
+
+
+
+### 有哪些复杂的前端项目？
+
+- 强交互（逻辑复杂，状态多）
+  - 工具类（web office, web ps, web IDE）
+  - web游戏
+  - 在线IM
+  - 可视化建站
+- 图形可视化 （定制图表类）
+  - canvas,webGL （游戏，web PS）
+
+
 
 
 
@@ -285,7 +301,27 @@ CSRF（Cross-site request forgery）：攻击者诱导用户进入第三方网�
 
 
 
+
+
 ## 数据库
+
+
+
+
+
+### NoSQL 与 sql 数据库的区别?
+
+SQL：代表关系型数据库 （SQL≠关系型数据库，这里用作简写）
+
+NoSQL:  代表非关系型数据库
+
+
+
+参考资料：
+
+[阿里P8架构师谈：NoSQL和SQL的区别，NoSQL的使用场景和选型比较](https://www.codercto.com/a/24209.html)
+
+
 
 
 
@@ -470,6 +506,20 @@ pull:  下拉远程分支并与本地分支合并
 fetch:只是下拉分支
 
 ![img](https://pic2.zhimg.com/80/v2-af3bf6fee935820d481853e452ed2d55_720w.jpg?source=1940ef5c)
+
+
+
+
+
+## 单元测试
+
+
+
+### 前端代码测试工具？
+
+Jest
+
+- 优点：
 
 
 

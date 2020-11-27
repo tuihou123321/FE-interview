@@ -6,6 +6,24 @@
 
 
 
+### Redux 介绍？
+
+> redux是js状态容器，提供可预测化的状态管理
+
+它认为：
+
+- web应用是一个状态机，视图与状态是一一对应的关系
+- 所有的状态，保存在一个对象里面
+
+
+
+设计思想：
+
+- 每个state变化可预测 
+- 动作与状态统一管理
+
+
+
 ### Redux与 MobX的区别？
 
 - 【代码量】 redux>mobx
@@ -68,35 +86,20 @@
 
 
 
-### redux中间件是什么，中间件的执行过程？
+### Redux与Vuex区别?
 
-定义：redux提供了类似后端experss中间件的概念，本质目地是提供第三方插件的模式，自定义拦截 action-> reducer的过程；变成 action->middlewares->reducer. 这种机制可以让我们改变数据流，实现如异步action,action过滤，日志输出，异常报告等功能；
+相同点：
 
-使用： redux提供的一个方法： applyMiddleware，可应用多个中间件；
+- 都是做状态管理库
+- 都是从Flux中衍生来的（单一数据源，单向数据流）
 
-![img](en-resource://database/11931:0)
+不同点：
+
+- 【适用范围】redux是一个泛用的实现，也可以用在vue中，但是契合度不如vuex
 
 
 
-
-
-### 什么是redux,和vuex有什么区别?
-
-```
-redux主要用来做程序状态管理js库，提供可预测的状态变化；
-```
-
-主要由三部分组成
-
-store 总状态==等同于react中的state----- vuex中的 （state）vuex中多了一个getter计算属性
-
-reducer 数据处理方法==等同于父级方法----- vuex中的(mutation同步,action异步)
-
-action  参数==等于于回调参数；-----
-
-```
 多个vuex中引入module可以把store划分成多个单元 ；
-```
 
 
 
@@ -126,6 +129,21 @@ action  参数==等于于回调参数；-----
     - -学习成功奇高：如果不会rxjs，则需要额外学习两个复杂的库
 
 
+
+
+
+### redux中间件是什么，中间件的执行过程？
+
+> redux提供了类似后端experss中间件的概念，本质目地是提供第三方插件的模式
+
+中间件的使用（改变数据流）：
+
+- 未使用redux:   action-> reducer
+- 使用redux: 自定义拦截，变成 action->middlewares->reducer
+
+实现如异步action,action过滤，日志输出，异常报告等功能；
+
+使用： redux提供的一个方法： applyMiddleware，可应用多个中间件；
 
 
 
@@ -163,7 +181,7 @@ Flux 是一种强制单向数据流的架构模式。它控制派生数据，并
 
 ### Redux遵循的特点？
 
-- **单一数据来源**"："整个数据存储在store当中，方便调试和检查应用程序
+- **单一数据来源**："整个数据存储在store当中，方便调试和检查应用程序
 - **状态只读**：改变状态的唯一方法是云触发一个动作。
 - **使用纯函数更改**：纯函数是那些返回值仅取决于其参数的函数
 
@@ -173,9 +191,16 @@ Flux 是一种强制单向数据流的架构模式。它控制派生数据，并
 
 ### Redux与flux有何不同？
 
-![image-20201111172155995](C:\Users\22064\AppData\Roaming\Typora\typora-user-images\image-20201111172155995.png)
+> Redux是flux思想（单向数据流，store唯一数据源）的一种实现，同时在其基础上做了改进
 
-**Flux** **Redux**   1. Store 包含状态和更改逻辑 1. Store 和更改逻辑是分开的  2. 有多个 Store 2. 只有一个 Store  3. 所有 Store 都互不影响且是平级的 3. 带有分层 reducer 的单一 Store  4. 有单一调度器 4. 没有调度器的概念  5. React 组件订阅 store 5. 容器组件是有联系的  6. 状态是可变的 6. 状态是不可改变的
+区别：
+
+- **Store数**
+- - Redux: 单个
+  - Flux： 多个
+- **更新位置不同**
+  - Redux:
+  - Flux:
 
 
 

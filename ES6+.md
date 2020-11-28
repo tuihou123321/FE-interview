@@ -6,6 +6,97 @@
 
  
 
+### 介绍下js的装饰器（decorators）?
+
+> Decorator 就是一种动态地往一个类中添加新的行为的设计模式，它可以在类时，扩展一个类的功能，并且 去修改类本身的属性和方法，使其可以在不同类之间更灵活的共用一些属性和方法；
+>
+> 修饰模式（Decortaor），是面向对象编程领域中，一种动态地往一个类中添加新的行为的设计模式。修饰模式相比生成子类更加灵活，这样可以给某个对象而不是整个类添加一些功能
+
+
+
+用法：
+
+1) 装饰类
+
+```js
+@FooDecorator
+class Foo {
+
+}
+
+function FooDecorator(target){
+    // target 就是这个 class 的原型对象
+}
+```
+
+
+
+2) 装饰属性
+
+```js
+//给MyClass 所有实例的  getType 属性设置为仅为可读不可更改的属性 readonly
+class MyClass {
+	constructor(){
+		this.type="myClass"
+	}
+	@readonly
+	getType(){
+		return this.type
+	}
+}
+
+function readonly(target, key, discriptor){
+	discriptor.writable = false
+	return discriptor
+}
+```
+
+
+
+3）多个装饰器
+
+```js
+class MyClass {
+	constructor(){
+		this.type="myClass"
+	}
+	@readonly
+	@logHello
+	getType(){
+		return this.type
+	}
+}
+
+//装饰器让类的getType方法不可更改
+function readonly(target, key, discriptor){
+	discriptor.writable = false
+	return discriptor
+}
+
+//让每次调用类中的getType方法会在控制台输出 hello
+function logHello(target, key, discriptor){
+	const oldFn = target[key]
+    target[key] = function(...rest){
+        console.log('Hello')
+        return oldFn.call(this,...rest)
+    }
+    return target
+}
+```
+
+
+
+参考资料：
+
+[JS 装饰器，一篇就够](https://segmentfault.com/a/1190000014495089)
+[学习 ES7 语法 decorator 装饰器]()
+
+
+
+
+
+
+
 ### 创建对象的三种方式？
 
 - 字面量 

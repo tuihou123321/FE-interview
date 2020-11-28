@@ -544,6 +544,18 @@ redis 收不到其他 key-value数据缓存产品有以下三个特点：
 
 
 
+### git reset、git revert、git checkout 区别？
+
+> 相同点：撤销代码仓库中的某些更改
+
+不同点：
+
+  
+
+
+
+
+
 ### git merge 与 git rebase区别?
 
 相同点：都用于分支合并

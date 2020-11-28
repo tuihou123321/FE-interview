@@ -166,36 +166,7 @@ plugin：
 - webpack-dev-server (小型node express服务器)
 - postcss-plugin-px2rem,
 
-
-
-
-
-### 什么是babel？
-
-babel是一个广泛的转码器，可以把es6/7等最新的语法转换成es5的语法，让浏览器能够兼容；
-
-babel的配置文件 .babelrc 主要有两个配置：
-
-- 转码规则 presets
-- 插件 plugins
-
-
-
-
-
-### babel是如何把 es6代码转换成 es5代码的？
-
-babel将es6代码转换成es5，主要有三个阶段；
-
-第一：把es6代理，通过babylon解析成，AST语法树 
-
-第二：把AST语法树，plugin用babel-traverse对AST树进行遍历转译，得到新的AST树
-
-第三：把新的AST树生成，用babel-generator，转成es5代码
-
-注意事项：babel默认不转换的代码需要通过安装babelpolyfill来支持，比如 ：
-
-- Array.from,generator,set,maps,proxy,symbol...
+- 
 
 
 
@@ -310,3 +281,57 @@ webpack-dev-server  --contentbase src  --inline --hot
 - 分割代码以按需加载
 - 多页面应用提取页面间公共组件
 - 区分生产/测试环境
+
+
+
+
+
+
+
+## Babel
+
+
+
+### 什么是babel？
+
+babel是一个广泛的转码器，可以把es6/7等最新的语法转换成es5的语法，让浏览器能够兼容；
+
+babel的配置文件 .babelrc 主要有两个配置：
+
+- 转码规则 presets
+- 插件 plugins
+
+
+
+
+
+### babel是如何把 es6代码转换成 es5代码的？
+
+babel将es6代码转换成es5，主要有三个阶段；
+
+1. 【解析Parse】把es6代码，通过babylon解析成，AST语法树，即词法分析与语法分析的过程 
+2.	【转换Transform】通过babel-traverse plugin 对AST树进行遍历转译，在此过程中进行添加/更新/删除等操作，生成新的AST
+3. 【生成Generate】通过 babel-generator，将变换后的AST再转成es5代码
+
+注意事项：babel默认不转换的代码需要通过安装babelpolyfill来支持，比如 ：
+
+- Array.from,generator,set,maps,proxy,symbol...
+
+
+
+![img](https://xiaomuzhu-image.oss-cn-beijing.aliyuncs.com/566a1ac865cfc0b1bf5511f377ff6828.png)
+
+### 如何写一个babel插件?
+
+实现流程
+
+1. babel解析成AST
+2. 然后插件更改AST （Babel的插件的模块需要暴露一个function,在function内返回visitor）
+3. 最后Babel输出代码
+
+
+
+
+
+
+

@@ -3,15 +3,54 @@
 
 [TOC]
 
+### react Context介绍？
+
+
+
+
+
+### render函数中return如果没用使用()会用什么问题吗？
+
+结论：如果换行就有问题
+
+原因：babel会将jsx语法编译成js，同时会在每行自动添加分号（;）, 如果 return 换行了，那么就变成了return;  就会导致报错
+
+```
+  //这样会报错，react
+  class App extends React.Component{
+        render(){
+            return 
+            <div>111</div>
+        }
+    }
+```
+
+
+
 
 
 ### 介绍下渲染属性render props？
 
+> 功能：给纯函数组件加上state,响应react的生命周期
+
+优点：ｈｏｃ的缺点render prop 都可以解决
+
+- 扩展性限制：hoc无法从外部访问子组件的state,因此无法通过shouldComponentUpdate 过滤掉不必要的更新，react在支持es6 class之后提供了react.PureComponnet来解决这个问题
+- ref传递问题：ref被隔断，后来的react.forwardRef来解决这个问题
+- Wrapper Hell(多层包裹)：多层包裹，抽象增加了复杂度和理解成本
+- 命名冲突：多次嵌套，容易覆盖老属性
+- 不可见性：hoc相当于黑盒
+
+缺点：
+
+- 使用繁琐：hoc复用只需借助装饰器语法（decorator）一行代码进行复用，render props无法做到如此简单
+- 嵌套过深：render props 虽然摆脱了组件多层嵌套的问题，但是转化为了函数回调的嵌
 
 
 
+参考资料：
 
-
+[React 中的 Render Props](https://zhuanlan.zhihu.com/p/31267131)
 
 
 
@@ -20,7 +59,7 @@
 - HOC（高阶组件）
 - - 属性代理
   - 反向继承
-- 渲染属性
+- 渲染属性(render props)
 - react-hooks
 - Mixin (已废弃，不讨论)
 
@@ -57,27 +96,6 @@ jsx本身是语法糖，无法直接被浏览器解析，需要通过babel或者
 jsx调用js本身的特性来动态创建UI，与于传统模式下的模板语法不同
 
 
-
-
-
-### React 中的 `useState()` 是什么？
-
-`useState` 是一个内置的 React Hook。`useState(0)` 返回一个元组，其中第一个参数`count`是计数器的当前状态，`setCounter` 提供更新计数器状态的方法。
-
-
-```
-...
-const [count, setCounter] = useState(0);
-const [moreStuff, setMoreStuff] = useState(...);
-...
-
-const setCount = () => {
-    setCounter(count + 1);
-    setMoreStuff(...);
-    ...
-};
-
-```
 
 
 
@@ -345,7 +363,9 @@ eg:  array  对象中的 map,filter,sort方法都是高阶函数
 
 >  高阶组件就是一个函数（react函数组件），接收一个组件，处理后返回的新组件
 >
-> 高阶组件是高阶函数的衍生
+>  高阶组件是高阶函数的衍生
+>
+>  核心功能：实现抽象和可重用性
 
 
 
@@ -364,6 +384,8 @@ hocFactory:: W: React.Component => E: React.Component
 高阶组件，不是真正意义上的组件，其实是一种模式；
 
 可以对逻辑代码进行抽离，或者添加某个共用方法；
+
+高阶组件是装饰器模式在react中的实现 
 
 
 
@@ -388,21 +410,9 @@ hocFactory:: W: React.Component => E: React.Component
 
 **一、静态方法丢失**
 
-
-
-
-
 **二、refs属性不能透传**
 
-
-
-
-
 **三、反向继承不能保证完整的子组件树被解析**
-
-
-
-
 
 
 
@@ -413,6 +423,28 @@ hocFactory:: W: React.Component => E: React.Component
 react-redux   ：connect就是一个高阶组件,接收一个component,并返回一个新的componet,处理了监听store和后续的处理 ；
 
 react-router  ：withrouter 为一个组件注入 history对象；
+
+
+
+
+
+### 你在项目中怎么使用的高阶组件？
+
+> 不谈场景的技术都是在耍流氓
+
+- **权限控制**：//也可以在history路由切换的时候，加个监听方法，在顶层做监听处理，不过页面会闪一下
+  - 页面级别：withAdminAuth(Page)，withVIPAuth(Page)
+  - 页面元素级别：
+- **组件渲染性能追踪**
+- **页面复用**
+- 全局常量（通过接口请求），能过hoc抽离  //也可以通过全局状态管理来获取
+- 对当前页面的一些事件的默认执行做阻止（比如：阻止app的默认下拉事件）
+
+
+
+参考资料：
+
+[React 中的高阶组件及其应用场景](https://juejin.cn/post/6844903782355042312#heading-23)
 
 
 
@@ -460,6 +492,16 @@ hooks的生命周期其实就是：
 
 
 
+//hooks模拟生命周期函数，与class的生命周期有什么区别
+
+```
+
+```
+
+
+
+
+
 ### react hook优缺点？
 
 
@@ -484,12 +526,41 @@ react hooks设计目的，加强版的函数组件，完全不使用‘类’，
    
      
 
-缺点：
+缺点（坑）：
 
+- 【useState数组修改】使用useState修改array的值时，不要使用push/pop/splice等直接更改数据对象的方法，否则无法修改，应该使用解构或其他变量代替
+- 【hook执行位置】不要在循环、条件 、嵌套中调有hook，必须始终在react函数顶层使用Hook，这是因为react需要利用调用顺序来正确更新相应的状态，以及调用相应的钩子函数，否则会导致调用顺序不一致性，从而产生难以预料到的后果
 - 响应式的useEffect： 当逻辑较复杂时，可触发多次
-- 状态不同步：函数的运行是独立的，每个函数都有一份独立的作用域。函数的变量是保存在运行时的作用域里面，当我们有异步操作的时候，经常会碰到异步回调的变量引用是之前的，也就是旧的（这里也可以理解成闭包场景可能引用到旧的state、props值）
+- 状态不同步：函数的运行是独立的，每个函数都有一份独立的作用域。函数的变量是保存在运行时的作用域里面，当我们有异步操作的时候，经常会碰到异步回调的变量引用是之前的，也就是旧的（这里也可以理解成闭包场景可能引用到旧的state、props值），希望输出最新内容的话，可以使用useRef来保存state
 - 破坏了pureComponent、react.memo 浅比较的性能优化效果（为了取最新的props和state,每次render都要重新创建事件处函数）
 - react.memo 并不能完全替代 shouldComponentUpdate （因为拿不到 state change ,只针对 props change）
+
+
+
+参考资料：
+ [hooks中的坑，以及为什么？](https://blog.csdn.net/kellywong/article/details/106430977)
+
+
+
+
+
+### react hooks异步操作注意事项？
+
+**一、如何在组件加载时发起异步任务**
+
+
+
+
+
+**二、如何在组件交互时发起异步任务**
+
+**三、其他陷阱**
+
+
+
+参考资料：
+
+[React Hooks 异步操作踩坑记](https://zhuanlan.zhihu.com/p/87713171)
 
 
 
@@ -513,7 +584,7 @@ hooks（本质是一类特殊的函数，可以为函数式注入一些特殊的
 - **useCallBack**：把内联回调函数及依赖项数组作为参数传入 useCallback，它将返回该回调函数的memoized版本，该回调函数仅在某个依赖项改变时才会更新
 - **useMemo**：把""创建""函数和依赖项数组作为参数传入 useMemo，它仅会在某个依赖项改变时重新计算， 可以作为性能优化的手段。
 - **useRef**：返回一个可变的ref对象，返回的ref对象在组件的整个生命周期内保持不变
-- **useLayoutEffect**： 它会在所有DOM变更后同步调用effect,
+- **useLayoutEffect**： 它会在所有DOM变更后同步调用effect
 - **useDebugValue**
 
 
@@ -548,17 +619,14 @@ const [state, dispatch] = useReducer(reducer, initialArg, init);
 **参数说明：**
 
 - 参数一：
-- 参数二（可选）：数组，监听值
-  - 【只执行一次】如果只想初始化时加载一次，可以输入第二个参数[]，这就告诉react你的effect不依赖于props或 state中任何值，所以它永远不需要重复执行。
-  - 【当监听值改变才执行】如果值没有改变，就不用执行effect函数，可以传入监听的值
-
-
-
-知识点：
-
-- useEffect相比componentDidMount/componentDidUpdate不同之处在于，使用useEffect调度的effect不会阻塞浏览器更新屏幕，这让应用响应更快，大多数据情况下，effect不需要同步地执行，个别情况下（例如测量布局），有单独的useLayoutEffect hook可使用，其API与useEffect相同
-
-
+  - type:function
+  - 执行的函数
+- 参数二（可选）：监听值
+  - type:array
+  - 要监听的值（当监听值改变才执行，如果只想执行一次可以传一个[]）：如果值没有改变，就不用执行effect函数，可以传入监听的值
+    - return callBack: 清理函数，执行有两种情况
+      - componentWillUnmount
+      - 在每次userEffect执行前(第二次开始)
 
 **分类：**
 
@@ -589,7 +657,41 @@ const [state, dispatch] = useReducer(reducer, initialArg, init);
 
 
 
+### useEffect和useLayoutEffect区别？
+
+- useEffect相比componentDidMount/componentDidUpdate不同之处在于，使用useEffect调度的effect不会阻塞浏览器更新屏幕，这让应用响应更快，大多数据情况下，effect不需要同步地执行，个别情况下（例如测量布局），有单独的useLayoutEffect hook可使用，其API与useEffect相同
+- useEffect在副使用结束之后，会延迟一段时间执行，并非同步执行。遇到dom操作，最好使用userLayoutEffect
+- userLayoutEffect 里面的callback函数会在DOM更新完成后立即执行，但是会在浏览器进行任何绘制前运行完成，阻塞了浏览器的绘制
+
+
+
+
+
 ### useCallBack介绍?
+
+
+
+
+
+###  useState介绍？
+
+`useState` 是一个内置的 React Hook。`useState(0)` 返回一个元组，其中第一个参数`count`是计数器的当前状态，`setCounter` 提供更新计数器状态的方法。
+
+```
+...
+const [count, setCounter] = useState(0);
+const [moreStuff, setMoreStuff] = useState(...);
+...
+
+const setCount = () => {
+    setCounter(count + 1);
+    setMoreStuff(...);
+    ...
+};
+
+```
+
+
 
 
 

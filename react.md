@@ -7,6 +7,24 @@
 
 ### react Context介绍？
 
+主要api:
+
+- react.createContext :　创建store
+- [store].Provider: 包裹组件，并通过value 字段传递参数
+- [store].Consumer:  获取包裹组件内容
+
+
+
+创建过程：
+
+1. 【创建store】：通过 React.createContext 创建 AppContext 实例
+
+2. 【包裹整个组件】：使用AppContext.Provider组件
+
+3. 【注入全局变量】，在AppContext.provider组件上
+
+4. 【引入全局变量】： 通过 AppContext.Consumer组件 ，子组件的回调，获取store中的内容和方法
+
 
 
 
@@ -696,6 +714,92 @@ const [state, dispatch] = useReducer(reducer, initialArg, init);
 - useEffect相比componentDidMount/componentDidUpdate不同之处在于，使用useEffect调度的effect不会阻塞浏览器更新屏幕，这让应用响应更快，大多数据情况下，effect不需要同步地执行，个别情况下（例如测量布局），有单独的useLayoutEffect hook可使用，其API与useEffect相同
 - useEffect在副使用结束之后，会延迟一段时间执行，并非同步执行。遇到dom操作，最好使用userLayoutEffect
 - userLayoutEffect 里面的callback函数会在DOM更新完成后立即执行，但是会在浏览器进行任何绘制前运行完成，阻塞了浏览器的绘制
+
+
+
+### useContext介绍?
+
+> 共享状态钩子，在组件之间共享状态，可以解决react 逐层通过props传递数据的问题
+
+
+
+使用流程（使用流程和react-redux差不多）：
+
+1. 创建store：通过 createContext Api
+
+2. 包裹整个组件：通过store中的Provider方法
+
+3. 注入全局变量，provider组件中
+
+4. 引入全局变量： 通过 useContext,传入store的名字，返回一个store对象内容
+
+
+```js
+    const { useState, createContext, useContext } = React;
+
+    function App(){
+        //创建store
+        const AppContext=createContext({});
+
+        function A(){
+            //从store中取值
+            const {name}=useContext(AppContext);
+            return <div>A组件Name:{name}</div>
+        }
+
+        function B(){
+            //从store中取值
+            const {name}=useContext(AppContext);
+            return <div>B组件Name:{name}</div>
+        }
+
+        //在顶层包裹所有元素，注入到每个子组件中
+        return (
+            <AppContext.Provider value={{name:'xz'}}>
+                <A/>
+                <B/>
+            </AppContext.Provider>
+        )
+    }
+
+    ReactDOM.render(
+        <App />,
+        document.getElementById('app')
+    );
+```
+
+
+
+参考资料：
+
+[React Hooks 常用钩子及基本原理](https://blog.csdn.net/chenzhizhuo/article/details/104159910)
+
+
+
+
+
+### useReducer介绍？
+
+> action 钩子，提供了状态管理
+
+
+
+实现过程(和redux差不多，但无法提供中间件等功能 )：
+
+1. 用户在页面上**发起action** （通过dispath方法）
+2. 从而通过**reducer方法**来改变state,从而实现 页面和状态的通信
+
+
+
+
+
+### 如何创建自己的hooks?
+
+实现步骤：
+
+1. 定义一个 hook函数，并返回一个数组（内部可以调用react其他hooks）
+
+2. 从自定义的hook函数中取出对象的数据，做业务逻辑处理即可
 
 
 

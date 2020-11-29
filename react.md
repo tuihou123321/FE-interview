@@ -3,7 +3,20 @@
 
 [TOC]
 
+
+
 ### react Context介绍？
+
+
+
+
+
+### 为什么react并不推荐我们优先考虑使用context?
+
+- 【实验性】context目前还处于实验阶段，可能会在后期有大改变，避免给未来升级带来麻烦
+- 【稳定性】context的更新需要通过 setState触发，但是这并不是可靠的。context劫持跨组件访问，但是，如果中间子组件通过一些方法不响应更新，比如 shouldComponentUpdate返回false，那么不能保证 context的更新一定达使用context的子组件。因此，context的可靠性需要关注 。不过是更新的问题，在新版的APP中得以解决
+
+> 只要你能确保 context是可控的，合理使用，可以给react组件开发带来强大体验
 
 
 
@@ -128,40 +141,6 @@ UI组件：只负责页面UI渲染，不具备任何逻辑，功能单一，通�
 
 
 
-
-
-
-
-### 为什么setState不设计成同步的？
-
-- 保持内部的一致性，和状态的安全性
-
-保持state,props.refs一致性；
-
--  性能优化
-
-react会对依据不同的调用源，给不同的 setState调用分配不同的优先级；
-
-调用源包括：事件处理、网络请求、动画 ；
-
-- 更多可能性
-
-异步获取数据后，统一渲染页面；保持一致性，
-
-
-
-### setState到底是同步还是异步？
-
->  结论：有时表现出同步，有时表现出“异步“
-
-表现场景：
-
-- **同步**：setTimeout，原生事件；
-- **异步**：合成事件，钩子函数( 生命周期 ); 
-
-react异步说明：
-
->  setState 异步并不是说内部代码由异步代码实现，其实本身执行过程和代码都是同步的，只是合成事件和钩子函数的调用顺序在更新之前；在异步更新中，多次setState后面的值会覆盖前面的；
 
 
 
@@ -310,14 +289,6 @@ vue数据更改逻辑：
 ![img](https://pic3.zhimg.com/80/v2-c186c225f687bb7e5e77eeac200acda3_720w.jpg?source=1940ef5c)
 
 
-
-
-
-
-
-- 如果你能够改进React的一样功能，那会是哪一个功能？
-- React 的事务？
-- 为什么说react是一个ui框架？
 
 
 
@@ -637,16 +608,16 @@ hooks（本质是一类特殊的函数，可以为函数式注入一些特殊的
 
 **基础Hook:**
 
-- **useState** : 声明状态变量
-- **useEffect** ：提供了类似于componentDidMount等生命周期钩子的功能
-- **useContext** ：提供上、下文的功能
+- **useState** : 状态钩子，为函数组件提供内部状态
+- **useEffect** ：副作用钩子，提供了类似于componentDidMount等生命周期钩子的功能
+- **useContext** ：共享钩子，在组件之间共享状态，可以解决react逐层通过props传递数据；
 
 **额外的Hook:**
 
-- **useReducer**: useState的替代方案，使用useReducer 会让触发深新的组件做性能优化，因为你可以向子组件传递dispatch而不是回调函数
+- **useReducer**: action钩子，提供了状态管理，其基本原理是通过用户在页面上发起的action，从而通过reduce方法来改变state，从而实现页面和状态的通信，使用很像redux
 - **useCallBack**：把内联回调函数及依赖项数组作为参数传入 useCallback，它将返回该回调函数的memoized版本，该回调函数仅在某个依赖项改变时才会更新
 - **useMemo**：把""创建""函数和依赖项数组作为参数传入 useMemo，它仅会在某个依赖项改变时重新计算， 可以作为性能优化的手段。
-- **useRef**：返回一个可变的ref对象，返回的ref对象在组件的整个生命周期内保持不变
+- **useRef**：获取组件的实例，返回一个可变的ref对象，返回的ref对象在组件的整个生命周期内保持不变
 - **useLayoutEffect**： 它会在所有DOM变更后同步调用effect
 - **useDebugValue**
 
@@ -957,4 +928,185 @@ B:[d,a,b,c]
 参考资料：
 
 [diff 算法原理概述](https://github.com/NervJS/nerv/issues/3)
+
+
+
+
+
+## setState
+
+
+
+
+
+### setState之后发生了什么？
+
+1. 【数据合并】多个setState会进行数据合拼，准备批量更新
+2. 【数据合并到组件的当前状态】生成新的 react tree
+3. 【更新UI】比较使用diff算法，比较新旧 virtual dom,，最小化DOM操作
+4. 【执行回调函数】setState第二个参数
+
+
+
+
+
+### setState到底是同步还是异步？
+
+> 结论：有时表现出同步，有时表现出“异步“
+
+表现场景：
+
+- **同步**：setTimeout，原生事件；
+- **异步**：合成事件，钩子函数( 生命周期 ); 
+
+react异步说明：
+
+> setState 异步并不是说内部代码由异步代码实现，其实本身执行过程和代码都是同步的，只是合成事件和钩子函数的调用顺序在更新之前；在异步更新中，多次setState后面的值会覆盖前面的；
+
+
+
+
+
+### 为什么setState不设计成同步的？
+
+- 保持内部的一致性，和状态的安全性
+
+保持state,props.refs一致性；
+
+- 性能优化
+
+react会对依据不同的调用源，给不同的 setState调用分配不同的优先级；
+
+调用源包括：事件处理、网络请求、动画 ；
+
+- 更多可能性
+
+异步获取数据后，统一渲染页面；保持一致性，
+
+
+
+
+
+## react事件
+
+
+
+### react事件机制？
+
+
+
+**一、事件注册**
+
+- 【组件装载】装载/更新
+- 【事件注册与卸载】能过**lastProps**，**nextProps**判断是否有新增、删除事件分别调用事件注册、卸载方法
+- 【事件存储】能过eventPluginHub, enqueuePutListener 进行事件存储
+- 【获取document对象】
+- 【事件冒泡/捕获】根据事件名称（onClick,onCaptureClick）判断
+- 【事件监听】：addEventListener,addachEvent(兼容IE)
+- 【注册原生事件】给document注册原生事件回调为dispatchEvent (统一的事件分发机制)
+
+
+
+**二、事件存储**
+
+```js
+{
+onClick:{
+ fn1:()=>{}
+ fn2:()=>{}
+},
+onChange:{
+ fn3:()=>{}
+ fn4:()=>{}
+}
+}
+```
+
+
+
+**三、事件触发/执行**
+
+ 	事件执行顺序（原生事件与合成事件）
+
+1. dom child
+
+       2. dom parent
+    3. react child
+    4. react parent
+    5. dom document
+
+
+
+**四、合成事件**
+
+1. 【调用EventPluginHub】 的 extractEvents 方法
+2. 【遍历所有EventPlugin】 用来处理不同事的工具方法
+3. 【返回事件池】在每个 EventPlugin 中根据不同的事件类型返回
+4. 【取出合成事件】从事件池中取出，如为空，则创建
+5. 【取出回调函数】根据元素nodeid(唯一标识key) 和事件类型 从listenerBink 中取出 回调函数
+6. 【返回合成事件】返回带有合成事件参数的回调函数
+
+
+
+![img](https://lsqimg-1257917459.cos-website.ap-beijing.myqcloud.com/blog/%E5%90%88%E6%88%90%E4%BA%8B%E4%BB%B6.png)
+
+
+
+
+
+参考资料：
+
+[【React深入】React事件机制](https://juejin.cn/post/6844903790198571021#heading-1)
+
+
+
+
+
+### react事件与原生事件的区别？
+
+**语法区别：**
+
+- 【事件名小驼峰】react事件命令采用小驼峰式，而不是纯小写
+- 【事件方法函数】使用JSX语法时，你需要传入一个函数作为事件处理函数，而不是一个字符串
+
+**react事件的优点**
+
+- 【兼容性更强】合成事件：react事件对生成事件进行了包装，处理了浏览器兼容性问题（阻止浏览器默认行为，阻止冒泡）
+
+
+
+
+
+### react事件与原生事件的执行顺序？
+
+1. 原生事件，依次冒泡执行
+
+2. react合成事件，依次冒泡执行
+
+3. document 事件执行
+
+```js
+  /*
+     * 执行结果：
+     * 1. dom child
+     * 2. dom parent
+     * 3. react child
+     * 4. react parent
+     * 5. dom document
+     * */
+```
+
+
+
+
+
+### react事件与原生事件可以混用吗？
+
+> react事件与原生事件最好不要混用
+
+原因：
+
+- 原生事件如果执行 `stopProagation` 方法，则会导致其他 react 事件失效，因为所有元素的事件将无法冒泡到 document上
+
+
 

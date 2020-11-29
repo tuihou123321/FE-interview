@@ -8,6 +8,170 @@
 
 
 
+
+
+
+
+### 常用的数据结构有哪些？
+
+> 数据结构是指相互之间存着一种或多种关系的数据元素的集合，和该集合中数据元素之间的关系组件。
+>
+> 数据结构，是计算机中存储、组识数据的方式
+
+![img](https://img-blog.csdn.net/20180903194901687?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3lleWF6aGlzaGFuZw==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70)
+
+
+
+常用的数据结构
+
+**一、栈（stack）**
+
+> 栈是一种特殊的线性表，仅能在线性表的一端操作，栈顶允许操作
+
+特点：先进后出
+
+应用场景：
+
+- 代码执行过程，js event loop
+
+![img](https://img-blog.csdn.net/20180903195046375?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3lleWF6aGlzaGFuZw==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70)
+
+
+
+**二、队列（Queue）**
+
+> 队列是一种线性表，队列可以在一端添加元素，在别一端取出元素
+
+特点 ：先进先出
+
+使用场景：
+
+- 多线程阻塞队列管理
+
+
+
+![img](https://img-blog.csdn.net/20180903195109249?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3lleWF6aGlzaGFuZw==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70)
+
+
+
+**三、数组（Array）**
+
+> 数组是可以在内存中连续存储多个元素的结构，在内存中折分配也是连续的
+
+
+
+**四、链表（Linked List）**
+
+特点：
+
+- 非连续、非顺序的存储结构
+- 逻辑顺序：通地链表的指针地址实现
+- 包含两个结点：1. 存储元素的数据域；2.指向下一个结点地址的指针域
+- 无需初始化容易，可以任意加减元素
+
+分类（根据指针的指向）：
+
+- 单链表
+- 循环链表
+- 双向链表
+
+![img](https://img-blog.csdn.net/20180903195132172?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3lleWF6aGlzaGFuZw==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70)
+
+
+
+
+
+**五、树（Tree）**
+
+联想：类似思维导图的结构
+
+特点：
+
+- 每个节点有零个或多个子节点
+
+- 没有父节点的节点称为根节点
+
+- 每一个非根节点有且只有一个父节点
+
+  
+
+应用：
+
+- 二叉树：平衡二叉树、红黑树，B+树等
+
+
+
+![img](https://img-blog.csdn.net/20180903195345210?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3lleWF6aGlzaGFuZw==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70)
+
+
+
+
+
+**六、图（Graph）**
+
+分类（按照顶点指向的方向）：
+
+- 无向图
+- 有向图
+
+
+
+![img](https://img-blog.csdn.net/20180903195634209?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3lleWF6aGlzaGFuZw==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70)
+
+![img](https://img-blog.csdn.net/2018090319564837?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3lleWF6aGlzaGFuZw==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70)
+
+
+
+
+
+**七、堆**
+
+> 可以被看做一棵树的数据对象
+
+联想：有顺序的二叉树
+
+特点：
+
+- 堆中某个节点的值总不大于或不小于其父节点的值
+- 堆总是一棵完全二叉树
+
+应用：
+
+- 数组排序（堆排序）
+
+
+
+![img](https://img-blog.csdn.net/20180903195606329?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3lleWF6aGlzaGFuZw==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70)
+
+
+
+
+
+**八、散列表（哈希表）**
+
+> 根据关键码和值（key和value）直接进行访问的数据结构，通过KEY和 value 来映射到集合中的一个位置，这样就可以很快找到集合中的对应元素
+
+特点 ：
+
+- 基于数组衍生的数据结构
+- 左边是一个数组，数组的每个成员包括一个指针，指向一个链表的头（可能为空/可能多个）。根据元素的特征把元素分配到不同的链表中去，也是根据这些特征，找到正确的链表，再从链表中找出这个元素
+
+应用：
+
+- java中的集合类借鉴哈希原理构造（HashMap,Hash Table）
+
+![img](https://img-blog.csdn.net/20180903195448444?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3lleWF6aGlzaGFuZw==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70)
+
+
+
+
+
+参考资料：
+
+[数据结构：八大数据结构分类](https://blog.csdn.net/yeyazhishang/article/details/82353846)
+
+
+
 ### 前端错误监控原理？
 
 **错误分类：**
@@ -104,13 +268,6 @@
   - canvas,webGL （游戏，web PS）
 
 
-
-
-
-
- ### 介绍下pm2？
-> 管理多个node服务进程（启动，关闭，删除，重启，显示内存状态）
-优点 ：
 
 
 
@@ -617,6 +774,28 @@ Jest
 - 优点：
 
 
+
+
+
+## pm2
+
+
+
+### 介绍下pm2？
+
+> 管理多个node服务进程（启动，关闭，删除，重启，显示内存状态）
+
+由于nodeJs是单线程执行的，所以主线程抛出一个错误就会退出程序。所以需要守护进程
+
+
+
+
+
+### 不用PM2怎么做进程管理？
+
+- cluster API:  node原生提供，可以创建共享服务端口的子进程 
+- shell脚本启动守护：每次错误后间隔1秒启动服务，定时器检测
+- node-forever: 崩溃就重启一个
 
 
 

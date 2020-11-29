@@ -1,8 +1,21 @@
 ## node
+## node
 
 
 
 [TOC]
+
+### koa中间件有哪些？
+
+- koa-static: 静态文件
+- koa-better-body：解析表单
+- mysql/co-mysql：使用co-mysql包装mysql，使它可以配合koa使用
+
+
+
+参考资料：
+
+[koa基础总结和常用中间件](https://juejin.cn/post/6844903961665749005#heading-9)
 
 
 

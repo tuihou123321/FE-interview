@@ -5,6 +5,22 @@
 
 
 
+
+
+### 怎么动态导入组件，按需加载？
+
+> 只有当组件被加载时，对应的资源才会导入
+
+- react-loadable:  npm 库 按需加载
+- react.lazy:  原生支持（新版本16.6），配合suspense一起使用，还要webpack code splitting
+- require(component) : 在特定条件下，动态引入
+
+
+
+
+
+
+
 ### react Context介绍？
 
 主要api:

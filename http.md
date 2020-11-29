@@ -6,6 +6,26 @@
 
 
 
+### 介绍下网络协议分层？
+
+OSI七层模型：
+
+TCP/IP 四层模型：
+
+![img](https://ask.qcloudimg.com/http-save/7525075/8mb2ip0p27.png?imageView2/2/w/1620)
+
+
+
+网络传输流程图
+
+![img](https://ask.qcloudimg.com/http-save/7525075/i7pe3cbitu.png?imageView2/2/w/1620)
+
+
+
+参考资料：
+
+[网络原理（一）——协议分层](https://cloud.tencent.com/developer/article/1688410)
+
 
 
 ### put,patch,post区别？

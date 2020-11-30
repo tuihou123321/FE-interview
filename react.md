@@ -5,9 +5,60 @@
 
 
 
+### 你有使用过suspense组件吗？
+
+动态加载（异步组件）加载时会有延迟，在延迟期间可以将一些内容展示给用户，比如：loading
+
+(react16.6新增的API)
+
+```js
+const resource = fetchProfileData();
+
+function ProfilePage() {
+  return (
+    <Suspense fallback={<h1>Loading profile...</h1>}>
+      <ProfileDetails />
+      <Suspense fallback={<h1>Loading posts...</h1>}>
+        <ProfileTimeline />
+      </Suspense>
+    </Suspense>
+  );
+}
+
+function ProfileDetails() {
+  // 尝试读取用户信息，尽管该数据可能尚未加载
+  const user = resource.user.read();
+  return <h1>{user.name}</h1>;
+}
+
+function ProfileTimeline() {
+  // 尝试读取博文信息，尽管该部分数据可能尚未加载
+  const posts = resource.posts.read();
+  return (
+    <ul>
+      {posts.map(post => (
+        <li key={post.id}>{post.text}</li>
+      ))}
+    </ul>
+  );
+}
+```
 
 
-### 怎么动态导入组件，按需加载？
+
+
+
+参考资料：
+
+[何为 Suspense？](https://zh-hans.reactjs.org/docs/concurrent-mode-suspense.html)
+
+
+
+
+
+
+
+### 怎么动态导入组件，按需加载，代码分割？
 
 > 只有当组件被加载时，对应的资源才会导入
 
@@ -1229,4 +1280,20 @@ onChange:{
 - 原生事件如果执行 `stopProagation` 方法，则会导致其他 react 事件失效，因为所有元素的事件将无法冒泡到 document上
 
 
+
+
+
+
+
+## react-router
+
+
+
+### React-Router怎么设置重定向？
+
+使用 重定向 Api    : Redirect
+
+
+
+![img](https://img-blog.csdnimg.cn/20190323185801166.png)
 

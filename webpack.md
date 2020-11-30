@@ -6,9 +6,44 @@
 
 
 
+### webpack里面的插件是怎么实现的？
+
+**Compiler（编译器） 和 Compilation（编译方法）**
+
+在开发 Plugin 时最常用的两个对象就是 Compiler 和 Compilation，它们是 Plugin 和 Webpack 之间的桥梁。
+Compiler 和 Compilation 的含义如下：
+
+- **Compiler：** 对象包含了 Webpack 环境所有的的配置信息，包含 options，loaders，plugins 这些信息，这个对象在 Webpack 启动时候被实例化，它是全局唯一的，可以简单地把它理解为 Webpack 实例；
+- **Compilation：** 对象包含了当前的模块资源、编译生成资源、变化的文件等。当 Webpack 以开发模式运行时，每当检测到一个文件变化，一次新的 Compilation 将被创建。Compilation 对象也提供了很多事件回调供插件做扩展。通过 Compilation 也能读取到 Compiler 对象。
+- 
+
+Compiler 和 Compilation 的区别在于：
+
+Compiler 代表了整个 Webpack 从启动到关闭的生命周期，而 Compilation 只是代表了一次新的编译。
+
+
+
+![1606721590517](C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\1606721590517.png)
+
+
+
+插件运行机制：
+
+![img](https://ask.qcloudimg.com/http-save/1094895/c92c1rxews.png?imageView2/2/w/1620)
+
+
+
+参考资料：
+
+[Webpack原理-编写Plugin](https://juejin.cn/post/6844903550623940621#heading-0)
+
+
+
+
+
+
+
 ### webpack打包过程？
-
-
 
 一）初始化阶段：
 
@@ -17,6 +52,26 @@
 三）输出阶段：
 
 
+
+webpack的运行流利是一个串行过程，过程如下： 
+
+* 始化参数：从配置文件和 Shell 语句中读取与合并参数，得出最终的参数；
+
+* 开始编译：用上一步得到的参数初始化 Compiler 对象，加载所有配置的插件，执行对象的 run 方法开始执行编译；
+
+* 确定入口：根据配置中的 entry 找出所有的入口文件；
+
+* 编译模块：从入口文件出发，调用所有配置的 Loader 对模块进行翻译，再找出该模块依赖的模块，再递归本步骤直到所有入口依赖的文件都经过了本步骤的处理；
+
+* 完成模块编译：在经过第4步使用 Loader 翻译完所有模块后，得到了每个模块被翻译后的最终内容以及它们之间的依赖关系；
+
+* 输出资源：根据入口和模块之间的依赖关系，组装成一个个包含多个模块的 Chunk，再把每个 Chunk 转换成一个单独的文件加入到输出列表，这步是可以修改输出内容的最后机会；
+
+* 输出完成：在确定好输出内容后，根据配置确定输出的路径和文件名，把文件内容写入到文件系统。
+
+
+
+> 同时我们也了解了webpack中比较核心的几个概念compiler、compilation、tapable。
 
 
 
@@ -60,8 +115,6 @@ import "antd-mobile/lib/date-picker/style/css"
 
 
 
-
-
 **二）支持的库**
 
 - antd
@@ -100,13 +153,31 @@ ReactDOM.render(<_button>xxxx</_button>);
 
 
 
-### webpack有什么作用?
 
-模块打包工具(提高前端工程化的能力);
 
-- babel
-- loader
-- plugin
+
+
+### webpack 核心概念？
+
+
+
+**Entry**: 指定webpack开始构建的入口模块，从该模块开始构建并计算出直接或间接依赖的模块或者库。
+
+**Output**：告诉webpack如何命名输出的文件以及输出的目录
+
+**Module**: 模块，在 Webpack 里一切皆模块，一个模块对应着一个文件。Webpack 会从配置的 Entry 开始递归找出所有依赖的模块。
+
+**Chunk**：`coding split`的产物，我们可以对一些代码打包成一个单独的`chunk`，比如某些公共模块，去重，更好的利用缓存。或者按需加载某些功能模块，优化加载时间。在`webpack3`及以前我们都利用`CommonsChunkPlugin`将一些公共代码分割成一个`chunk`，实现单独加载。在`webpack4` 中`CommonsChunkPlugin`被废弃，使用`SplitChunksPlugin`
+
+**Loader**：模块转换器，用于把模块原内容按照需求转换成新内容。
+
+**Plugin**：扩展插件，在 Webpack 构建流程中的特定时机会广播出对应的事件，插件可以监听这些事件的发生，在特定时机做对应的事情。
+
+
+
+参考资料：
+
+[webpack编译流程](https://juejin.cn/post/6844903935828819981)
 
 
 
@@ -150,23 +221,21 @@ ReactDOM.render(<_button>xxxx</_button>);
 
 ### webpack常用的babel,loader，plugin有哪些？
 
-babel： 广泛的转码器,
+**babel： 广泛的转码器,（es6/ts代码转成es5代码）**
 
 - 只转换新的语法（箭头函数）
 - 不转换新的API（promise,proxy,set,symbol） 需要另外安装poliy
 
-loader：加载更类资源文件
+**loader：加载更类资源文件**
 
 - css 类 ----  less-loader,sass-loader, postcss-loader,autoprefixer-loader
 - 文件类 ---- url-loader，file-loader
-- 
 
-plugin：
+**plugin：**插件
 
 - webpack-dev-server (小型node express服务器)
-- postcss-plugin-px2rem,
+- postcss-plugin-px2rem
 
-- 
 
 
 
@@ -205,18 +274,6 @@ plugin：
 3.安装webpack-dev-server
 
 
-
-
-
-### webpack如何配置？
-
-答：webpack是一个打包工具，最后生成一个bundle.js的文件；
-
-通过访问index.html可以浏览打包的网页，通过如下方法可以实现自动打包的功能；
-
-运行如何命令，webpack会自动监测页面上的内容，如果内容有变化就会把 自动打包，可以在命令行面板中看到打包的进度；
-
-webpack --watch   
 
 
 
@@ -284,6 +341,10 @@ webpack-dev-server  --contentbase src  --inline --hot
 
 
 
+参考资料：
+
+[webpack 做过哪些优化，开发效率方面、打包策略方面等等](https://github.com/lgwebdream/FE-Interview/issues/25)
+
 
 
 
@@ -320,6 +381,8 @@ babel将es6代码转换成es5，主要有三个阶段；
 
 
 ![img](https://xiaomuzhu-image.oss-cn-beijing.aliyuncs.com/566a1ac865cfc0b1bf5511f377ff6828.png)
+
+
 
 ### 如何写一个babel插件?
 

@@ -6,6 +6,24 @@
 
 
 
+### 箭头函数的this 指向哪里?
+
+- 默认绑定外层this
+- 不能使用call方法修改里面的this
+  - -原因：函数的this可以用call方法来手动指定，而为了减少this的复杂性，箭头函数无法用call方法来指定this
+
+
+
+参考资料：
+
+[JS中的箭头函数与this](https://juejin.cn/post/6844903573428371464#heading-8)
+
+
+
+
+
+
+
 ### 什么是严格模式(use strict)？
 
 特点：
@@ -61,34 +79,6 @@ js语法不规范的几个地方：
 参考资料：
 
 [Javascript 严格模式详解](https://www.ruanyifeng.com/blog/2013/01/javascript_strict_mode.html)
-
-
-
-
-
-### class与普通构造函数有什么区别？
-
-class本质使用prototype的原型链，只是一种语法糖；
-
-在语法上更加贴合面向对象的语法，在实现继承上更新易读、易理解；
-
-区别：
-
-- 【变量提升】
-  - 类：没有
-  - 构造函数：有
-- 【调用】
-  - 类：必须使用new调用，否则报错
-  - 构造函数：可直接调用
-- 【】
-
-
-
-```js
-//类不存在变量提升
-new Person{}; //ReferenceError
-class Person{}
-```
 
 
 
@@ -327,92 +317,6 @@ es7: async（async,await）异步操作,返回promise对象，可以接着用.th
 
 
 
-### 对async await的理解，内部原理？
-
-本质：async是Generator的语法糖；
-
-async改变有如下几个方法
-
-- 更好的语义化：async相当于*,await 相当于yield;
-- 返回值是promise，generator返回的是Iterator对象，更方便的使用then来操作
-- 内置执行器：async自带执行器，Generator需要依靠执行器（每次都是执行g.next()方法）；
-- 更广的适用性：async函数的await后台可以是promise对象，也可以是原始类型的值；
-
-
-
-### async/await相比 promise的优势？
-
-- **同步写法优雅**：使摆脱了then的链式调用带来的阅读负担
-- **获取返回值方便**：promise传递中间传非常麻烦，而async/await几乎是同步的写法，更优雅
-- **错误处理友好**：async/await可使用成熟的 try/catch，promise的错误捕获非常冗余
-- **调试友好**：promise中的then使用调试器的步进(step-over)功能，调试器并不会进入后续的then代码块，因为调试器只能跟踪同步代码的【每一步】
-
-
-
-### 介绍下promise?
-
-Promise是es6引入的一个新的对象，用来解决js中异步回调地狱的写法，并不是什么突破性的api，只是封装了异步回调函数； 
-
-使得异步写的更加优雅， 可读性更高，而且支持链式操作； 
-
-
-
-
-
-### promise内部实现原理？
-
-
-
-
-
-```js
-//promise 应用
-
-<script>
-    function axiosAsync(){
-        return new Promise((resolve,reject)=>{
-            axios.get('https://testapi.ydl.com/api/test-category/all',{
-                params:{},
-                timeout:2000
-            }).then(res=>{
-                const {data}=res;
-                resolve(data);
-            }).catch(err=>{
-                reject(err);
-            })
-        })
-    }
-
-    async function getCategoryData(){
-        try {
-            const result=await axiosAsync()
-            console.log(result,1);
-        }catch (e) {
-            alert(e);
-        }
-    }
-
-
-    getCategoryData()
-    
-    // axiosAsync().then(res=>{
-    //   console.log(res,44);
-    // });
-    
-</script>
-```
-
-
-
-
-
-参考资料：
-
-[图解 Promise 实现原理（一）—— 基础实现](https://zhuanlan.zhihu.com/p/58428287)
-
-
-
-
 ### es6临时死区？
 
 在 ES6 中，let 和const 跟 var、class和function一样也会被提升，只是在进入作用域和被声明之间有一段时间不能访问它们，这段时间是**临时死区(TDZ)**。
@@ -446,6 +350,213 @@ map的适用场景，把不同的事件关联起来；、
 
 
 
+
+## class类
+
+
+
+### class类的基本介绍？
+
+> 生成对象的模板
+
+主要组成：
+
+- constructor：构造方法
+  - 默认属性，也可手动添加
+  - 直接指向“类”的本身，和es5的行为一致  //Person.prototype.constructor === Person
+- 实例方法
+- 静态方法
+- 私有方法、私有属性
+- new.target属性
+
+
+
+特点：
+
+- 类内部定义的方法，都是不可枚举的（non-enumeerable），和构造函数不一样
+
+
+
+```js
+//es6的类，可看作是构造函数的另一种写法
+class Person{}
+typeof Person  //"function"
+Person===Person.prototype.constructor //true
+```
+
+
+
+参考资料：
+
+[Class 的基本语法](https://es6.ruanyifeng.com/?search=class&x=0&y=0#docs/class#new-target-%E5%B1%9E%E6%80%A7)
+
+
+
+
+
+### class与普通构造函数有什么区别？
+
+class本质使用prototype的原型链，只是一种语法糖；
+
+在语法上更加贴合面向对象的语法，在实现继承上更新易读、易理解；
+
+区别：
+
+- 【变量提升】
+  - 类：没有
+  - 构造函数：有
+- 【调用】
+  - 类：必须使用new调用，否则报错
+  - 构造函数：可直接调用
+- 【严格模式】
+  - 类：类和模块的内部，默认是严格模式，无需使用 use strict 关键词
+  - 构造函数：无强制要求
+
+
+
+```js
+//类不存在变量提升
+new Person{}; //ReferenceError
+class Person{}
+```
+
+
+
+
+
+### 在构造函数中调用super(props)的目的是什么？
+
+> es6语法 中，super指代父类的构造函数; 
+>
+> react里面就是指代 React.Component 的构造函数
+
+
+
+在调用super() 之前，无法在构造函数中使用this；在es2015中，子类必须在 constructor中调用super(),传递props给super() 的原因是便于能在constructor访问this.props;
+
+
+
+参考资料：
+
+[React构造函数中为什么要写 super(props)](https://blog.csdn.net/huangpb123/article/details/85009024)
+
+
+
+
+
+
+
+## Async/Await
+
+
+
+
+
+### 对async await的理解，内部原理？
+
+本质：async是Generator的语法糖；
+
+async改变有如下几个方法
+
+- 更好的语义化：async相当于*,await 相当于yield;
+- 返回值是promise，generator返回的是Iterator对象，更方便的使用then来操作
+- 内置执行器：async自带执行器，Generator需要依靠执行器（每次都是执行g.next()方法）；
+- 更广的适用性：async函数的await后台可以是promise对象，也可以是原始类型的值；
+
+
+
+### async/await相比 promise的优势？
+
+- **同步写法优雅**：使摆脱了then的链式调用带来的阅读负担
+- **获取返回值方便**：promise传递中间传非常麻烦，而async/await几乎是同步的写法，更优雅
+- **错误处理友好**：async/await可使用成熟的 try/catch，promise的错误捕获非常冗余
+- **调试友好**：promise中的then使用调试器的步进(step-over)功能，调试器并不会进入后续的then代码块，因为调试器只能跟踪同步代码的【每一步】
+
+
+
+
+
+
+
+
+
+## promise
+
+
+
+
+
+### 介绍下promise?
+
+Promise是es6引入的一个新的对象，用来解决js中异步回调地狱的写法，并不是什么突破性的api，只是封装了异步回调函数； 
+
+使得异步写的更加优雅， 可读性更高，而且支持链式操作； 
+
+
+
+
+
+### promise有几个状态？
+
+Promise一共有三种状态
+
+1.初始化，状态：pending
+
+2.当调用resolve(成功)，状态：pengding=>fulfilled
+
+3.当调用reject(失败)，状态：pending=>rejected
+
+
+
+![img](https://user-gold-cdn.xitu.io/2019/12/2/16ec4a7d3d2b1086?imageslim)
+
+
+
+
+
+
+
+### promise内部实现原理？
+
+ **Promise/A+规范**
+
+1. pending:表示初始状态，可以转移到 fullfilled 或者 rejected 状态
+2. fulfilled:表示操作成功，不可转移状态
+3. rejected:表示操作失败，不可转移状态
+4. 必须有一个 then 异步执行方法，then 接受两个参数且必须返回一个promise
+
+**实现思路**
+
+我们定义Promise1对象，在对象内部创建status、reason、fullfilledCallbacks、rejectedCallbacks这四个属性，这些属性分别表示的意义为:
+
+1. reason:保存当前promise实例状态
+2. value:保存fullfilled之后的值
+3. reason:保存rejected后的原因
+4. fullfilledCallbacks: fullfilled回调队列
+5. rejectedCallbacks:rejected回调队列
+
+我们定义resolve和reject方法用于处理传进来的executor函数。在当前实例调用then方法时候去返回新的Promise1实例，并判断当前实例状态是否pendding，如果pendding，将传入的成功和失败回调函数加入队列，在外部调用resolve或者reject时候，再次判断当前状态是否pendding，如果是，则修改当前实例状态为fullfilled或者rejected，并批量执行回调队列中的回调函数。
+
+
+
+**promise 状态流转过程**
+
+![img](https://camo.githubusercontent.com/5bdcdb90caf703499d6b3d2db0504f6858a0b54928dcc50222247948500808cf/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f79757175652f302f323031392f706e672f3134393834362f313535333834313231323335352d64633438316261642d323530652d346231362d393230372d6132323132333063366662612e706e6723616c69676e3d6c65667426646973706c61793d696e6c696e65266865696768743d323737266f726967696e4865696768743d323937266f726967696e57696474683d3830312673697a653d30267374617475733d646f6e652677696474683d373436)
+
+
+
+
+
+参考资料：
+
+[今日头条: 介绍下Promise，内部实现(一面)](https://github.com/frontend9/fe9-interview/issues/14) 
+
+[图解 Promise 实现原理（一）—— 基础实现](https://zhuanlan.zhihu.com/p/58428287)
+
+
+
+
+
 ### promise和async处理失败有什么区别?
 
 ```js
@@ -456,7 +567,6 @@ function asyncTast(url){
    return new Promise(resolve,reject) => {
 
 	}
-
 }
 
 
@@ -471,3 +581,83 @@ console.log(e);
 }
 ```
 
+
+
+
+
+### 如何设计promise.all？
+
+总结 `promise.all` 的特点
+
+1、接收一个 `Promise` 实例的数组或具有 `Iterator` 接口的对象，
+
+2、如果元素不是 `Promise` 对象，则使用 `Promise.resolve` 转成 `Promise` 对象
+
+3、如果全部成功，状态变为 `resolved`，返回值将组成一个数组传给回调
+
+4、只要有一个失败，状态就变为 `rejected`，返回值将直接传递给回调
+`all()` 的返回值也是新的 `Promise` 对象
+
+
+
+实现思路：
+
+- 
+
+```js
+function promiseAll(promises) {
+  return new Promise(function(resolve, reject) {
+    if (!isArray(promises)) {
+      return reject(new TypeError('arguments must be an array'));
+    }
+    var resolvedCounter = 0;
+    var promiseNum = promises.length;
+    var resolvedValues = new Array(promiseNum);
+    for (var i = 0; i < promiseNum; i++) {
+      (function(i) {
+        Promise.resolve(promises[i]).then(function(value) {
+          resolvedCounter++
+          resolvedValues[i] = value
+          if (resolvedCounter == promiseNum) {
+            return resolve(resolvedValues)
+          }
+        }, function(reason) {
+          return reject(reason)
+        })
+      })(i)
+    }
+  })
+}
+```
+
+
+
+
+
+
+
+### Promise 构造函数是同步执行还是异步执行，那么 then 方法呢？
+
+
+
+promise构造函数是同步执行的，then方法是异步执行的
+
+```js
+const promise = new Promise((resolve, reject) => {
+  console.log(1)
+  resolve()
+  console.log(2)
+})
+
+promise.then(() => {
+  console.log(3)
+})
+
+console.log(4)
+```
+
+
+
+参考资料：
+
+[Promise 构造函数是同步执行还是异步执行，那么 then 方法呢？](https://github.com/Advanced-Frontend/Daily-Interview-Question/issues/19)

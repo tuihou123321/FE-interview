@@ -270,6 +270,44 @@ TCP/IP 四层模型：
 
 
 
+CORS
+cors是"Cross-Origin Resource Sharing"的简称，是实现跨域的一种方式，相对于其他跨域方式，比较灵活，而且不限制发请求使用的method，以下从几种情况分析cors使用。
+
+```js
+
+//get方法
+//前端代码
+fetch('http://localhost:6888/test_get',{
+    method: 'GET',
+    mode: 'cors',
+}).then(res => {
+    return res.json();
+}).then(json => {
+    console.log('获取的结果', json.data);
+    return json;
+}).catch(err => {
+    console.log('请求错误', err);
+})
+
+```
+
+
+
+后端代码
+
+```
+c.Header("Access-Control-Allow-Origin", "*")
+c.Header("Access-Control-Allow-Methods", "GET, POST")
+```
+
+
+
+参考资料：
+
+[fetch 跨域请求](https://segmentfault.com/a/1190000015995283)
+
+
+
 
 
 

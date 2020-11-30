@@ -32,16 +32,18 @@ eg:
 
 
 
-### js实例方法与静态方法的区别？
+### js实例方法与静态方法的区别，如何注入？
 
 **静态方法：**
 
 > 可以直接用类名，方法名去调用的
 
-注入方式：
+**注入方式：**
 
-- 对象，当做属性写入
-- 在class类中的方法/属性前添加static 字段
+- 构造函数：
+  - 当做属性写入
+  - 自执行函数内，返回一个构造函数，当做属性写入也放入自执行函数
+- class类：在方法/属性前添加static 字段
 
 
 
@@ -49,7 +51,7 @@ eg:
 
 > 不能直接调用，必须先实例化才可以调用
 
-注入方式：
+**注入方式：**
 
 - 对象，通过原型链prototype 注入
 - 在class类方法的默认状态
@@ -103,6 +105,35 @@ function函数的注入
 
     let china=new Person();
     china.getName('JAY');  //正常打印 ，不能使用china.say();
+```
+
+
+
+构造函数能过自执行函数注入：
+
+``` js
+    let Person=(function (){
+        let PersonInner=function (){
+            this.jump=function (){
+                console.log('跳转起来');
+            }
+        }
+
+        PersonInner.staticMethod=function (){
+            console.log('静态方法');
+        }
+
+        return PersonInner;
+    })()
+
+
+    //静态方法: 直接能过构造函数调用
+    Person.staticMethod();
+
+
+    //实例方法的调用：要先new
+    let china=new Person();
+    china.jump();
 ```
 
 
@@ -535,22 +566,6 @@ apply:  fn.apply(thisArg, [argsArray])
 const arr=[1,2,3]
 
 Max.max.apply(null ,arr);
-
-
-
-
-
-
-
-### class与普通构造函数有什么区别？
-
-class本质使用prototype的原型链，只是一种语法糖；
-
-在语法上更加贴合面向对象的语法，在实现继承上更新易读、易理解；
-
-
-
-
 
 
 

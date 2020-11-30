@@ -4,7 +4,91 @@
 
 [TOC]
 
- 
+
+
+### 什么是严格模式(use strict)？
+
+特点：
+
+- 【严谨】对语法要求更规范，消除js语法的一些不合理、不严谨之处，减少一些怪异行为
+- 【安全】消除代码运行的一些不安全之处
+- 【高效】提高编译器效率，增加运行速度
+- 【扩展性】为未来新版本js做好铺垫
+
+
+
+调用方式：在代码最前面添加一行代码（"use strice";）
+
+- 针对整个脚本文件
+- 针对单个函数
+
+
+
+改变：
+
+- 全局变量显式声明：不能省略 var/const/let 关键词
+- 静态绑定：让属性和方法在编译阶段就确定指向哪个对象
+  - 禁止使用with语句
+  - 创设eval作用域
+- 增强字全措施：
+  - 禁止this 指向全局对象
+  - 禁止在函数内部遍历调用栈
+- 禁止删除变量（除非configurable 属性为true）
+- 显式报错：
+  - 只读属性赋值
+  - 对禁止扩展的对象添加新属性: 
+  - 删除一个不可删除的属性： delete  object.prototype
+- 重名错误
+- 对象不能重名的属性（之前是覆盖）
+- 函数不能有重名的参数
+- 禁止八进制表示法
+- arguments对象的限制：arguments是函数的参数，对它的使用做了限制
+  - 不允许对arguments赋值
+  - arguments 不再追踪参数的变化
+  - 禁止使用arguments.callee:  无法在匿名函数内部调用自身
+- 函数必须声明在顶层：不允许在非函数的代码块内声明函数（比如if,for），只允许在全局作用域或函数作用域的顶层声明函数
+- 保留字：新增了一些保留字，向将来js新版本过渡
+  - let ,private,public,static ,package,yield,interface,protected,implements
+
+
+
+js语法不规范的几个地方：
+
+- 【变量定义】可以不使用 var/const/let 关键词，直接定义
+
+
+
+参考资料：
+
+[Javascript 严格模式详解](https://www.ruanyifeng.com/blog/2013/01/javascript_strict_mode.html)
+
+
+
+
+
+### class与普通构造函数有什么区别？
+
+class本质使用prototype的原型链，只是一种语法糖；
+
+在语法上更加贴合面向对象的语法，在实现继承上更新易读、易理解；
+
+区别：
+
+- 【变量提升】
+  - 类：没有
+  - 构造函数：有
+- 【调用】
+  - 类：必须使用new调用，否则报错
+  - 构造函数：可直接调用
+- 【】
+
+
+
+```js
+//类不存在变量提升
+new Person{}; //ReferenceError
+class Person{}
+```
 
 
 
@@ -267,7 +351,7 @@ async改变有如下几个方法
 
 ### 介绍下promise?
 
-Promise是es6引入的一个新的对象，用来解决js中异步回调地狱的写法，并不是什么突破性的api，只是封闭了异步回调函数； 
+Promise是es6引入的一个新的对象，用来解决js中异步回调地狱的写法，并不是什么突破性的api，只是封装了异步回调函数； 
 
 使得异步写的更加优雅， 可读性更高，而且支持链式操作； 
 
@@ -276,6 +360,49 @@ Promise是es6引入的一个新的对象，用来解决js中异步回调地狱�
 
 
 ### promise内部实现原理？
+
+
+
+
+
+```js
+//promise 应用
+
+<script>
+    function axiosAsync(){
+        return new Promise((resolve,reject)=>{
+            axios.get('https://testapi.ydl.com/api/test-category/all',{
+                params:{},
+                timeout:2000
+            }).then(res=>{
+                const {data}=res;
+                resolve(data);
+            }).catch(err=>{
+                reject(err);
+            })
+        })
+    }
+
+    async function getCategoryData(){
+        try {
+            const result=await axiosAsync()
+            console.log(result,1);
+        }catch (e) {
+            alert(e);
+        }
+    }
+
+
+    getCategoryData()
+    
+    // axiosAsync().then(res=>{
+    //   console.log(res,44);
+    // });
+    
+</script>
+```
+
+
 
 
 

@@ -6,6 +6,47 @@
 
 
 
+### ES6 Set 和 Array 的区别？
+
+区别：
+
+- 【重复性】
+  - set: value不重复  //通过此特性，可用来去重
+  - array: value 可重复
+
+
+
+
+### ES6 Map和Objects的区别？
+
+> Map对象保存键值对，任务值（对象或原始值）都可以做为一个键或一个值
+
+
+
+区别（Maps的优点）：
+
+- **【key值类型】**
+  - Map：key可以是对象
+  - Objects: key只能是一个string 或是 symbol
+- **【键的顺序】**
+  - Map: 有序
+  - Objects: 无序
+- **【size】**
+  - -Map: 增加size属性，直接获取
+  - Objects: 只能依靠手动计算
+- **【键名冲突】**
+  - Map: 默认不包含任何键，只包含显式插入的键
+  - Object: object都有自己的原型，原型链上的键名有可能和你自己对象上的设置的键名产生冲突 （ES5开始可用Object.create(null)来创建一个没原原型的对象，但这种用法不常见）
+- **【性能】**
+  - Map: 在频繁增删键值对的场景下表现更好
+  - Object: 在频繁添加/删除键值对的场景下未作出优化
+
+![img](https://www.runoob.com/wp-content/uploads/2018/12/1_HmXTMmVps1oJ7MU-odCpUA.jpeg)
+
+
+
+
+
 ### 箭头函数的this 指向哪里?
 
 - 默认绑定外层this
@@ -661,3 +702,61 @@ console.log(4)
 参考资料：
 
 [Promise 构造函数是同步执行还是异步执行，那么 then 方法呢？](https://github.com/Advanced-Frontend/Daily-Interview-Question/issues/19)
+
+
+
+
+
+## API
+
+
+
+### Map api？
+
+> Ｍap 保存键值对，并且能够记住键的原始插入顺序。**任何值**都可以作为一个**键**或一个**值**；
+
+- **Map的属性**
+  - size
+- **Map的方法**
+- - 增：set({key:value})  //增加对象
+  - 删：
+    - -clear() //清空对象
+    - delete(key) //删除对象
+  - 改：
+  - 查：
+    - -get(key)    //获取对象
+    - has(key)  //返回一个布尔值，判断Map实例是否包含键对应的值
+  - 遍历：
+    - forEach(callbackFn[,thisArg]) //删除对象
+  - 其他：
+    - keys()  //返回类型：Iterator对象，获取keys列表
+    - values() //返回类型：Iterator对象 ,返回一个新的Iteratror对象，它按插入顺序包含了Map对象中每个元素的值
+
+
+
+
+
+### Set api?
+
+> set对象允许你存储**任何类型**的**唯一值**，无论是原始值或者是对象引用
+
+**属性:**
+
+- 长度：size
+
+
+
+**实例方法：（Set.prototype）**
+
+- 创建： new Set();   new Set([1,2]);
+- 增(只支持添加在尾部)：
+  - 尾：只接受一个参数，但可链式调用， mySet.add(1).add(2)
+- 删：
+  - 指定item : delete(value)    //Array(value=item)，Object (value=object)
+  - 清空： clear()
+- 查:
+  - 判断值是否存在： has(value)   //Array(value=item)，Object (value=object)
+- 遍历：
+  - for循环：for(const item of  set1){console.log(item);}
+  - forEach: 无返回值 
+

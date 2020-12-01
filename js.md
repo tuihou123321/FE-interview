@@ -4,8 +4,6 @@
 
 [TOC]
 
-
-
 ### 什么是Polyfill?
 
 > Polyfill是一块代码（通常是web上的js），为旧浏览器提供它没有原生支持的较新功能；
@@ -1204,4 +1202,169 @@ fun.call(params,11,12);
 ```
 
 
+
+## API
+
+
+
+### String api？
+
+**属性：**
+
+- 长度：length
+
+
+
+**方法**
+
+- 增：
+
+  - 前/后：+
+
+  - 中间：
+    - 索引：先切割（str.slice(startIndex,endIndex)），再拼装 
+    - 字符(首个，全部)： str.replace(new RegExp(targetStr,'g'),targetStr+addStr);
+
+- 删：
+
+- - 指定字符： replace+正则替换为空
+  - 指定索引删除：str.slice(startIndex,endIndex)
+
+- 改：
+
+  - 正则替换
+
+- 查（遍历）：
+
+  - 判断
+    - 是否包含指定字符串： includes
+    - 是否以指定字符串（开始/结尾），可指定开始位置：startsWith，endsWith
+  - 查询
+    - 索引：
+      - -指定索引的字符，chatAt
+      - 类数组的方式： str[index]
+    - 字符
+      - （首次/最后一次）出现的索引： indexOf, lastIndexOf
+      - 统计：出现的总次数,  split分隔后数组长度-1
+      - 返回指定符：substring（支持负数）:  两个索引之间
+
+- 其他操作：
+
+  - 重复：repeat
+
+
+
+
+
+### Array api？
+
+**原型方法**
+
+- 方法：
+  - Array.from(): 把类数组/可迭代对象中创建一个新的数组实例
+  - Array.isArray();    //判断某个变量是否是数组对象
+  - Array.of(val1,val2)   //创建数组  ,相当于 [val1,val2]
+- 属性：
+  - Array.length:  //不常用 
+
+
+
+**实例属性：**
+
+- 长度：length
+
+
+
+**实例方法：**
+
+- 定义：
+  - 字面量赋值：let arr=['a'
+  - 构造函数：let arr=new Array(['a']);
+- 增加：
+  - 开头(可支持多个参数)：arr.unshift(val1,val2);
+  - 尾部  ：arr.push('a')
+  - 中间：
+    - 指定索引位置增加：arr.splice(fromIndex,0,val1,val2)
+    - 指定元素后面添加：使用indexOf找到索引，再能过 arr.splice(fromIndex,0,val1,val2) 遍历添加
+- 删除：
+  - 开头：arr.shift()， 返回被删除的元素，改变原数据
+  - 结尾：arr.pop(), 返回被删除的元素，改变原数组；
+  - 中间（对原数组没影响）：arr.splice(startIndex,deleteNum,addNewValue)    //在指定索引位置删除元素
+- 修改
+  - 索引：arr[0]='a'
+- 查询：
+  - 判断：
+    - 是否包含：arr.include('a')
+    - 满足某个条件：
+      - some（有一个满足条件）
+      - every（所有都满足条件）
+      - findIndex（满足条件的第一个索引）
+  - 索引：arr.indexOf('a')   
+- 遍历： 
+  - 不修改原对象：
+    - forEach： 返回的是经过处理后的数组，长度不变
+    - reduce（reduceRight）:  可返回任意值，（遍历->处理并返回）
+  - 修改原对象：filter ,map
+- 其他：
+- - 填充 :  arr.fill(value,start,end)     用一个固定值填充一个数组中，从起始索引(包含)到终止索引（不包含）内的全部元素。
+  - 元素翻转：arr.reverse();  //原数组改变
+  - 排序：arr.sort();
+  - 连接：arr.join('-')，按照指定链接符号， 把array转出一个string
+  - 切割：arr.slice(startIndex,endIndex);   startIndex包含，endIndex不包含；//返回被切割后的数组（**对原数组的浅拷贝**），不影响原数据
+  - 获取对象所有的keys（Array Iterator对象）: keys， 要使用 for(const key of iterator){console.log(key)} 才能查看，直接打印就是一个空的{}
+
+
+
+
+
+### Object Api?
+
+**构造函数属性：**
+
+- Object.length  //值为1
+- Object.prototype  //可为所有Object类型对象添加属性
+
+
+
+**构造函数方法：**
+
+
+
+**实例属性(object.prototype对象上)：**
+
+- constructor ： 特定函数，用于创建对象的原型
+
+- __proto__  : （被冻结，禁止修改）指向当对象被实例化的时候，用作原型对象
+
+  
+
+**实例方法：**
+
+- toString:  （不常用）返回对象的字符串表示
+- hasOwnProperty: 判断对象自身属性（非原型链继承），返回boolean
+
+
+
+
+
+### Function Api?
+
+原型属性(Function)：
+
+- arguments  : 以数组形式获取传入函数的所有函数
+- name : 获取函数的名称
+
+
+
+实例属性(Function)：
+
+- constructor : 声明函数的原型构造方法
+
+
+
+实例方法(Function.prototype)：
+
+- apply
+- bind
+- call
 

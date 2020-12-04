@@ -63,6 +63,53 @@
 
 
 
+### 箭头函数与普通函数区别？
+
+箭头函数的优点 
+
+- 语法更简洁
+  - 不用写function 更简洁  // let sum=()=>{console.log(11);}
+  - 只有一个参数的情况下，不用括号，直接写参数  // let sum = num1= > num1*2
+  - 返回体只有一句的情况下，可以省去大括号     // let sum=(num1,num2)=> num1+num2
+  - 如果箭头函数的函数体只有一条语句，并且 需要返回值，可以给这条语句前加一个 void  // let fn=()=> void donotReturn()
+- 箭头函数不会创建自己的this （它只会从自己的作用域上一层继承this）
+  - 定义时所处外层如执行环境的上下文，并继承这个 this，之后永远不会修改
+
+
+
+```js
+var id = 'Global';
+
+function fun1() {
+    // setTimeout中使用普通函数
+    setTimeout(function(){
+        console.log(this.id);
+    }, 2000);
+}
+
+function fun2() {
+    // setTimeout中使用箭头函数
+    setTimeout(() => {
+        console.log(this.id);
+    }, 2000)
+}
+
+fun1.call({id: 'Obj'});     // 'Global'
+
+fun2.call({id: 'Obj'});     // 'Obj'
+
+```
+
+
+
+
+
+参考资料：
+
+[ES6 - 箭头函数、箭头函数与普通函数的区别](https://juejin.cn/post/6844903805960585224)
+
+
+
 
 
 ### 什么是严格模式(use strict)？

@@ -7,6 +7,84 @@
 [TOC]
 
 
+``
+### 什么是API网关？
+
+> 一个API网关接管所有的入口流量，类似Nginx的作用，将所有用户的请求转发给后端服务器；
+>
+> API网关主要出现在微服务架构中
+
+
+
+**API网关的优点：**
+
+- 【逻辑重用】鉴权、限流、权限校验、熔断、协议转换（http-> Dubbo）、错误码统一、缓存、日志、监控、告警等
+- 【新服务不用运维配置】后端新的微服务，申请域名，配置Nginx
+- 【数据汇总】把所有服务聚合在一起，不用调很多接口获取数据（省去为每个微服务配置域名）
+- 【格式转换】数据格式转换成方便前端调用的格式
+- 【兼容性更强】
+  - **不同协议请求：**后端微服务可能由不同语言编写，支持不同协议（http,dubbo,GRPC,GraphQL）
+  - **不同认证方式：**cookies ,token
+- 【方便重构】只需要修改网关代码，不需要修改每个客户端
+
+
+
+**API网关的风险：**
+
+- 【潜在风险】多引入一个组件，就多一个潜在故障的风险（高性能、移定的网关涉及到很多点）
+
+构建高性能、稳定性的API网关的知识点：
+
+- 服务调用：异步（推荐）：基于性能考虑
+- 优雅下线：节点挂了，自动下线
+- 熔断降级：一个服务挂掉、响应严重超时不要影响到整个网关服务，特定接口错误进行降级由网关直接返回
+- 性能：推荐使用异步
+- 缓存：网关层面直接从redis获取数据，降低业务线压力，如果业务方节点挂掉，网关也能够返回自身的缓存
+- 限流：
+  - 策略：简单计数、令牌桶   （其他维度：IP，用户，接口，url特定参数）
+- 日志：所有请求都走网关，统计详细日志：耗时、请求方式；需要提供一个统一的traceId 方便关联所有日志
+- 隔离
+- - 应用层面隔离：线程池、http连接池、redis等应用层面的隔离
+  - 业务场景：核心业务部署到单独的网关集群（与非核心业务隔离开）
+- 网关管控平台：接入网关的流程简化、智能（参考阿里支、aws等提供的网关服务）
+- 其他：接口Mock，文档生成、sdk代码生成，服务治理...
+
+
+
+未使用网站前：
+
+
+
+![img](https://imgconvert.csdnimg.cn/aHR0cHM6Ly9tbWJpei5xcGljLmNuL21tYml6X3BuZy9lWnpsNExYeWtRdzZSSEd3QUx5d29zbmRsazdRMVRHWUlPSXdFMmY3ZVltNnpjcWFhQmFTTVF3dUNpYm9lbmFKODROa3FtWW5oaWJqSko4MjlQaWFKUnlQdy82NDA?x-oss-process=image/format,png)
+
+使用网关后：
+
+![img](https://imgconvert.csdnimg.cn/aHR0cHM6Ly9tbWJpei5xcGljLmNuL21tYml6X3BuZy9iY1B3b0NBTGliOUpXVEhoNnBYTXhiTXJoSUMxRURCZXBqQTdNaWJOcTBOV0d5VjA4bFo0UlVsSWs1aWNqbzdXYkZ5bW1NRldYcjBsU25IWEtFd292aWNTV3cvNjQw?x-oss-process=image/format,png)
+
+
+
+参考资料：
+
+[一文带你搞懂API网关](https://blog.csdn.net/Y0Q2T57s/article/details/107147941)
+
+
+
+
+
+### 前端如何做API网关？
+
+基于node.js 的网关：
+
+- http-proxy： 软件包简单地代理对特定服务的请求
+- express-gateway :  更多丰富功能
+
+
+
+参考资料：
+
+[使用 Node.js 搭建一个 API 网关](https://segmentfault.com/a/1190000010669382)
+
+
 
 
 

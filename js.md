@@ -4,6 +4,17 @@
 
 [TOC]
 
+### 如何判断两个对象是不是相等？
+
+1. 【转成字符串判断】（不支持函数，正则）， JSON.stringife(obj)；JSON.parse(str)
+2. 插件：
+   1. loadsh:  不支持函数和DOM节点比较 
+3. 【循环遍历】
+
+
+
+
+
 ### 什么是Polyfill?
 
 > Polyfill是一块代码（通常是web上的js），为旧浏览器提供它没有原生支持的较新功能；
@@ -1251,6 +1262,8 @@ fun.call(params,11,12);
 - 其他操作：
 
   - 重复：repeat
+  - 去除空格（开头+结尾）： trim
+  - 转成小/大字母：toLowerCase/toUpperCase
 
 
 
@@ -1367,4 +1380,59 @@ fun.call(params,11,12);
 - apply
 - bind
 - call
+
+
+
+
+
+
+
+### Number Api?
+
+原型Number（属性）：
+
+
+
+原型Number（方法）：
+
+- 判断值是不是NaN: isNaN
+- 判断是不是有穷数：isFinite
+- 判断是不是整数： isInteger
+
+
+
+
+
+### Math Api?
+
+- 原型方法（Math）：
+  - 绝对值： abs(x)
+  - 随机数：返回0到1之间的伪随机数据，random
+  - 向上/下取整： ceil/floor
+  - 次幂： pow(4,3)  //4x4x4   等于 4的3次幂
+
+
+
+
+
+### js 全局 函数?
+
+**全局属性：**
+
+- 无穷大：Infinity ， -Infinity    //正/负 无穷大
+- 未定义：undefined
+- NaN
+
+
+
+**全局函数**
+
+- 解析字符串并返回整数/浮点数：parseInt，parseFloat   
+- 把对象的值转成数字：Ｎumber
+- 把对象的值转成字符串：String
+- 重新运算参数的内容： eval
+- 判断某个值是不是数字：isNaN
+- 判断某个值是否为无穷大：isFinite  //有限的返回true,无穷返回false, NaN返回false
+- 编码/解码URI: encodeURI, decodeURI
+- 编码/解码URI： encodeURIComponent, decodeURIComponent
 

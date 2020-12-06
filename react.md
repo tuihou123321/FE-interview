@@ -5,6 +5,22 @@
 
 
 
+### react错误处理？
+
+
+主要的api(生命周期):
+
+- componentDidCatch(error,errorInfo):    同样可以将错误日志上报给服务器
+- getDerivedStateFromError(error)：更新state使下一次渲染能够显示降级后的UI
+
+注意事项：
+
+- 仅可捕获其子组件的错误，无法捕获其自身的错误
+
+
+
+
+
 ### 你有使用过suspense组件吗？
 
 动态加载（异步组件）加载时会有延迟，在延迟期间可以将一些内容展示给用户，比如：loading

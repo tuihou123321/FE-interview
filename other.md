@@ -894,3 +894,131 @@ Jest
 
 
 
+
+
+## source map
+
+
+
+### Source Map介绍？
+
+> 保存源代码映射关系的文件，方便快速定位错误代码
+
+
+
+特点：
+
+- 以.map文件格式结尾
+- 是一个object对象
+
+
+
+
+
+![img](https://user-gold-cdn.xitu.io/2019/6/17/16b658ca2d25956d?imageView2/0/w/1280/h/960/format/webp/ignore-error/1)
+
+
+
+使用source Map前后对比：
+
+> 定位了具体的文件名，在源文件中的具体位置（行，方法名）
+
+
+
+![img](https://user-gold-cdn.xitu.io/2019/6/17/16b658c9d398f5c7?imageView2/0/w/1280/h/960/format/webp/ignore-error/1)
+
+
+
+![img](https://user-gold-cdn.xitu.io/2019/6/17/16b658c9d2b1238a?imageView2/0/w/1280/h/960/format/webp/ignore-error/1)
+
+
+
+
+
+### Source Map实现原理？
+
+**主要参数：**
+
+- version (Number):     source map的版本
+- source (Array) :  打包的原文件路径
+- names (Array) :  转换前所有的变量和属性名
+- **mappings(String):**   记录位置信息的字符串，map和源文件的映射关系  （核心知识点）
+- file (String): 输出的文件路径
+- sourcesContent [Array]:   每个文件打包的具体内容
+- sourceRoot [String] :       
+
+
+
+**Source Map 映射过程：**
+
+```js
+mappings: "1|1|输入文件1.txt|1|6,1|2输入文件1.txt|1|7,1|3|输入文件1.txt|1|8,1|4|输入文件1.txt|1|9,1|5|输入文件1.txt|1|10,1|7|输入文件1.txt|1|1,1|9|输入文件1.txt|1|3,1|10|输入文件1.txt|1|4"（长度：144）
+
+```
+
+
+
+**css中的source map**
+
+```js
+main.[hash].css.map
+
+{
+    "version":3,
+    "sources":["index.css","App.css"],
+    "names":[],
+  "mappings":"AAAA,KACE,SACA,UACA,sBAAwB,CCH1B,KACE,WAAa",
+      "file":"static/css/main.409af543.css",
+    "sourcesContent":[
+    "body {\r\n  margin: 0;\r\n  padding: 0;\r\n  font-family: sans-serif;\r\n}\r\n\n\n\n// WEBPACK FOOTER //\n// ./src/index.css",
+    ".m40{\r\n  margin: 40px;\r\n}\n\n\n// WEBPACK FOOTER //\n// ./src/App.css"],
+    "sourceRoot":""
+}
+```
+
+
+
+参考资料：
+
+[深入理解SourceMap](https://juejin.cn/post/6844903869928079373#heading-2)
+
+[前端面试官: 你知道source-map的原理是什么吗？](https://cloud.tencent.com/developer/article/1598223)
+
+
+
+
+
+### 如何生成source map？
+
+各种主流的前端任务管理工具，打包工具都支持生成Souce Map
+
+( 通过webpack 等工具，生成的代码它跟构建文件同在一个目录下)
+
+- Webapck
+- Grunt
+- UglifyJS2
+- Gulp
+- SystemJS
+
+
+
+webpack 开启source map 输出选项
+
+```js
+const path=require('page')
+
+module.exports={
+entry:'./src/index.js',
+output:{
+filename:'bundle.js',
+path:path.resove(__dirname,'dist')
+},
+devtool:'source-map'   //有12种取值，可根据需要配置
+}
+```
+
+
+
+参考资料：
+
+[webpack](https://docs.fundebug.com/notifier/javascript/sourcemap/generate/webpack.html)

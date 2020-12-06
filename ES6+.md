@@ -6,6 +6,56 @@
 
 
 
+### 介绍下Generator?
+
+> Generator函数是ES6提供的一种 异步编程解决方案,Generator函数是分段执行的，**yield**表达式是**暂停执行**的标记，而**next方法**可以**恢复执行**
+
+Generator函数是一个状态机，封装了多个内部状态。执行Generator 函数会返回一个遍历器对象，可以依次遍历Generator函数内部的每个状态。
+
+
+
+Generator与普通函数的区别：
+
+- 【不执行】调用Generator函数后，该函数并不执行
+- 【返回指针】返回的是一个指向内部状态的指针对象，而不是函数运行结果（遍历器对象 Iterator Object）
+- 【继续运行】必须调用遍历器对象的next方法，使得指针移向下一个状态，每次调用next方法，就继续执行，直到遇到下一个yield表达 式(或return语句）为止。
+
+
+
+
+Generator API：
+
+- next():  返回一个由yield 表达式生成的值  
+- return():  返回给定的值并结束生成器 
+- throw():  向生成器抛出一个错误
+
+
+
+```js
+function* helloWorldGenerator(){
+	yield 'hello';   //遇到yield 暂停执行
+	yield 'world';
+	return 'ending';
+}
+
+let hw = helloWorldGenerator();  //调用不执行函数，只是返回一个遍历器对象
+hw.next();  //{value:'hello',done:false}  调用next方法继续执行，直到遇到yield或return表达式
+hw.next(); //{value:'world',done:false}
+hw.next(); //{value:'ending',done:true}
+hw.next(); //{value:undefind,donw:true}  
+
+```
+
+
+
+参考资料：
+
+[Generator 函数的语法](https://es6.ruanyifeng.com/#docs/generator)
+
+
+
+
+
 ### ES6 Set 和 Array 的区别？
 
 区别：

@@ -5,6 +5,22 @@
 
 
 
+### react 如何实现keep-alive?
+
+> Keep-alive是缓存路由使用的，保留之前路由的状态
+
+实现方法：
+
+1. 使用npm库：
+   1. [react-router-cache-router](https://github.com/CJY0208/react-router-cache-route/blob/HEAD/README_CN.md)
+   2. [React-activation](https://github.com/CJY0208/react-activation)
+
+
+
+
+
+
+
 ### react错误处理？
 
 

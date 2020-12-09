@@ -183,7 +183,7 @@ ReactDOM.render(<_button>xxxx</_button>);
 
 
 
-### webpack如何做性能优化？
+### webpack如何提高打包速度？
 
 一、缩小文件搜索范围
 
@@ -196,6 +196,14 @@ ReactDOM.render(<_button>xxxx</_button>);
 三、开进程转换：HappyPack开启多进程loader转换
 
 四、开进程压缩：使用paralleUglifyPlugin开启多进程压缩JS文件
+
+五、利用缓存：`webpack.cache`、babel-loader.cacheDirectory、`HappyPack.cache`都可以利用缓存提高rebuild效率
+
+
+
+参考资料：
+
+[使用webpack4提升180%编译速度](https://louiszhai.github.io/2019/01/04/webpack4/)
 
 
 

@@ -6,6 +6,70 @@
 
 
 
+### 伪类和伪元素相比其他选择器的优点？
+
+css引入伪类与伪元素是为了格式化文档树以外的信息，用来修饰不在文档树中的部分。
+
+eg:
+
+- 列表中的第一个
+- 一句话中的第一个字母
+
+
+
+
+
+### 伪类和伪元素有什么区别？
+
+相同点：效果类似，写法相仿，控制CSS样式；
+
+区别：
+
+- 【写法不同】伪类前面使用一个:,    伪元素使用两个:  （css3之后规定是两个用于区分）    
+- 【原理不同】
+  - 伪类：可以添加一个实际的类来达到效果
+  - 伪元素：可以添加一个实际的元素来达到效果
+
+
+
+**伪类（选择器前面加一个 : ）：**
+
+- **链接状态:**
+	- :hover  鼠标悬停状态
+	- :active  激活链接的状态
+	- :visited  访问过的链接
+	- :link    未访问的链接
+- 选择器：
+	- :first
+	- :first-child
+	- :first-of-type
+	- :last-child
+	- :not
+	- ...
+
+
+
+**伪元素(前端有两个:)：**
+
+- ::before
+- ::after
+- ::placehoder
+- ::selection
+- ::first-letter
+- ::first-line
+
+
+
+
+
+参考资料：
+
+[MDN-伪类](https://developer.mozilla.org/zh-CN/docs/Web/CSS/Pseudo-classes)
+
+[伪类与伪元素](https://zhuanlan.zhihu.com/p/30354843)
+
+
+
 ### mouseover/mouseout 与 mouseenter/mouseleave区别与联系？
 
 |              | mouseover/mouseout                                 | mouseenter/mouseleave |

@@ -8,6 +8,29 @@
 
 
 
+### Api 网关和 Nginx 有什么区别？
+
+
+
+相同点：
+
+- 都可以实现反向代理（路由转发，隐藏真实Ip）
+- 实现负载均衡
+- 过滤请求
+
+不同点：
+
+- Nginx 采用服务器负载均衡进行转发
+- 网关决定进入哪个真实web服务器
+
+
+
+![img](https://imgconvert.csdnimg.cn/aHR0cDovL2ltZy53YW5kb3VpcC5jb20vY3Jhd2xlci9hcnRpY2xlLzIwMTk4MS9hYTVmNTVkNjVkMTUxYjUxYzJiOGRhZTAyNTNmN2NmMQ?x-oss-process=image/format,png)
+
+
+
+
+
 ### 什么是API网关？
 
 > 一个API网关接管所有的入口流量，类似Nginx的作用，将所有用户的请求转发给后端服务器；

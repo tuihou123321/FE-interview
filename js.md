@@ -136,7 +136,7 @@ function函数的注入
     })()
 
 
-    //静态方法: 直接能过构造函数调用
+    //静态方法: 直接通过构造函数调用
     Person.staticMethod();
 
 
@@ -168,7 +168,7 @@ function函数的注入
 | Context(执行上下文) | 全局                                           | 局部                                                         |
 | 内存分配            | 手动申请/释放,若不释放，程序结束时可能由OS回收 | 自动申请/释放（出栈时），系统分配是有大小限制的，超过就会内存溢出报错 |
 | 数据存放类型        | 对象类型                                       | 基本数据类型                                                 |
-| 特点                |                                                | 先进后出                                                     |
+| 特点                | /                                              | 先进后出                                                     |
 
 
 
@@ -443,13 +443,26 @@ js引擎执行过程： 宏任务（同步任务） ---> 微任务 --> 宏任务
 
 -  Object.prototype.toString.call(arg) === '[object Array]'    //目前最准确的方法  
 
-- Array.isArray(arg)   //有兼容性问题
+- Array.isArray(arg)   //有兼容性问题，IE8下不支持
 
 - arg  instanceof Array    //不能跨iframe使用
 
 - arg.constructor===Array    //不能跨iframe使用，constructor可以改写， a.constructor=Object;  会导致判断不准确
 
-  
+
+
+
+```
+//最通用的方法
+var arr = [];
+function isArray(str){
+    return Object.prototype.toString.call(str) == "[object Array]";
+}
+
+console.log(isArray(arr));//ie所有版本均支持;
+```
+
+
 
 
 
@@ -880,7 +893,11 @@ $.extend(obj1,obj2);  //不进行深拷贝
 
 ### 长列表优化？
 
+思路：虚拟列表
 
+- 只显示部分数据
+- 通过监听滚动条的位置（向上滚动/向下）来进行，来进行对数组进行动态替换
+- 顶部使用padding来代替
 
 
 

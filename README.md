@@ -4,12 +4,22 @@
 
 
 
+## 关于本书：
+
+- [github仓库地址](https://github.com/tuihou123321/FE-interview)：欢迎留言交流
+- [在线阅读（gitbook版本）](https://xz-fe-interview.gitbook.io/fe-interview/~/settings/customization)： 推荐使用
+  - 支持文档目录
+  - 搜索跳转
+  - 支持移动端
+
+
+
 ## 适用人群
 
 - 前端面试人员：
   - 不知道：查漏补缺
   - 不系统：全面梳理知识点，重新组识内容，让你的回答逻辑性强，全面
-- 前端招聘人员：提供精选题库，答案梗概；
+- 前端招聘人员：提供精选题库，答案梗概
 
 
 
@@ -35,11 +45,9 @@
 
 
 
-## 关于本书
+## 联系我
 
 - 作者：xiaozuo
-- [github仓库地址](https://github.com/tuihou123321/FE-interview)
-- [在线阅读（gitbook版本）](https://xz-fe-interview.gitbook.io/fe-interview/~/settings/customization)
 - Email: chrome0423@gmail.com
 
 - 微信

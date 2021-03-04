@@ -23,13 +23,15 @@ Compiler 代表了整个 Webpack 从启动到关闭的生命周期，而 Compila
 
 
 
-![1606721590517](C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\1606721590517.png)
-
-
-
 插件运行机制：
 
-![img](https://ask.qcloudimg.com/http-save/1094895/c92c1rxews.png?imageView2/2/w/1620)
+
+
+![image-20210304113253309](https://i.loli.net/2021/03/04/CFXlwh4yNZVa63f.png)
+
+
+
+
 
 
 

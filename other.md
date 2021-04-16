@@ -8,6 +8,64 @@
 
 
 
+### Npm 实现原理？
+
+Npm 是node模块管理器
+
+npm 安装模块的过程
+
+- 执行 npm install
+- 读取package的依赖
+- 向注册的npm 服务器发送资源包请求，返回资源压缩包
+- 把资源把请求放在当前文件的 node_modules文件夹中
+
+
+
+参考资料：
+
+http://www.ruanyifeng.com/blog/2016/01/npm-install.html
+
+https://www.zhihu.com/question/66629910
+
+https://zhuanlan.zhihu.com/p/286021449
+
+
+
+
+
+### 如何提高Npm的安装速度？
+
+- 代理服务器，
+  - 代理到国内服务器：比如阿里的服务器 cnpm
+  - 使用ssh之类的代理服务器提高下载速度 （也可以直接使用vpn,就不用设置了）
+- 使用本地缓存
+  - npm原生：npm install --cache-min Infinity <package-name>， 
+  - 第三方：
+    -  [npm-cache](https://www.npmjs.com/package/npm-cache) 代替npm： 比如  npm-cache install
+- 使用 node_modules 作为缓存目录，而不是 .npm 缓存
+
+
+
+代理服务器的设置
+
+```js
+// 修改npm服务器,2012是本地代理服务器的端口，自定义的
+npm config set proxy http://127.0.0.1:2012
+npm config set https-proxy  http://127.0.0.1:2012
+
+
+// 删除npm代理服务器
+npm config delete proxy 
+npm config delete https-proxy
+
+```
+
+
+
+
+
+
+
 ### 什么是API网关？
 
 > 一个API网关接管所有的入口流量，类似Nginx的作用，将所有用户的请求转发给后端服务器；
@@ -609,6 +667,19 @@ CSRF（Cross-site request forgery）：攻击者诱导用户进入第三方网�
 
 
 
+### 介绍下https中间人攻击？
+
+
+
+
+
+参考资料：
+
+[HTTPS中间人攻击实践（原理·实践）](https://www.cnblogs.com/lulianqi/p/10558719.html)
+[简述HTTPS中间人攻击](https://github.com/Sogrey/Web-QA/issues/128)
+
+
+
 ### HTTP header 中 host, referer, origin区别？
 
 
@@ -1022,3 +1093,18 @@ devtool:'source-map'   //有12种取值，可根据需要配置
 参考资料：
 
 [webpack](https://docs.fundebug.com/notifier/javascript/sourcemap/generate/webpack.html)
+
+
+
+
+
+## 编程实战题
+
+
+
+
+
+
+
+
+

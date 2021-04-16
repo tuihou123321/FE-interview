@@ -667,7 +667,7 @@ Promise一共有三种状态
 
 我们定义Promise1对象，在对象内部创建status、reason、fullfilledCallbacks、rejectedCallbacks这四个属性，这些属性分别表示的意义为:
 
-1. reason:保存当前promise实例状态
+1. reason:保存当前promise实例状态	
 2. value:保存fullfilled之后的值
 3. reason:保存rejected后的原因
 4. fullfilledCallbacks: fullfilled回调队列

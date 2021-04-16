@@ -10,15 +10,15 @@
 
 OSI七层模型：
 
+![image-20210304105925023](https://i.loli.net/2021/03/04/DdHexV78saLPGNO.png)
+
+
+
 TCP/IP 四层模型：
 
-![img](https://ask.qcloudimg.com/http-save/7525075/8mb2ip0p27.png?imageView2/2/w/1620)
+![image-20210304110034606](https://i.loli.net/2021/03/04/2RD1vxC4bt5ofGA.png)
 
 
-
-网络传输流程图
-
-![img](https://ask.qcloudimg.com/http-save/7525075/i7pe3cbitu.png?imageView2/2/w/1620)
 
 
 
@@ -146,7 +146,7 @@ TCP/IP 四层模型：
 4. 浏览器**组装一个HTTP（GET）请求报文**
 
 5. 浏览器**获取主机IP**地址
-   1. -浏览器缓存
+   1. 浏览器缓存
    2. 本机缓存（操作系统级别）
    3. hosts文件
    4. 路由器缓存
@@ -206,11 +206,7 @@ TCP/IP 四层模型：
 
 - 解析：对加载到的资源（HTML、JS、CSS等）进行语法解析，建议相应的内部数据结构（比如HTML的DOM树，JS的（对象）属性表，CSS的样式规则等等）
 
-
-
-![img](https://raw.githubusercontent.com/qiu-deqing/FE-interview/b4fa7753b7ab4ca574e94ab81836d25395794088/img/visit.svg)
-
-
+![image-20210304110439153](https://i.loli.net/2021/03/04/ekZo8hlA7rpHIfT.png)
 
 
 
@@ -382,7 +378,7 @@ https://segmentfault.com/a/1190000012836882
 
 ### fetch如何处理跨域？
 
-服务端要支付cors 才能得到数据，如果服务端不支持网络请求的整个过程
+服务端要支持cors 才能得到数据
 
 
 
@@ -434,6 +430,11 @@ c.Header("Access-Control-Allow-Methods", "GET, POST")
 - 第二次：携带真实的数据，发送请求；状态码200
 
 
+<<<<<<< HEAD
+=======
+
+![image-20210304111824715](https://i.loli.net/2021/03/04/9TwGOnErzvueVyl.png)
+>>>>>>> 1eb19267e78efb58ca7da17fff2a653ae921cbb8
 
 产生的原因：
 
@@ -445,9 +446,28 @@ c.Header("Access-Control-Allow-Methods", "GET, POST")
 
 参考资料：
 
+<<<<<<< HEAD
 https://www.ruanyifeng.com/blog/2016/04/cors.html
 
 https://cloud.tencent.com/developer/article/1542037
+=======
+![image-20210304111754795](https://i.loli.net/2021/03/04/9BQalCLgbrGXYOZ.png)
+
+
+
+
+### dns查询层级？
+* 从浏览器缓存中查询（一般是2-30分钟）
+* 从操作系统缓存中查询
+* 从路由器中查询DNS缓存
+* ISP中查询DNS缓存；
+* 域名服务器迭代查询，根据返回的地址逐级向上查询。www.google.com->本地dns服务器查询的结果 101.1.1.1->101.2.2.2->查询的结果返回到本地dns服务器->发送给客户端
+
+
+
+![image-20210304111905342](https://i.loli.net/2021/03/04/NnZFbwXpxMl31Uv.png)
+
+>>>>>>> 1eb19267e78efb58ca7da17fff2a653ae921cbb8
 
 
 

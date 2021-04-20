@@ -1140,18 +1140,19 @@ event
 
 ### 如何解决跨域的问题？
 
-一、CORS: 跨域资源共享，
-Access-Contorl-Allow-Origin  后台设置允许跨域访问的url；
-使用额外的HTTP头告诉浏览器，
-cors分类：简单请求，非简单请求；
+- CORS: 跨域资源共享，关键在于服务端设置， Access-Contorl-Allow-Origin  后台设置允许跨域访问的url；使用额外的HTTP头告诉浏览器
 
-- 简单请求：不会触发cors预检请求，
-- 非简单请求：
+- **nginx反向代理**：修改nginx.conf文件
+- 通过jsonp
+- nodejs中间件代理（webpack本地启动服务使用），在服务端拿到数后，再把数据返回给前端
+- websocket协议跨域
+- postMessage,可以实现多个页面之间的通讯（html5中的一个api）
 
-二、通过jsonp
-三、nodejs中间件代理，在服务端拿到数后，再把数据返回给前端，nginx代理
-四、websocket协议跨域
-五、postMessage,可以实现多个页面之间的通讯（html5中的一个api）
+
+
+参考资料：
+
+http://blog.alanwu.website/2020/03/06/crossOrigin/
 
 
 
@@ -1168,6 +1169,8 @@ cors分类：简单请求，非简单请求；
 1. 【发送请求】：发送请求，携带返回数据的包装方法
 2. 【返回数据】后端返回数据，使用cb包装数据
 3. 【执行前端方法】前端加载完数据，调用本地已经封装好的cb方法，获取到回调的数据
+
+
 
 
 

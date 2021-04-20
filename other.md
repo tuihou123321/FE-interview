@@ -8,7 +8,76 @@
 
 
 
-<<<<<<< HEAD
+### 前后端鉴权有哪几种方式有什么区别？
+
+
+
+**一、http基础验签， http basic Authentication**
+
+**运用场景**：已经淘汰
+
+**原理：**账号、密码登录（可简单加密）
+
+**优点：**简单
+
+**缺点：**不安全
+
+
+
+ **二、session+cookies 机制**
+
+**运用场景：**老项目，非前后端分离(php, asp)
+
+**原理：**服务端生成sessionId，经过加密后（可不加密）返回给客户端，以cookies的形式保存在浏览器中
+
+**优点**：非前后端分离项目使用简单
+
+**缺点**：
+
+- sessionId 存在服务器，占用一定的资源
+- 所有的请求都会带 cookies浪费请求资源
+- 浏览器才有cookies， 客户端没有，支持的范围少
+
+
+
+
+
+**三、token机制（也称令牌登录）**
+
+**运用场景：**主流新项目
+
+**原理：**token经过一定的算法生成的，本身就包含登录状态，服务器经过事先定义好的算法解密判断是否有效
+
+**优点：**
+
+- 【不占资源】：token本身保存着登陆状态，不存在服务端，节省空间
+- 【多端支持】不用存在cookies里，支持app等客户端使用
+- 【更加安全】令牌隔一段时间是会变化的
+
+
+
+
+
+**四、oAuth开放授权**
+
+**运用场景：**第三方授权登录（QQ，微信，微博，github）
+
+**优点：**
+
+- 【无需注册】通过第三方授权联合登录，快速登录，用户体验好
+
+
+
+
+
+
+参考资料： [关于前后端鉴权的几种方式](http://blog.alanwu.website/2020/03/04/Authorization/)
+
+
+
+
+
+
 ### Npm 实现原理？
 
 Npm 是node模块管理器
@@ -81,7 +150,6 @@ npm config delete https-proxy
 
 
 ![img](https://imgconvert.csdnimg.cn/aHR0cDovL2ltZy53YW5kb3VpcC5jb20vY3Jhd2xlci9hcnRpY2xlLzIwMTk4MS9hYTVmNTVkNjVkMTUxYjUxYzJiOGRhZTAyNTNmN2NmMQ?x-oss-process=image/format,png)
->>>>>>> 1eb19267e78efb58ca7da17fff2a653ae921cbb8
 
 
 

@@ -430,11 +430,8 @@ c.Header("Access-Control-Allow-Methods", "GET, POST")
 - 第二次：携带真实的数据，发送请求；状态码200
 
 
-<<<<<<< HEAD
-=======
 
 ![image-20210304111824715](https://i.loli.net/2021/03/04/9TwGOnErzvueVyl.png)
->>>>>>> 1eb19267e78efb58ca7da17fff2a653ae921cbb8
 
 产生的原因：
 
@@ -446,11 +443,8 @@ c.Header("Access-Control-Allow-Methods", "GET, POST")
 
 参考资料：
 
-<<<<<<< HEAD
-https://www.ruanyifeng.com/blog/2016/04/cors.html
-
 https://cloud.tencent.com/developer/article/1542037
-=======
+
 ![image-20210304111754795](https://i.loli.net/2021/03/04/9BQalCLgbrGXYOZ.png)
 
 
@@ -466,9 +460,6 @@ https://cloud.tencent.com/developer/article/1542037
 
 
 ![image-20210304111905342](https://i.loli.net/2021/03/04/NnZFbwXpxMl31Uv.png)
-
->>>>>>> 1eb19267e78efb58ca7da17fff2a653ae921cbb8
-
 
 
 

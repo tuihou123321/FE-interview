@@ -154,7 +154,7 @@ eg:
 ### html 脱离文档流的方法？
 
 - float
-- sposition
+- position
   - absolute
   - fixed
 

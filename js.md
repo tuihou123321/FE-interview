@@ -525,14 +525,20 @@ console.log(isArray(arr));//ie所有版本均支持;
 
 
 
-
-
-
 ### 如何解决js 精度计算问题?
+
+产生的原因：
+- 浮点数计算精度问题
+- 大数精度问题
+
+解决思路：
+- 把浮点型数值转成整型计算
+- 将浮点数转化成字符串，模拟运算过程   // 成熟库的使用方法
 
 类库：
 
 - Math.js
+- bignumber.js
 
 
 
@@ -1140,19 +1146,25 @@ event
 
 ### 如何解决跨域的问题？
 
-- CORS: 跨域资源共享，关键在于服务端设置， Access-Contorl-Allow-Origin  后台设置允许跨域访问的url；使用额外的HTTP头告诉浏览器
-
+- **CORS**: 跨域资源共享，关键在于服务端设置， Access-Contorl-Allow-Origin  后台设置允许跨域访问的url；使用额外的HTTP头告诉浏览器
 - **nginx反向代理**：修改nginx.conf文件
-- 通过jsonp
-- nodejs中间件代理（webpack本地启动服务使用），在服务端拿到数后，再把数据返回给前端
+- nodejs中间件代理（webpack本地启动服务使用），在服务端拿到数据后，再把数据返回给前端
 - websocket协议跨域
+- 通过jsonp（淘汰）
 - postMessage,可以实现多个页面之间的通讯（html5中的一个api）
+
+其他不常用
+- window.name  : 通能过给一个设置window.name, 能过location.href的时候另外一个页面可以获取到相关数据，刷新也能；局限性：只能设置string类型
+- document.domain
+
+
 
 
 
 参考资料：
 
 http://blog.alanwu.website/2020/03/06/crossOrigin/
+https://www.jianshu.com/p/835bc9534281
 
 
 

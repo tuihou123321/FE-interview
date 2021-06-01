@@ -4,39 +4,37 @@
 
 [TOC]
 
-参考资料：
-
-[Typescript面试题](https://www.jianshu.com/p/c8aaba6e8ce0)
-
 
 
 ### typescript优点？ 
 
-1：快速简单，易于学习。
-
-2：编译时提供错误检查， 在代码运行前就会进行错误提示。
-
-3：支持所有的JS库。
-
-4：支持ES6，提供了ES6所有优点和更高的生产力。
-
-5：使用继承提供可重用性。
-
-6：有助于代码结构。
-
-7：通过定义模块来定义命名空间。
-
-
+- 强类型
+  - 【可选的】不要求100%覆盖
+    - 更方便迁移老代码
+    - 降低入门门槛
+  - 【js的超集】支持js(包含es6,及es6+)所有语法
+    - 方便快速入手
+  - 【静态检查】编译时就报错，而不像js在运行时报错
+    - 静态检查就知道错误，效率更高
+    - 避免低级错误
+  - 【支持模块】方便类型的导入导出，复用组合
+  - 【更好维护】类型就是最好的注释，减少查文档的时间
+- 支持面向对象编程，类型重用率更高，代码可读性更强，相比react的propTypes功能更强大
+  - 接口 interface
+  - 继承： extend
+  - 类： class
+  - 泛型 <T>
 
 ![img](https://upload-images.jianshu.io/upload_images/16021827-9f2935d0f3da0cf7.png?imageMogr2/auto-orient/strip|imageView2/2/w/1200/format/webp)
+
+参考资料：https://www.zhihu.com/question/273619114/answer/369126175
 
 
 
 ### typescript缺点？
 
-1：需要长时间的来编译代码。
-
-2：在使用第三方库时，需要有三方库的定义文件，并不是所有三方库都提供了定义文件，提供的定义文件是否准确也值得商榷。
+- 【编译耗时】需要长时间的来编译代码：deno内部将删除ts代码
+- 【第三方定义文件】在使用第三方库时，需要有三方库的定义文件，并不是所有三方库都提供了定义文件，提供的定义文件是否准确也值得商榷
 
 
 
@@ -44,41 +42,39 @@
 
 ### typescirpt有哪些基础类型?
 
-1：number
+**js的类型**
 
-2：string
+- number
+- string
+- boolean
+- object
+- array
+- function
+- null
+- undefined
+- symbol
 
-3：boolean
 
-4：Symbol
 
-5：Array
+**ts新增类型**
 
-6：Tuple(元组)
+- any: 任意值类型
 
-7：enum(枚举)
+- void：函数没有返回值时用void
 
-8：object
+- Tuple(元组)：规定数组成员的数量，各位置的类型
 
-9：never
+- enum(枚举)：定义数值集合
 
-表示那些永不存在的值类型。如总是抛出异常或者根本不会有返回值的函数的返回值类型。
+- never：（实际上不常用) never是其他类型的子类型，代表不会把出现的值
 
-10：void
-
-与any相反表示没有任何类型。函数没有返回值时用void。
-
-11：null和undefined
-
-它们是所有类型的子类型。当你指定structNullChecks时，它们只能赋值给void或者它们自己本身。
-
-12：any
+  
 
 
 
 
 
-### 泛型？
+### 介绍下ts中的泛型？
 
 泛型代表的是泛指某一类型，更像是一个类型变量。由尖括号包裹<T>。
 
@@ -135,15 +131,18 @@ function getPropoty<T, K extends keyof T>(obj: T, key: K) {
 
 
 
-### 元组？
+
+
+## 强烈推荐
+
+像更系统的学习typescript，可查看  [typeScript-demo](https://github.com/tuihou123321/typeScript-demo)
 
 
 
 
 
-### 枚举？
+参考资料：
 
+https://www.runoob.com/typescript/ts-type.html
 
-
-### 类型断言？
-
+[Typescript面试题](https://www.jianshu.com/p/c8aaba6e8ce0)

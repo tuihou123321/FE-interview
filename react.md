@@ -977,13 +977,25 @@ react在渲染过程时，从setState开始到渲染完成，中间过程是同�
 
 ### react的refs有什么用，使用场景？
 
+**1、refs是什么**
+
+refs在计算机中叫做弹性文件系统（Resilient File System）。
+
+通过refs可以访问组件实例，或者是dom节点。
+
+
+
+**2、 为什么react要提供ref来返回组件实例和dom节点**
+
 react 主要提供了一种标准数据流的方式来更新视图；
 
 但是页面某些场景是脱离数据流的，这个时候就可以使用 refs;
 
-react refs 是用来获组件引用的,取后可以调用dom的方法；
+react refs 是用来获组件引用的，读取后可以访问dom的属性和方法；
 
-使用场景
+
+
+**3、使用场景**
 
 - 管理焦点、选择文本或者媒体播放时，获取焦点  this,refs.inputPhone.focus();
 - 触发式动画
@@ -994,6 +1006,110 @@ refs 注意事项：
 不能在无状态组件中使用refs
 
 
+
+参考资料：
+
+- https://vue3js.cn/interview/React/React%20refs.html#%E4%B8%80%E3%80%81%E6%98%AF%E4%BB%80%E4%B9%88
+
+
+
+### 创建refs有哪几种形式？
+
+1、**传入字符串 （不推荐使用）**
+
+```js
+<div ref="myRef">元素</div>
+myRef.innerHTML = "hello";
+
+```
+
+
+
+**2、传入对象:** 
+
+```js
+const myRef = React.createRef();
+// 设置元素的的内容
+myRef.innerHTML="hello"
+<div ref={myRef}>元素</div>
+```
+
+
+
+**3、传入函数**
+
+该函数会在Dom被挂载时进行回调，获取到元素信息后自己保存即可
+
+```js
+const myRef = React.createRef();
+// 设置元素的的内容
+myRef.innerHTML="hello"
+<div ref={(element)=>{
+	myRef=ref;
+}}>元素</div>
+```
+
+
+
+**4、传入hooks**
+
+```js
+const myRef = React.useRef();
+// 设置元素的内容
+myRef.innerHTML="hello"
+<div ref={myRef}>元素</div>
+```
+
+
+
+参考资料：
+
+- https://vue3js.cn/interview/React/React%20refs.html#%E4%BA%8C%E3%80%81%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8
+
+
+
+
+
+### react中useRef和createRef有什么区别?
+
+ **相同点**
+
+- 功能一致，都是获取元素dom的方法。
+- 都是一个函数，返回一个元素的dom指引
+
+
+
+**不同点**
+
+- 使用场景范围不一样
+  - useRef： 只支持函数组件(functionComponet)  // 原因：因为它是hooks, 所以不能用在类组件
+  - createRef：使用范围更广泛，支持类组件（classComponent），和函数组件。
+- 返回对象不一样
+  - useRef：每次返回的引用相同 
+  - createRef: 每次返回一个新的引用
+
+
+
+参考资料：
+
+- [useRef、createRef的区别及使用，及useRef妙用](https://juejin.cn/post/6950845509137334309)
+
+
+
+
+
+### 介绍下forwardRef，它有哪些运用场景？
+
+功能介绍：
+
+forwardRef用在函数组件中，用来转发父组件的ref对象给子组件，让父组件可以操作子组件的dom节点。
+
+
+
+使用场景：
+
+- 类组件当中（直接通过ref获取到实例）：父组件获取子组件的值和触发父组件的方法
+- 函数组件当中（需要配合forwardRef使用）：父组件获取子组件dom的节点，从而触发子组件当中，dom的原生事件，比如：焦点操作，属性设置
 
 
 

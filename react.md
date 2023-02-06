@@ -49,7 +49,8 @@ const resource = fetchProfileData();
 function ProfilePage() {
   return (
     <Suspense fallback={<h1>Loading profile...</h1>}>
-      <ProfileDetails />
+      <ProfileDetails />git pull
+        
       <Suspense fallback={<h1>Loading posts...</h1>}>
         <ProfileTimeline />
       </Suspense>
@@ -900,11 +901,19 @@ const [state, dispatch] = useReducer(reducer, initialArg, init);
 
 
 
-
-
 ### useCallBack介绍?
 
+useCallBack 返回一个[memoized](https://en.wikipedia.org/wiki/Memoization) （记忆组件）回调函数。
 
+主要用来做性能优化的。接收一个函数，和函数依赖的数据项。
+
+只有当依赖项变化时，才会返回一个新的值。这样可以避免在传递给子组件时的重复渲染。
+
+
+
+参考资料：
+
+- https://zh-hans.reactjs.org/docs/hooks-reference.html#usecallback
 
 
 
@@ -929,6 +938,50 @@ const setCount = () => {
 
 
 
+
+### 介绍下useMemo，它和memo有什么区别，分别有哪些适用场景？
+
+useMemo是一个函数，接收两个参数，第一个是一个函数，第二个参数是依赖项。返回一个被memoized 记忆数据对象。
+
+
+
+memo是一个高阶组件。接收一个组件，并返回一个组件。
+
+memo接收两个参数，第一个参数是一个组件，第二个参数（可选参数）是一个函数，此函数会返回一个布尔值，用来判断该组件是否需要重新渲染。
+
+```js
+// 简单数据（非引用对象，包括string, number, boolean）,会做浅比较
+const NewMyComponent = memo(MyComponent);
+
+// 复杂对象的比较需要使用第二个参数来判断，通过返回的布尔值来判断是否重新渲染
+const NewMyComponent = memo(MyComponent,(prevProps, nextProps)=>{
+	// 返回true代表相同，则不渲染。返回false代表参数改变，会重新渲染。
+	return true;
+})
+```
+
+
+
+相同点：
+
+- 都是利用缓存 来做性能优化的
+
+
+
+不同点：
+
+- 类型不同
+  - memo: 是一个高阶组件
+  - useMemo：是一个hook
+- 缓存的类型不一样
+  - memo: 缓存组件,避免组件重复渲染
+  - useMemo: 缓存组件中的数据，避免计算属性，重复计算
+
+
+
+参考资料：
+
+- [React.memo() 和 useMemo() 的用法和区别](https://juejin.cn/post/6991837003537088542#heading-2)
 
 
 

@@ -476,14 +476,52 @@ console.log(aLet); // 10
 
 
 
-
-### es6中的map和原生对象有什么区别？
+### ES6中的map和原生对象有什么区别？
 
 原生对象的key只能是string类型的，map的key可以是任意值（object,array,function,undefind...）
 
 map是一种更完善的hash结构实现；
 
 map的适用场景，把不同的事件关联起来；、
+
+
+
+### 介绍下ES6中的Symbol，它有哪些运用场景？
+
+symbol是ES6中新增的一种基本数据类型，通过typeof symbol()可以发现，输出的是symbol。
+
+symbol最大的特点返回值的唯一性，即使传入相同的参数（参数主要有来在控制来做区分，备注用的）。
+
+所以基于这个特性，Symbol 可以用在以下几个场景。
+
+- 作为对象的唯一值
+- switch作为唯一的枚举
+
+
+
+Symbol需要注意的点
+
+- Symbol()函数不能使用new命令，否则会报错。 //这个和其他基本类型都不一样，比始：String, Number, Boolean等
+- Symbol作为属性名时，不能通过以前的api直接获取，比如：Object.keys(), Object.getOwnPropertyNames()。甚至是JSON.stringify()。但是，它也不是私有属性，有一个Object.getOwnPropertySymbols方法，可以获取指定对象所有的Symbol属性名。
+
+
+
+### 介绍下ES6中的Proxy对象，它有哪些使用场景？
+
+Proxy的字面意思是代理器，任何对对象（对象，数组，函数等都可以）的操作（包括：访问，写入等操作）都会进入这一层的拦截。可以在这一层添加一些自定义的操作。
+
+比始拦截后的一些操作，方法复写与增强
+
+- 增加日志记录
+- 提供友好提示和阻止特定操作  // 读取不存在的属性时，自定义报错信息。不能删除特定的属性等。
+- 读取负索引的值
+- 设置真正的私有属性，私有的定义：不能访问，不能修改，不能遍历。   // 一般约定以 _ 开头key为私有属性
+
+
+
+参考资料
+
+- https://weread.qq.com/web/reader/2ba32920720a57e92ba5389ka4a32da02aba4a042cf4e81
 
 
 

@@ -19,7 +19,9 @@
 
 - 不支持函数、正则、DOM节点比较
 
-3). 【循环遍历】
+3). 【自定义-循环遍历】
+
+- 可以兼容函数，正则等方法
 
 
 
@@ -38,6 +40,11 @@ eg:
 ```js
 <script src="//cdn.polyfill.io/v1/polyfill.min.js" async defer></script>
 ```
+
+一段polyfill代码，为低版本浏览器为Array对象添加forEach方法
+<div align="left">
+<img src="https://p.ipic.vip/pk3o7q.png" style="width:60%"/>
+</div>
 
 
 
@@ -287,6 +294,27 @@ function函数的注入
 
 
 
+### javascript代码中，String('hello')===new String('hello')相等吗，为什么？
+
+不相等。String('hello')返回是一个字符串的字面（是一个string类型），new String返回是字符串类型的对象（object类型）。
+
+如果要比较它们的字面量，需要写成。
+
+```javascript
+String("hello")===new String("hello").toString(); // true
+String('hello')===new String('hello').valueOf(); // true
+```
+
+
+
+扩展资料：
+
+- [JS 中 'hello' 和 new String('hello') 引出的问题](https://juejin.cn/post/6844903655460569095)
+
+
+
+
+
 ### js延迟加载的方式有哪些？
 
 defer和async、动态创建DOM方式（创建script，插入到DOM中，加载完毕后callBack）、按需异步载入js
@@ -325,6 +353,37 @@ Base.call(obj);
 参考资料：
 
 [javascript中，new操作符的工作原理是什么?](https://www.zhihu.com/question/36440948)
+
+
+
+
+
+### ==与===的区别，并回答下面代码的运行结果？
+
+==与===都是用来比较数组是否相等的。==相比===执行会更麻烦一点。
+
+==会先把两边的数据进行格式转换。
+
+- string类型的number转成number。比始把 '1' 转成1，‘0.0’转成0
+- string类型的非number转换成NaN。 比始 null ,undefined, "a" 都会转成NaN (只要有任意一个值为NaN就不会相等)
+- boolean类型：true转成1，false转成0
+
+```javascript
+console.log('1'==true);// true, '1'转换为数字1，true转换为数字1，所以相等
+console.log('0'==false); // true, '0'转换为数字0，false转换为数字0，所以相等
+console.log('0.0'==false); // true, '0.0'转换为数字0，false转换为数字0，所以相等
+console.log('true'==true); // false, 'true'转换为数字NaN，true转换为数字1，所以不相等
+```
+
+
+
+===会先判断数据的类型，再对值进行比较。这是由于js是弱类型语言决定的。像java一些强类型语言，在定义变量是其实已经定义好了类型。所以只要==就可以了。
+
+```javascript
+console.log('1'===1); // false, '1'是字符串，1是数字，所以不相等
+```
+
+
 
 
 
@@ -797,12 +856,54 @@ console.log(err); // 无法访问catch中块级使用域err的值
 
 ### js如何判断数据类型？
 
-1. typeof ：不能判断array,object,function；
-2. instanceof ：可以使用*可以用来判断数组；  [1]  instanceof  Array  返回 true*
-3. *toSring*   *Object.prototype.toString.call([])  返回true*
-4. *constructor*   *[].constructor===Array 返回true*
+- typeof ：
+  - 不能判断的类型：Array ,Object,Null，Date, Regexp正则；  
+  - 可以判断的类型：number,string,boolean, undefined, function, symbol
+
+- instanceof ：可以用来判断数组；  [1]  instanceof  Array  返回 true
+- toString：    *Object.prototype.toString.call([])  返回true*
+  - 可以判断所有的类型
+
+- constructor：   *[].constructor===Array 返回true*
+- isArray：数组专用判断方法  Array.isArray([])
+  - 只能判断数组
 
 
+
+// 使用Object原型链上的toString方法判断数据类型
+
+```javascript
+
+function typeOf(obj) {
+    const type = Object.prototype.toString.call(obj).slice(8, -1);
+    return type.toLowerCase();
+}
+
+console.log(typeOf(/a/)); // regexp
+console.log(typeOf(new Date())); // date
+console.log(typeOf([])); // array
+console.log(typeOf({})); // object
+console.log(typeOf(1)); // number
+console.log(typeOf('1')); // string
+console.log(typeOf(true)); // boolean
+console.log(typeOf(null)); // null
+console.log(typeOf(undefined)); // undefined
+console.log(typeOf(function(){})); // function
+
+```
+
+
+
+// 判断变量是数组的四种方法
+
+```
+function isArray(value) {
+    // return value instanceof Array;
+    // return Object.prototype.toString.call(value) === '[object Array]';
+    // return value && value.constructor === Array; // 注意：constructor是可以被修改的，所以不是很可靠.判断constructor   是否是Array，不是很可靠.null,undefined没有constructor属性，所以会报错
+    return Array.isArray(value);
+}
+```
 
 
 

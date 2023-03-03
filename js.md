@@ -921,7 +921,7 @@ object是js中所有对象的父对象；
 
 
 
-### js如何实现继承？ 
+### js如何实现继承？
 
 1. 通过原型链（prototype）来实现
 2. 通过构造函数继承-（在子函数中使用）
@@ -969,6 +969,183 @@ window.history.replaceState("/detail")    //替换当前历史记录
 监听哈希变化触发的事件( hashchange) 事件,
 
 window.location 处理哈希的改变时不会重新渲染页面
+
+
+
+
+
+### 介绍下链式调用，如何实现，链式调用有什么优势？
+
+链式调用是一种编程模式，它允许我们在一个对象上连续的调用多个方法。在一条语句上执行多条命令。并且可以在链式调用中添加或删除方法来快速修改代码。
+
+链式调用的实现原理：在对象方法的结尾都返回对象本身（即this）, 从而使对象的下一个方法能直接使用该对象。这种方式可以在多个对象之间传递数据和状态，让代码更简洁和易于阅读。
+
+使用链式调用的优点：
+
+- 让代码更简洁：一条语句可以实现多个功能，让代码更易读，提高可维护性。
+- 减少执行时间和内存占用：因为一条语句中完成了多个操作，避免了内存的重新计算和分配。
+
+```javascript
+// 链式调用demo
+const obj ={
+    name:'zhangsan',
+    age:20,
+    setName:function(name){
+        this.name=name
+        // 链式调用的关键，返回this，这样就可以继续调用setName方法
+        return this
+    },
+    setAge:function(name){
+        this.name=name
+        // 链式调用的关键，返回this，这样就可以继续调用setName方法
+        return this
+    },
+    introduce:function(){
+        console.log('my name is '+this.name,',my age is '+this.age)
+    }
+}
+obj.introduce();
+obj.setName('lisi').setAge(22).introduce();
+```
+
+
+
+知名的几个库都用到了链式调用的方式：
+
+- jquery
+
+
+  - ```javascript
+    $("#id").addClass("test").removeClass("test2");
+    ```
+
+
+- lodash
+
+  - ```javascript
+    const a= _.chain([3,2,1])
+        .sort()  // 排序
+        .first() // 取第一个
+        .value(); // 返回结果
+     console.log(a);
+    ```
+
+
+
+
+
+
+
+## 函数
+
+
+
+### 函数定义有哪几种方式？
+
+函数定义有三种定义方式，语法如下
+
+- 函数声明： 
+  - function sum(a,b){return a+b};
+- 函数表达式：形式类似普通变量的初始化
+  - 普通函数：const sum=function fn(a, b){ return a+b };  const sum=fn (a,b)=>{ return a+b } // 特别说明：fn是函数内部的局部变量，外部无法直接读取，所以直接调用fn(1,2)会报变量未定义。
+  - 匿名函数：const sum=function(a,b){ return a+b },  const sum=(a,b)=>{ return a+b }
+- 构造函数（Function()）： const add = new Function('a', 'b', 'return a + b')
+
+
+
+它们之间的区别主要在，变量提升和名称上面：
+
+- 函数声明：存在变量提升，必须声明函数名称
+- 函数表达式：不存在变量提升，函数名称是可选的（可以定成匿名函数）
+- 构造函数：不存在变量提升，名称是必须的
+
+
+
+### 函数调用有几种方式？
+
+函数调用有五种模式
+
+- 函数调用模式   `add(1,2)`;
+- 方法调用模式 :  `obj.add(1,2);`
+- 构造器调用模式 : `const p=new People();  p.getName();`
+- Call(), apply()调用: `add.apply(null, [1,2])` , `add.apply(null, 1,2)`
+- 匿名函数调用模式  `((num1,num2)=>{console.log(num1+num2)})(1,2)`
+
+
+
+参考资料：
+
+- https://weread.qq.com/web/reader/2ba32920720a57e92ba5389k34132fc02293416a75f431d
+
+
+
+
+
+### 什么是构造函数，它和普通函数有什么区别，主要用在哪些场景？
+
+构造函数是通过new关键词生成的函数，构造函数约定首字母大写，为了和普通函数区分开。
+
+语法如下：  const add = new Function('a', 'b', 'return a + b') // 函数的最后一个参数是函数执行体，其他参数都是实参。
+
+区别：
+
+- 调用方式：
+  - 构造函数：需要通过new关键字，创建一个实例，再调用。
+  - 普通函数：直接调用函数的实体。
+- 返回值：
+  - 构造函数：隐式的返回函数的实体
+  - 普通函数：需要手动，显示的返回值（返回值是可选的）
+- 目的：
+  - 构造函数：创建新的对象
+  - 普通函数：执行一些任务（数据格式转换，修改变量的值，获取特定的值）或计算结果
+
+
+
+demo展示
+
+```javascript
+function Person(name, age) {
+    this.name = name;
+    this.age = age;
+    this.getFullName = function () {
+        return this.name + ' ' + this.age;
+    }
+    // 注意这是虽然没有写返回值，但是通过new调用构造函数时，会自动返回一个对象。这个对象就是实例对象，包含了构造函数中的所有属性和方法。
+}
+const p1= new Person('张三', 18);
+
+console.log(p1.name);  // 张三
+console.log(p1.getFullName()); // 张三 18
+```
+
+
+
+
+
+
+
+### 函数内部的arguments对象的有什么用，有哪些使用场景？
+
+arguments可以获取传入函数的实际参数，而不是函数定义的参数。
+
+arguments对象是一个类数组的对象。
+
+使用场景：
+
+- 用来判断入参个数据是否正确
+- 用来处理任意个数的入参，比始多个参数拼接等
+- 模拟函数的重载  
+
+```javascript
+// 可以通过arguments在函数内部先判断，函数的个数，再通过reduce方法把各个参数累加即可
+function add(val1, val2){
+return val1+val2;
+}
+
+function add(val1, val2, val3){
+return val1+val2+val3;
+}
+```
 
 
 

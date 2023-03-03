@@ -640,6 +640,18 @@ AST是抽象语法树，用来描述源代理的树形结构，类似html中dom;
 
 
 
+### 如何判断当前脚本是运行中Node端还是浏览器端？
+
+node没有window对象，所以可以使用这个全局变量来判断当前的环境。
+
+如果直接在node中使用 if(window){}来判断会报错。可以使用typeof window来判断
+
+```javascript
+console.log(typeof window);
+```
+
+
+
 
 
 ## 安全

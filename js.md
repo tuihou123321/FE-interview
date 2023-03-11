@@ -1034,6 +1034,42 @@ obj.setName('lisi').setAge(22).introduce();
 
 
 
+### 原型对象，构造函数，实例之间有什么样的关系？
+
+- 原型对象：js中每个对象都拥有原型对象，它是js中实现继承的一种机制。每个对象都包含属性和方法，每个子对象可以通过原型链继承这些属性和方法。
+- 构造函数：是一种特殊的函数，相当于模板。
+- 实例：通过构造函数这个模板，调用new方法，创建一个具体的对象。每个实例都是独立的，具有自己的属性和方法。但是他们都可以访问原型对象上的属性和方法，达到代码的复用（节省内存占用）。
+
+
+
+```javascript
+// 【构造函数】创始一个构造函数
+function Person(name, age) {
+    this.name = name;
+    this.age = age;
+    this.sayName2=function(){
+        console.log(this.name);
+    }
+}
+// 【在构造函数的原型上添加共用的方法】为构造函数添加方法，这样所有实例化的对象都可以调用这个方法。相比之间在构造函数中添加方法，这样做可以节省内存空间。因为最后的实例化对象都是共用的这个方法。
+Person.prototype.sayName = function () {
+    console.log(this.name);
+}
+// 实例化一个对象
+const p1 = new Person('张三', 20);
+const p2 = new Person('李四', 30);
+// 调用实例的方法
+p1.sayName();// 张三
+p1.sayName2();// 张三
+
+console.log(p1.sayName===p2.sayName); // true, 说明p1和p2的sayName方法是共用的,节省了内存空间
+console.log(p1.sayName2===p2.sayName2); // false, 说明p1和p2的sayName2方法是不共用的
+```
+
+
+
+
+
 
 
 ## 函数
@@ -1595,13 +1631,35 @@ apply:  fn.apply(thisArg, [argsArray])
 - 求数组中的最大和最小值；
 - 利用call和apply做继承
 
+
+
+```javascript
 const arr=[1,2,3]
+// 原本Max的写法
+Math.max(1,2,3);
+Math.max(...arr); 也可以使用es6中的数组解构方法
+Math.max.apply(null ,arr);
+```
 
-Max.max.apply(null ,arr);
 
 
 
 
+### call, apply的其他妙用？
+
+call,apply主要用来改变this指向的。同时apply也可以用来改变函数的入参。
+
+比始：apply函数可以把接收到的数组，展开后再传递给执行函数。
+
+- apply: 求数组最大、最小值。 // 其实用ES6的展示方法更好用
+- apply,call,bind:  把类数组转换成数据
+- apply ,call :  实现继承，继承父类的属性和方法
+
+
+
+参考资料：
+
+- https://weread.qq.com/web/reader/2ba32920720a57e92ba5389k03a32a4023f03afdbd66a39
 
 
 

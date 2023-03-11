@@ -229,11 +229,14 @@ TCP/IP 四层模型：
 
 - 【数据传输方式不同】
   - get参数是在url
-    - 浏览器可缓存数据
-    - 对搜索引擎友好，删除类的接口不要使用get
-    - url方便保存/分享
+    - 优点：
+      - 浏览器可缓存数据(适合一些静态资源：js/css/img/font/html等，还有一些枚举项的查询)
+      - url方便保存/分享
+    - 缺点：
+      - 容易被拦截、篡改
   - post 是放在request body里面
-    - post相对来说安全一些，参数不暴露在url上
+    - 优点：
+      - post相对来说安全一些，参数不暴露在url上 （比如：用户账号密码，敏感的查询信息）
 - 【请求长度】
   - get参数长度有限制，这个限制不是http协议规定的，而是浏览器对url进行的限制，所以不同浏览器的限制不同
   - Post 无限制
@@ -310,19 +313,51 @@ TCP/IP 四层模型：
 
 
 
-### ajax 过程？
+### ajax 的实现原理？
 
-(1)创建XMLHttpRequest对象,也就是创建一个异步调用对象.
+Ajax（Asynchronous JavaScript and XML）指的是通过JavaScript使用XMLHttpRequest对象来异步获取数据并更新页面的技术。其实现原理可以简单描述为以下几个步骤：
 
-(2)创建一个新的HTTP请求,并指定该HTTP请求的方法、URL及验证信息.
+1. 【实例化xhr对象】创建XMLHttpRequest对象,也就是创建一个异步调用对象.
 
-(3)设置响应HTTP请求状态变化的函数.
+2. 【设置请求方法和URL】
 
-(4)发送HTTP请求.
+3. 【发送HTTP请求】
 
-(5)获取异步调用返回的数据.
+4. 【监听请求变化】监听响应变化，并操作界面
 
-(6)使用JavaScript和DOM实现局部刷新.
+```javascript
+  // 1. 创建一个XMLHTTPRequest对象
+    const xhr = new XMLHttpRequest();
+
+    // 2. 设置请求方法和URL, 最后一个参数表示是否异步，true表示异步，false表示同步
+    xhr.open('GET', 'https://testapi.xxx.com/api/test-category/all', true);
+
+    // 3. 发送请求
+    xhr.send();
+
+
+    // 4. 监听响应状态改变事件，除了onreadystatechange，还有onload、onerror、ontimeout等事件.
+    // 详见：https://developer.mozilla.org/zh-CN/docs/Web/API/XMLHttpRequest
+    xhr.onreadystatechange = function() {
+        // 4表示响应已经完成，200表示响应成功
+        // 详见：https://developer.mozilla.org/zh-CN/docs/Web/API/XMLHttpRequest/readyState
+
+        // readyState的值：
+        // 0: 请求未初始化
+        // 1: 服务器连接已建立
+        // 2: 请求已接收
+        // 3: 请求处理中
+        // 4: 请求已完成，且响应已就绪
+
+        // status的值：
+        // 200: "OK"
+        // 403: "Forbidden"
+        // 404: "Not Found"
+        if (xhr.readyState === 4 && xhr.status === 200) {
+            console.log(xhr.responseText);
+        }
+    };
+```
 
 
 
@@ -344,33 +379,6 @@ fetch缺点：
 - 【请求无法取消】这是因为fetch基于promise,promise 无法做到这一点，超时无法取消，造成了对流量的浪费
 - 【更加的底层】只对网络请求报错，对400,500都当做成功请求，需要二次封闭
 - 【请求进度状态无法监听】而XHR可以
-
-
-
-
-
-### Jquery ajax 与 axios的区别?
-
-Jquery
-
-
-
-axios优点：
-
-- 【前后端都能用】支持浏览器端端，node服务器端
-- 【支持promise】解决回调地狱的问题
-- 【安全性更强】客户端支持预防CSRF攻击（原理：每个请求都支持从cookies获取的key,非同源接口获取不到）
-- 【支持并发请求接口】axios.all
-- 【丰富的配置项】
-  - 拦截器
-  - 根据不同接口，创建多实例
-- 【更轻量】jquery ajax 需要引入 整个jquery,提交太大
-
-
-
-参考资料：
-
-https://segmentfault.com/a/1190000012836882
 
 
 
@@ -420,6 +428,29 @@ c.Header("Access-Control-Allow-Methods", "GET, POST")
 
 
 
+### fetch和axios有什么区别？
+
+相同点：
+
+- 都是用来发送请求的工具
+
+不同点：
+
+- 底层不同：fetch是ES6原生的api， axios是基于Promise封装的请求库，需要先引入才能使用。
+- ![image-20230306162056830](https://p.ipic.vip/cncypu.png)
+
+axios功能更强大
+
+- 【适用面更广】axios支持在浏览器和Node层中使用，而fetch只能在浏览器中使用。
+- 【兼容性】axios兼容性更好，fetch api在某些浏览器不支持
+- 【功能更丰富】
+  - axios支持拦截器功能：可以拦截请求和响应，在发送和接收数据时做统一处理。
+  - axios支持取消请求：在复杂请求时有用
+  - axios支持更多的配置选项
+  - axios返回更丰富的错误信息：在处理错误时，提供了更丰富的错误信息：HTTP错误状态码、错误信息等。
+
+
+
 
 
 ### 为什么axios post会发两次？
@@ -460,7 +491,6 @@ https://cloud.tencent.com/developer/article/1542037
 
 
 ![image-20210304111905342](https://i.loli.net/2021/03/04/NnZFbwXpxMl31Uv.png)
-
 
 
 
@@ -531,14 +561,6 @@ Content-Type: text/xml
     </params>
 </methodCall>
 ```
-
-
-
-
-
-参考资料：
-
-[四种常见的 POST 提交数据方式](https://imququ.com/post/four-ways-to-post-data-in-http.html)
 
 
 

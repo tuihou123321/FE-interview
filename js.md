@@ -1076,7 +1076,7 @@ console.log(p1.sayName2===p2.sayName2); // false, 说明p1和p2的sayName2方法
 
 
 
-### 函数定义有哪几种方式？
+### 函数定义有哪几种方式，它们之间有什么区别？
 
 函数定义有三种定义方式，语法如下
 
@@ -1091,7 +1091,7 @@ console.log(p1.sayName2===p2.sayName2); // false, 说明p1和p2的sayName2方法
 
 它们之间的区别主要在，变量提升和名称上面：
 
-- 函数声明：存在变量提升，必须声明函数名称
+- 函数声明：存在变量提升
 - 函数表达式：不存在变量提升，函数名称是可选的（可以定成匿名函数）
 - 构造函数：不存在变量提升，名称是必须的
 
@@ -1468,7 +1468,20 @@ DOM事件流的三个阶段：
 
 
 
-- DOM0：el.onclick=function(){}   // <button onclick="clickBtn()">btn</button>
+DOM0：   
+
+- ```javascript
+   // 执行函数名
+   <button onclick="clickBtn()">btn</button>
+   // 执行函数体
+   <button onclick="console.log(1);console.log(2)">button2</button>
+  
+  
+  el.onclick=function(){}
+  ```
+
+  
+
 - DOM2:  el.addEventListener(eventName,callback,useCapture)
 - - click事件
 - DOM3: 在DOM2的基础上，增加更多的事件类型
@@ -1510,6 +1523,8 @@ event
 
 
 参考资料： [浏览器事件系统](https://juejin.im/post/6844903824692346893#heading-11)
+
+
 
 
 
